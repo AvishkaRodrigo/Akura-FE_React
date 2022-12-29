@@ -1,25 +1,25 @@
 import { Autocomplete, Button, Card, CardHeader, CardMedia, Drawer, Grid, IconButton, Popper, SwipeableDrawer, Typography } from "@mui/material";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
-import { Grades, Levels } from "../../appconst";
-import CustCard from "../../components/CustCard";
-import MainContainer from "../../components/MainContainer";
-import SubTitle from "../../components/SubTitle";
-import CustSnackbar from "../../components/CustSnackbar";
-import coverImage from '../../assets/loginImg.jpg'
+import { Grades, Levels } from "../../../appconst";
+import CustCard from "../../../components/CustCard";
+import MainContainer from "../../../components/MainContainer";
+import SubTitle from "../../../components/SubTitle";
+import CustSnackbar from "../../../components/CustSnackbar";
+import coverImage from '../../../assets/loginImg.jpg'
 
 import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
-import MainContainerResponsive from "../../components/MainContainerResponsive";
-import ClassServices from "../../services/ClassServices";
+// import MainContainer from "../../components/MainContainer";
 import { MagicSpinner } from "react-spinners-kit";
 import moment from "moment/moment";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import ClassServices from "../../../services/ClassServices";
 
-const Classes = () => {
+const StudentMyClasses = () => {
     const navigate = useNavigate()
     
     const [loaded, setLoaded] = useState(false);
@@ -35,64 +35,64 @@ const Classes = () => {
     useEffect(()=> {
         const getData = async () => {
             setLoaded(false)
-            const res = await ClassServices.getAllClasses4FE() 
+            const res = await ClassServices.myClasses(28) 
+            console.log("all classes",res)
             if(res.status == 200){
-                setClasses(res.data)
+                setClasses(res.data.studentMyClasses)
                 setLoaded(true)
             }
-            console.log("all classes",res)
-            user.current = localStorage.getItem('token')
-            console.log("user",user.current)
+            // user.current = localStorage.getItem('token')
+            // console.log("user",user.current)
         }
         getData()
 
     },[])
 
-    const [class_ID, setClass_ID] = useState('')
-    const [ST_ID, setST_ID] = useState('')
-    const [admission, setAdmission] = useState(true)
-    const [amount, setAmount] = useState('')
-    const [instructor, setInstructor] = useState('')
-    const [grade, setGrade] = useState('')
+    // const [class_ID, setClass_ID] = useState('')
+    // const [ST_ID, setST_ID] = useState('')
+    // const [admission, setAdmission] = useState(true)
+    // const [amount, setAmount] = useState('')
+    // const [instructor, setInstructor] = useState('')
+    // const [grade, setGrade] = useState('')
 
-    const handleSubmit = async () => {
-        var formData = new FormData();
-        formData = {
-            class_ID : class_ID,
-            ST_ID : ST_ID,
-            Admission : admission,
-            Amount : amount,
-            month : parseInt(moment(new Date()).format('MM')),
-            Type: 'online'
-        }
-        // console.log(formData)
+    // const handleSubmit = async () => {
+    //     var formData = new FormData();
+    //     formData = {
+    //         class_ID : class_ID,
+    //         ST_ID : ST_ID,
+    //         Admission : admission,
+    //         Amount : amount,
+    //         month : parseInt(moment(new Date()).format('MM')),
+    //         Type: 'online'
+    //     }
+    //     // console.log(formData)
 
-        const res = await ClassServices.classPayment(formData)
-        console.log("aaa",res)
-        if (res.status < 300){
-            setAlert(true)
-            setMessage('Successfully registered to the class')
-            setServerity('success')
-            setAmount('')
-            setClass_ID('')
-            setInstructor('')
-            setGrade('')
-        }else if (res.status > 399){
-            setAlert(true)
-            setMessage('Cannot complete the class registration')
-            setServerity('error')
-        }
-    }
+    //     const res = await ClassServices.classPayment(formData)
+    //     console.log("aaa",res)
+    //     if (res.status < 300){
+    //         setAlert(true)
+    //         setMessage('Successfully registered to the class')
+    //         setServerity('success')
+    //         setAmount('')
+    //         setClass_ID('')
+    //         setInstructor('')
+    //         setGrade('')
+    //     }else if (res.status > 399){
+    //         setAlert(true)
+    //         setMessage('Cannot complete the class registration')
+    //         setServerity('error')
+    //     }
+    // }
 
     
 
-    const toggleDrawer = (open, amount, classID, instructor, grade) => (event) => {
-        setView(open);
-        setAmount(amount)
-        setClass_ID(classID)
-        setInstructor(instructor)
-        setGrade(grade)
-    };
+    // const toggleDrawer = (open, amount, classID, instructor, grade) => (event) => {
+    //     setView(open);
+    //     setAmount(amount)
+    //     setClass_ID(classID)
+    //     setInstructor(instructor)
+    //     setGrade(grade)
+    // };
     
     // const [anchorEl, setAnchorEl] = useState(null);
 
@@ -113,7 +113,7 @@ const Classes = () => {
 
     return ( 
         <Fragment>
-            <MainContainerResponsive>
+            <MainContainer>
                 <Grid
                     container
                 >
@@ -126,6 +126,7 @@ const Classes = () => {
                             md={4}
                             lg={4}
                         >
+                            
                             <Card
                                 sx={{ m:10}}
                                 elevation={6}
@@ -164,7 +165,21 @@ const Classes = () => {
                                             <Typography variant=''>{items.level}</Typography>
                                         </Grid>
                                     </Grid>
-                                    <Typography></Typography>
+                                    <Grid
+                                        sx={{
+                                            display:'flex', 
+                                            justifyContent:'end', 
+                                            width : '100%',
+                                            pt:10
+                                        }}
+                                    >
+                                        <Button variant="contained" color="white" sx={{px:30}} onClick={() => {
+                                            const id = items.class_ID
+                                            navigate('/class/dashboard/'+id) 
+                                        }}>
+                                            See more
+                                        </Button>
+                                    </Grid>
                                 </Grid>
                                 <Grid
                                     sx={{mt:3,display:'flex', justifyContent:'center', pt:'10px' }}
@@ -197,7 +212,7 @@ const Classes = () => {
                                         <Typography sx={{pl:4, color:'#fff'}} variant='button'>{items.classDate}</Typography>
                                     </Grid>
                                 </Grid>
-                                <Grid
+                                {/* <Grid
                                     sx={{p:10, display:'flex', justifyContent:'center'}}
                                 >
                                     <Button 
@@ -226,17 +241,18 @@ const Classes = () => {
                                             Register
                                         </Typography>
                                     </Button>
-                                </Grid>
+                                </Grid> */}
 
 
                             </Card>
+
                         </Grid>
                     ))}
                     
                 </Grid>
-            </MainContainerResponsive>
+            </MainContainer>
 
-            <Drawer
+            {/* <Drawer
                 anchor={'bottom'}
                 open={view}
                 onClose={toggleDrawer(false)}
@@ -442,10 +458,10 @@ const Classes = () => {
                 severity={severity}
                 elevation={2}
                 variant="filled"
-            ></CustSnackbar>
+            ></CustSnackbar> */}
 
         </Fragment>
     );
 }
 
-export default Classes;
+export default StudentMyClasses;

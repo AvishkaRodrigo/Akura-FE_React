@@ -22,6 +22,7 @@ import StudentDashboard from './views/Student/StudentDashboard';
 import GetAllInstructors from './views/Admin/GetAllInstructors';
 import GetAllStudents from './views/Admin/GetAllStudents';
 import GetAllParents from './views/Admin/GetAllParents';
+import StudentMyClasses from './views/Student/ClassDashboard/StudentMyClasses';
 
 
 
@@ -31,10 +32,10 @@ function App() {
     <div className="App">
       {/* <Provider store={store}> */}
         <BrowserRouter>
-          {token ?
+          {/* {token ? */}
             <Navbar/>
-          : null
-          }
+          {/* : null
+          } */}
           <Routes>
             <Route
               path='/'
@@ -46,7 +47,7 @@ function App() {
             />
             <Route
               path='/student/dashboard'
-              element={<StudentDashboard/>}
+              element={<StudentMyClasses/>}
             />
             <Route
               path='/class/dashboard'
@@ -57,7 +58,7 @@ function App() {
               element={<Classes/>}
             />
             <Route
-              path='/class/instructor/:id'
+              path='/class/instructor/'
               element={<MyClasses/>}
             />
             <Route

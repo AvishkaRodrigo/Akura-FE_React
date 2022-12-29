@@ -30,7 +30,7 @@ const MyClasses = (props) => {
     
     useEffect(()=> {
         const getClasses = async () => {
-            const res = await InstructorServices.getClasses(id)
+            const res = await InstructorServices.getClasses()
             setMyClasses(res.data)
             console.log(res.data)
         }

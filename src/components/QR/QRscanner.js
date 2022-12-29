@@ -3,10 +3,12 @@ import {Fab, Grid, TextareaAutosize, TextField} from '@mui/material'
 import {ArrowBack} from '@mui/icons-material'
 import { Link } from "react-router-dom";
 import {QrReader} from 'react-qr-reader'
+import MainContainer from '../MainContainer';
+import { flexbox } from '@mui/system';
 
 function QRscanner() {
 
-    const [qrscan, setQrscan] = useState('No result');
+    const [qrscan, setQrscan] = useState('');
     const handleScan = data => {
         if (data) {
             setQrscan(data)
@@ -18,21 +20,37 @@ function QRscanner() {
 
     return (
       <Fragment>
-            
-            <center>
+            <MainContainer>
                 <Grid style={{width: '30%'}}>
                     <QrReader
                         delay={300}
                         onError={handleError}
                         onScan={handleScan}
                         style={{  width: '50%' }}
+                        onResult={(result, error) => {
+                            if (!!result) {
+                              setQrscan(result?.text);
+                            }
+                  
+                            if (!!error) {
+                              console.info(error);
+                            }
+                          }}
                     />
                 </Grid>
-                <TextField
-                    value={qrscan}
-                    color='green'
-                />
-            </center>
+                <Grid
+                    style={{width: '30%'}}
+                    // sx={{display:'flex', justifyContent: 'center'}}
+                >
+                    <TextField
+                        value={qrscan}
+                        color='green'
+                        onChange={(e)=>{
+                            setQrscan(e.target.val)
+                        }}
+                    />
+                </Grid>
+            </MainContainer>
       </Fragment>
     );
   }

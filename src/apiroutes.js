@@ -23,7 +23,16 @@ export const GET_STUDENTS_FOR_ADMIN = `${ENDPOINT}/student`
 // ins
 export const GET_CLASSE_FOR_INSTRUCTOR = `${ENDPOINT}/getInstructorClasses`
 
+
 // stu
 
 
 // pa
+
+
+// cls
+export const CLASS_PAYMENT = `${ENDPOINT}/payment`
+export const STUDENT_MY_CLASSES = `${ENDPOINT}/allAddmissions`
+
+// announcement + notification
+export const CREATE_NOTIFICATION = `${ENDPOINT}/instructor/notification/create/`

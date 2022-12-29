@@ -28,10 +28,10 @@ class MainContainer extends Component {
                     // backgroundImage: "url(" + "https://images.pexels.com/photos/808510/pexels-photo-808510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" + ")",
                     // backgroundImage: '/assets/home-bg-black.png',
                     backgroundPosition: 'center',
-                    backgroundSize: 'cover',
+                    // backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
                     background: "linear-gradient(320deg,rgba(213,226,237,1),rgba(213,226,237,1))",
-                    height: '90vh',
+                    minHeight: '90vh',
                 }}
             >
                 {children}

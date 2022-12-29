@@ -2,7 +2,7 @@ import { Autocomplete, Box, Button, Card, Divider, FormControlLabel, Grid, Radio
 import React,{ Fragment, useState } from "react";
 import { TextValidator,  ValidatorForm } from "react-material-ui-form-validator";
 import SubTitle from "../../components/SubTitle";
-import {Levels} from '../../appconst'
+import {Levels, Subjects} from '../../appconst'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -16,9 +16,11 @@ import MainContainer from "../../components/MainContainer";
 import CustSnackbar from "../../components/CustSnackbar";
 import MainContainerResponsive from "../../components/MainContainerResponsive";
 import UserServices from "../../services/UserServices";
+import { useNavigate } from "react-router-dom";
 
 
 const RegisterStudent = () => {
+    const navigate = useNavigate();
 
     let [firstName,setFirstName] = useState('')
     let [lastName,setLastName] = useState('')
@@ -28,6 +30,7 @@ const RegisterStudent = () => {
     let [NIC,setNIC] = useState('')
     let [accNumber,setAccNumber] = useState('')
     let [subject,setSubject] = useState('')
+    let [level,setLevel] = useState('')
     let [password,setPassword] = useState('')
     let [verifyPassword,setVerifyPassword] = useState('')
 
@@ -46,6 +49,7 @@ const RegisterStudent = () => {
             nic : NIC,
             accNumber: accNumber,
             subject:subject,
+            level : level,
             password : password,
             userType:3
         }
@@ -56,6 +60,7 @@ const RegisterStudent = () => {
             setAlert(true)
             setMessage('User registration success')
             setServerity('success')
+            handleRedirect()
         }else if (res.status > 399){
             setAlert(true)
             setMessage(res.data.msg)
@@ -68,6 +73,13 @@ const RegisterStudent = () => {
         setAlert(true)
         setMessage('Error in submission')
         setServerity('error')
+    }
+
+    const handleRedirect = () => {
+        setTimeout(() => {
+            navigate ("/instructor/all")
+            console.log('timeout')
+        }, 4000);
     }
 
     return ( 
@@ -362,7 +374,8 @@ const RegisterStudent = () => {
                                 <Autocomplete
                                     color='green'
                                     className="w-full"
-                                    options={Levels}
+                                    options={Subjects}
+                                    groupBy={(options)=>options.level}
                                     disabled={false}
                                     name="level"
                                     getOptionLabel={(option) => option.label}
@@ -389,11 +402,13 @@ const RegisterStudent = () => {
                                     onChange={(e, newValue) => {
                                         if(newValue !== null){
                                             setSubject(newValue.value)
+                                            setLevel(newValue.level)
                                         }
                                     }}
                                     onInputChange={(e, newValue) => {
                                         if(newValue !== null){
                                             setSubject(newValue.value)
+                                            setLevel(newValue.level)
                                         }
                                     }}
                                 />
@@ -514,7 +529,6 @@ const RegisterStudent = () => {
                     </CustCard>
                 </MainContainer>
             </ValidatorForm>
-
 
             <CustSnackbar
                 open={alert}

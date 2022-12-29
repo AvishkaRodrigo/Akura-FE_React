@@ -16,7 +16,7 @@ const Login = () => {
     const [error, setError] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [img, setImg] = useState('../../assets/Login.jpg')
+    // const [img, setImg] = useState('../../assets/Login.jpg')
 
     let [message, setMessage] = useState('')
     let [alert, setAlert] = useState(false)
@@ -35,7 +35,22 @@ const Login = () => {
         
         if (res.status < 300){
             localStorage.setItem('token', res.data.token)
-            navigate ("/student/dashboard")
+            localStorage.setItem('user', JSON.stringify(res.data.info.user))
+            if (res.data.info.user.userType === 1) {
+                navigate ("/student/dashboard")
+            }
+            else if (res.data.info.user.userType === 2) {
+                navigate ("/parent/dashboard")
+            }
+            else if (res.data.info.user.userType === 3) {
+                navigate ("/")
+            } 
+            else if (res.data.info.user.userType === 4) {
+                navigate ("/")
+            } 
+            else {
+                navigate ("/")
+            } 
             // handleRedirect()
         }else if (res.status > 399){
             setError(true)
@@ -45,19 +60,19 @@ const Login = () => {
         }
     }
 
-    let handleError = () => {
-        alert('Submission error!')
-        setAlert(true)
-        setMessage('Error in submission')
-        setServerity('error')
-    }
+    // let handleError = () => {
+    //     alert('Submission error!')
+    //     setAlert(true)
+    //     setMessage('Error in submission')
+    //     setServerity('error')
+    // }
 
-    const handleRedirect = () => {
-        setTimeout(() => {
-            navigate ("/")
-            console.log('timeout')
-        }, 4000);
-    }
+    // const handleRedirect = () => {
+    //     setTimeout(() => {
+    //         navigate ("/")
+    //         console.log('timeout')
+    //     }, 4000);
+    // }
 
     return ( 
         <Fragment>

@@ -1,7 +1,7 @@
 import { Autocomplete, Button, Card, Grid, Typography } from "@mui/material";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
-import { Grades, Levels } from "../../appconst";
+// import { Grades, Levels } from "../../appconst";
 import CustCard from "../../components/CustCard";
 import MainContainer from "../../components/MainContainer";
 import SubTitle from "../../components/SubTitle";
@@ -9,9 +9,15 @@ import CustSnackbar from "../../components/CustSnackbar";
 
 import CampaignIcon from '@mui/icons-material/Campaign';
 import CloseIcon from '@mui/icons-material/Close';
+import InstructorServices from "../../services/InstructorServices";
+import NotificationServices from "../../services/NotificationServices";
+import { useNavigate } from "react-router-dom";
+import LocalStorageServices from "../../services/LocalStorageServices";
 
 
 const Announcement = () => {
+
+    const navigate = useNavigate();
 
     let [notification, setNotification] = useState('')
     let [header, setHeader] = useState('')
@@ -21,14 +27,64 @@ const Announcement = () => {
     let [message, setMessage] = useState('')
     let [alert, setAlert] = useState(false)
     let [severity, setServerity] = useState('success')
-
+    let [myClasses, setMyClasses] = useState(null)
+    let currentUser = null;
     
-    let handleSubmit = () => {
-        console.log('success')
+    
+
+    useEffect(()=> {
+        const getClasses = async () => {
+            const user = getUser()
+            if (user != null){
+                const res = await InstructorServices.getClasses(user.userID)
+                setMyClasses(res.data)
+                console.log("ins classes",res.data)
+            }else{
+                setAlert(true)
+                setMessage('Something went wrong!')
+                setServerity('error')
+            }
+        }
+        getClasses()
+    },[])
+
+    let getUser = () => {
+        currentUser = LocalStorageServices.getItem('user')
+        console.log('lcoaluser', currentUser)
+        return currentUser
     }
     
+    let handleSubmit = async () => {
+        console.log(classes, header, notification)
+        let formData = new FormData();
+        formData = {
+            class_ID : classes,
+            header : header,
+            message : notification
+        }
+
+        const res = await NotificationServices.createAnnoucement(formData)
+        console.log("notification res",res)
+        if (res.status < 300){
+            setAlert(true)
+            setMessage('Announcement sent!')
+            setServerity('success')
+            handleRedirect()
+        }else if (res.status > 399){
+            setAlert(true)
+            setMessage(res.data.msg)
+            setServerity('Cannot send annoucement!')
+        }
+    }
+
     let handleError = () => {
         console.log('error')
+    }
+    
+    const handleRedirect = () => {
+        setTimeout(() => {
+            navigate ('/class/instructor/')
+        }, 2000);
     }
 
     return ( 
@@ -98,12 +154,18 @@ const Announcement = () => {
                                 <Autocomplete
                                     color='green'
                                     // todo - pick teachers classes form DB and set them for options below
-                                    options={Grades}
-                                    groupBy={(option)=>option.level}
-                                    disabled={false}
+                                    options={myClasses}
+                                    // groupBy={(option)=>option.level}
+                                    disabled={
+                                        myClasses != null 
+                                                ? (myClasses.length > 0) 
+                                                    ? false 
+                                                    : true
+                                                : true
+                                    }
                                     name="classes"
-                                    value={classes}
-                                    getOptionLabel={(option) => option.label}
+                                    // value={myClasses}
+                                    getOptionLabel={(option) => "Grade " + option.grade + " - " + option.classType}
                                     renderInput={(params) => (
                                         <TextValidator
                                             color='green'
@@ -111,7 +173,14 @@ const Announcement = () => {
                                             // className=" w-full"
                                             placeholder="Select classes which you wants to notify"
                                             value={classes}
-                                            disabled={false}
+                                            disabled={
+                                                // true
+                                                myClasses != null 
+                                                ? (myClasses.length > 0) 
+                                                    ? false 
+                                                    : true
+                                                : true
+                                            }
                                             InputLabelProps={{shrink: false}}
                                             type="text"
                                             variant="outlined"
@@ -126,12 +195,12 @@ const Announcement = () => {
                                     )}
                                     onChange={(e, newValue) => {
                                         if(newValue !== null){
-                                            setClasses(newValue.value)
+                                            setClasses(newValue._id)
                                         }
                                     }}
                                     onInputChange={(e, newValue) => {
                                         if(newValue !== null){
-                                            setClasses(newValue.value)
+                                            setClasses(newValue._id)
                                         }
                                     }}
                                 />

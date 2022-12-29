@@ -15,12 +15,42 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { Badge, Grid } from '@mui/material';
+import LocalStorageServices from '../../services/LocalStorageServices';
+import AuthServices from '../../services/AuthServices';
+// import SetRedirect from '../../utils/SetRedirect';
+import { useNavigate } from "react-router-dom";
 
-const pages = [
+const studentPages = [
   {
     title : 'Announcement',
     link: '/announcement/send'
   },
+  {
+    title : 'Class Overview',
+    link: '/class/dashboard'  
+  },
+  {
+    title : 'Classes',
+    link: '/classes'
+  },
+]
+const parentPages = [
+  {
+    title : 'Classes',
+    link: '/classes'
+  },
+]
+const instructorPages = [
+  {
+    title : 'Class Overview',
+    link: '/class/dashboard'  
+  },
+  {
+    title : 'Classes',
+    link: '/classes'
+  },
+]
+const staffMemberPages = [
   {
     title : 'QR Generator',
     link: '/qrgenerator'
@@ -30,12 +60,23 @@ const pages = [
     link: '/qrscanner'
   },
   {
+    title : 'All Students',
+    link : '/student/all'
+  },
+  {
     title : 'Classes',
     link: '/classes'
   },
+
+]
+const adminPages = [
   {
-    title : 'Class Overview',
-    link: '/class/dashboard'
+    title : 'QR Generator',
+    link: '/qrgenerator'
+  },
+  {
+    title : 'QR Scanner',
+    link: '/qrscanner'
   },
   {
     title : 'Register Instructor',
@@ -57,10 +98,53 @@ const pages = [
     title : 'All Teachers',
     link : '/instructor/all'
   },
+  {
+    title : 'Classes',
+    link: '/classes'
+  },
+]
+
+const publicPages = [
+  {
+    title : 'Classes',
+    link: '/classes'
+  },
+  
 ];
+
+let pages = [];
+
+let user = LocalStorageServices.getItem('user')
+if (user != null){
+  let userType = user.userType
+  console.log("userType Nav",userType)
+  switch(userType){
+    case 1:
+      pages = studentPages;
+      break;
+    case 2:
+      pages = parentPages;
+      break;
+    case 3:
+      pages = instructorPages;
+      break;
+    case 4:
+      pages = staffMemberPages;
+      break;
+    case 5:
+      pages = adminPages;
+      break
+    default:
+      pages = publicPages;
+  }
+}
+
 const settings = ['Profile', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+
+  const navigate = useNavigate();
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -199,7 +283,7 @@ function ResponsiveAppBar() {
             </Grid>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src="" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -219,11 +303,20 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {/* {settings.map((setting) => ( */}
+                <MenuItem  onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
-              ))}
+                <MenuItem  onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Dashboard</Typography>
+                </MenuItem>
+                <MenuItem  onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center" onClick={() => {
+                    AuthServices.logout()
+                    navigate('/')
+                  }}>Logout</Typography>
+                </MenuItem>
+              {/* ))} */}
             </Menu>
           </Box>
         </Toolbar>

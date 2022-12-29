@@ -56,7 +56,7 @@ const GetAllParents = () => {
             width : 230
         },
         { 
-            field: 'PA_email', 
+            field: 'email2', 
             headerName: 'Parent Email', 
             width : 230
         },

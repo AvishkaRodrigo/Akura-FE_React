@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as apiroutes from '../apiroutes'
+import LocalStorageServices from './LocalStorageServices';
 
 class InstructorServices  {
     
@@ -18,9 +19,10 @@ class InstructorServices  {
         return await a
     }
 
-    getClasses = async (id) => {
+    getClasses = async () => {
         let a = new Promise((resolve, reject)=>{
-            
+            let currentUser = LocalStorageServices.getItem('user')
+            let id = currentUser.userID
             axios
                 .get(apiroutes.GET_CLASSE_FOR_INSTRUCTOR + `/${id}` 
                 // TODO - uncomment to access ins only

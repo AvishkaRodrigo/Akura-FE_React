@@ -21,7 +21,7 @@ const RegisterStudent = () => {
     let [lastName,setLastName] = useState('')
     let [contact,setContact] = useState('')
     let [email,setEmail] = useState('')
-    let [PA_email,setPA_email] = useState('')
+    let [email2,setEmail2] = useState('') // student email
     let [address,setAddress] = useState('')
     let [password,setPassword] = useState('')
     let [verifyPassword,setVerifyPassword] = useState('')
@@ -37,8 +37,8 @@ const RegisterStudent = () => {
             firstName : firstName,
             lastName : lastName,
             contactNumber : contact,
-            email : PA_email,
-            PA_email : email,
+            email : email,
+            email2 : email2,// student email
             address: address,
             password : password,
             userType:2
@@ -192,81 +192,6 @@ const RegisterStudent = () => {
                                     errorMessages={[
                                         'This field is required',
                                         'Contact number is invalid',
-                                    ]}
-                                />
-                            </Grid>
-                            <Grid
-                                item
-                                xs={12}
-                                sm={6}
-                                md={6}
-                                lg={4}
-                                sx={{p:5}}
-                            >
-                                <SubTitle title="Student Email Address" required/>
-                                <TextValidator
-                                    color='green'
-                                    fullWidth 
-                                    placeholder="Enter student email address"
-                                    name="email"
-                                    InputLabelProps={{
-                                        shrink: false,
-                                    }}
-                                    value={
-                                        email
-                                    }
-                                    disabled={false}
-                                    type="text"
-                                    variant="outlined"
-                                    size="small"
-                                    onChange={(e) => {
-                                        setEmail(e.target.value)
-                                    }}
-                                    validators={[
-                                        'required',
-                                        'matchRegexp:^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
-                                    ]}
-                                    errorMessages={[
-                                        'This field is required',
-                                        'Email is invalid',
-                                    ]}
-                                />
-                            </Grid>
-                            
-                            <Grid
-                                item
-                                xs={12}
-                                sm={6}
-                                md={6}
-                                lg={4}
-                                sx={{p:5}}
-                            >
-                                <SubTitle title="Parent Email Address" required/>
-                                <TextValidator
-                                    color='green'
-                                    fullWidth 
-                                    placeholder="Enter parent email address"
-                                    name="paEmail"
-                                    InputLabelProps={{
-                                        shrink: false,
-                                    }}
-                                    value={
-                                        PA_email
-                                    }
-                                    disabled={false}
-                                    type="text"
-                                    variant="outlined"
-                                    size="small"
-                                    onChange={(e) => {
-                                        setPA_email(e.target.value)
-                                    }}
-                                    validators={[
-                                        'required',
-                                        // 'matchRegexp:^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
-                                    ]}
-                                    errorMessages={[
-                                        'This field is required',
-                                        'NIC number is invalid',
                                     ]}
                                 />
                             </Grid>

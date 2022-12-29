@@ -6,7 +6,7 @@ let navigate;
 const Utils = () => {
     navigate = useNavigate();
     
-    const redirectAfterComplete  = (route) => {
+    const handleRedirect  = (route) => {
         setTimeout(() => {
             console.log("done")
             navigate(route)
@@ -16,4 +16,4 @@ const Utils = () => {
     
 }
 
-export default Utils;
+export default new Utils ();

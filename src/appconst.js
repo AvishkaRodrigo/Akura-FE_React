@@ -33,7 +33,70 @@ export const Levels = [
     }
 ]
 
-export const Subjects = []
+export const Subjects = [
+    {
+        level : 'Odinary Level',
+        value : 'Mathematics',
+        label : 'Mathematics',
+    },
+    {
+        level : 'Odinary Level',
+        value : 'Science',
+        label : 'Science',
+    },
+    {
+        level : 'Odinary Level',
+        value : 'English',
+        label : 'English',
+    },
+    {
+        level : 'Odinary Level',
+        value : 'Sinhala',
+        label : 'Sinhala',
+    },
+    {
+        level : 'Odinary Level',
+        value : 'History',
+        label : 'History',
+    },
+    {
+        level : 'Odinary Level',
+        value : 'Buddhism',
+        label : 'Buddhism',
+    },
+    {
+        level : 'Odinary Level',
+        value : 'IT',
+        label : 'IT',
+    },
+    {
+        level : 'Odinary Level',
+        value : 'Health',
+        label : 'Health',
+    },
+    {
+        level : 'Odinary Level',
+        value : 'Tamil',
+        label : 'Tamil',
+    },
+    {
+        level : 'Advance Level',
+        value : 'Combine Maths',
+        label : 'Combine Maths',
+    },
+    {
+        level : 'Advance Level',
+        value : 'Physics',
+        label : 'Physics',
+    },
+    {
+        level : 'Advance Level',
+        value : 'Chemistry',
+        label : 'Chemistry',
+    },
+    
+]
+
 export const classTypes = [
     {
         label : 'Group Class',
