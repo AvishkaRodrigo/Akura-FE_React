@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import ParentServices from "../../services/ParentServices";
 import { MagicSpinner, } from "react-spinners-kit";
 import MainContainer from "../../components/MainContainer";
+import Table from "../../components/CustTable";
 
 const GetAllParents = () => {
 
@@ -17,7 +18,7 @@ const GetAllParents = () => {
     useEffect(()=> {
         const getData = async () => {
             setLoaded(false)
-            const res = await ParentServices.getAllParentsToAdminView() 
+            const res = await ParentServices.getAllParents() 
             if(res){
                 setTimeout(() => {
                     setRows(res.data)
@@ -31,38 +32,38 @@ const GetAllParents = () => {
 
     const columns = [
         { 
-            field: 'ID', 
-            headerName: 'Parent ID', 
+            accessorKey: 'ID', 
+            header: 'Parent ID', 
             width : 130,
         },
         { 
-            field: 'firstName', 
-            headerName: 'First Name', 
+            accessorKey: 'firstName', 
+            header: 'First Name', 
             width : 150
         },
         { 
-            field: 'lastName', 
-            headerName: 'lastName',
+            accessorKey: 'lastName', 
+            header: 'lastName',
             width : 150
         },
         { 
-            field: 'contactNumber', 
-            headerName: 'Contact Number', 
+            accessorKey: 'contactNumber', 
+            header: 'Contact Number', 
             width : 150
         },
         { 
-            field: 'email', 
-            headerName: 'Student Email', 
+            accessorKey: 'email', 
+            header: 'Student Email', 
             width : 230
         },
         { 
-            field: 'email2', 
-            headerName: 'Parent Email', 
+            accessorKey: 'email2', 
+            header: 'Parent Email', 
             width : 230
         },
         { 
-            field: 'address', 
-            headerName: 'Address', 
+            accessorKey: 'address', 
+            header: 'Address', 
             width : 250
         },
     ];
@@ -76,17 +77,11 @@ const GetAllParents = () => {
             <MainContainer>
                 <div style={{ height: 400, width: '100%', background: '#fff' }}>
                     {loaded ?
-                        (<DataGrid
-                            rows={arr}
+                        (<Table
+                            data={arr}
                             columns={columns}
-                            pageSize={5}
-                            color="green"
-                            rowsPerPageOptions={[5]}
-                            getRowId={(rows)=>rows._id}
                         />)
-
-                        
-                        : 
+                    : 
                         <Grid style={{display:'flex',alignItems:'center', position:"absolute", flexDirection:'row', textAlign:'center', flexWrap:'wrap'  }}
                             sx={{mt:50, ml:250}}
                         >

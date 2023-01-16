@@ -10,14 +10,14 @@ class localStorageService {
     getItem(key) {
         let value = localStorage.getItem(key)
         try {
-            console.log("key value",JSON.parse(value))
-            return JSON.parse(value)
+            console.log("key value",value)
+            return value
         } catch (e) {
             console.log(e)
             return null
-
         }
     }
+
     removeItem(key) {
         localStorage.removeItem(key)
     }

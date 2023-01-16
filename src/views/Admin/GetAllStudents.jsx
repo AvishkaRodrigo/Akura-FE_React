@@ -8,6 +8,7 @@ import StudentServices from "../../services/StudentServices";
 import moment from "moment";
 import { MagicSpinner, } from "react-spinners-kit";
 import MainContainer from "../../components/MainContainer";
+import Table from "../../components/CustTable";
 
 
 const GetAllStudents = () => {
@@ -19,7 +20,7 @@ const GetAllStudents = () => {
     useEffect(()=> {
         const getData = async () => {
             setLoaded(false)
-            const res = await StudentServices.getAllStudentsToAdminView() 
+            const res = await StudentServices.getAllStudents() 
             if(res){
                 setTimeout(() => {
                     setRows(res.data)
@@ -33,55 +34,57 @@ const GetAllStudents = () => {
 
     const columns = [
         { 
-            field: 'ID', 
-            headerName: 'Student ID', 
+            accessorKey: 'ID', 
+            header: 'Student ID', 
             width : 130,
         },
         { 
-            field: 'firstName', 
-            headerName: 'First Name', 
+            accessorKey: 'firstName', 
+            header: 'First Name', 
             width : 150
         },
         { 
-            field: 'lastName', 
-            headerName: 'lastName',
+            accessorKey: 'lastName', 
+            header: 'lastName',
             width : 150
         },
         { 
-            field: 'contactNumber', 
-            headerName: 'Contact Number', 
+            accessorKey: 'contactNumber', 
+            header: 'Contact Number', 
             width : 150
         },
         { 
-            field: 'gender', 
-            headerName: 'Gender', 
+            accessorKey: 'gender', 
+            header: 'Gender', 
             width : 150
         },
         { 
-            field: 'email', 
-            headerName: 'Email', 
-            width : 230
+            accessorKey: 'email', 
+            header: 'Email', 
+            width : 150,
+            // Cell:({cell})=>(
+            //         <div style={{display:'flex', justifyContent:'center'}}>
+            //             {cell.getValue()}
+            //         </div>
+            // )
         },
         { 
-            field: 'level', 
-            headerName: 'Level',
+            accessorKey: 'level', 
+            header: 'Level',
             width : 150 
         },
         { 
-            field: 'year', 
-            headerName: 'Examination Year', 
+            accessorKey: 'year', 
+            header: 'Examination Year', 
             width : 150,
-            options: {
-                customBodyRender : value => {
-                    return (
-                        <div style={{diaplay:'none'}}>
-                            adas
-                            {/* {moment(value).format('yyyy')} */}
+            Cell: ({ cell }) => (
+                        <div style={{display:'flex', justifyContent:'center'}}>
+                            {/* adas */}
+                            {moment(cell).format('yyyy')}
                             {/* (value) */}
                         </div>
-                    )
-                }
-            },
+                // }
+            ),
         },
     ];
     
@@ -94,13 +97,13 @@ const GetAllStudents = () => {
             <MainContainer>
                 <div style={{ height: 400, width: '100%', background: '#fff' }}>
                     {loaded ?
-                        (<DataGrid
-                            rows={arr}
+                        (<Table
+                            data={arr}
                             columns={columns}
-                            pageSize={5}
-                            color="green"
-                            rowsPerPageOptions={[5]}
-                            getRowId={(rows)=>rows._id}
+                            // pageSize={5}
+                            // color="green"
+                            // rowsPerPageOptions={[5]}
+                            // getRowId={(rows)=>rows._id}
                         />)
 
                         
@@ -116,5 +119,5 @@ const GetAllStudents = () => {
         </Fragment>
     );
 }
- 
+
 export default GetAllStudents;

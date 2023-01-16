@@ -23,17 +23,35 @@ import GetAllInstructors from './views/Admin/GetAllInstructors';
 import GetAllStudents from './views/Admin/GetAllStudents';
 import GetAllParents from './views/Admin/GetAllParents';
 import StudentMyClasses from './views/Student/ClassDashboard/StudentMyClasses';
+import { useEffect, useState } from 'react';
+import LocalStorageServices from './services/LocalStorageServices';
+import MarkAttendance from './views/Attendance/MarkAttendance';
+import CheckAttendance from './views/Attendance/CheckAttendance';
+import MyStudents from './views/Parent/MyStudents';
+import StudentMonthlyPayment from './views/Parent/StudentMonthlyPayment';
 
 
 
 function App() {
-  const token = localStorage.getItem('token')
+  const [loaded, setLoaded] = useState(false);
+  let user = LocalStorageServices.getItem('user')
+  useEffect(()=>{
+    if (user != null){
+      setLoaded(true)
+    }else{
+      setLoaded(false)
+    }
+  },[user])
   return (
     <div className="App">
       {/* <Provider store={store}> */}
         <BrowserRouter>
           {/* {token ? */}
+            {loaded ? 
             <Navbar/>
+            :
+            null
+            }
           {/* : null
           } */}
           <Routes>
@@ -41,6 +59,21 @@ function App() {
               path='/'
               element={<Login/>}
             />
+
+            <Route
+              path='/register/student'
+              element={<RegisterStudent/>}
+            />
+            <Route
+              path='/register/instructor'
+              element={<RegisterInstructor/>}
+            />
+            <Route
+              path='/register/parent'
+              element={<RegisterParent/>}
+            />
+
+
             <Route
               path='/notification/view'
               element={<Notification/>}
@@ -50,7 +83,7 @@ function App() {
               element={<StudentMyClasses/>}
             />
             <Route
-              path='/class/dashboard'
+              path='/class/dashboard/:id'
               element={<ClassDashboard/>}
             />
             <Route
@@ -67,18 +100,7 @@ function App() {
             />
 
 
-            <Route
-              path='/register/student'
-              element={<RegisterStudent/>}
-            />
-            <Route
-              path='/register/instructor'
-              element={<RegisterInstructor/>}
-            />
-            <Route
-              path='/register/parent'
-              element={<RegisterParent/>}
-            />
+            
             
             
             <Route
@@ -111,6 +133,31 @@ function App() {
               path='/1'
               element={<QRGenerator/>}
             />
+
+
+            <Route
+              path='/mark-attendance'
+              element={<MarkAttendance/>}
+            />
+            <Route
+              path='/check-attendance'
+              element={<CheckAttendance/>}
+            />
+
+            <Route
+              path='/MyStudents'
+              element={<MyStudents/>}
+            />
+            <Route
+              path='/parent/dashboard'
+              element={<StudentMyClasses/>}
+            />
+            <Route
+              path='/parent/classPayments/:classId'
+              element={<StudentMonthlyPayment/>}
+            />
+
+
           </Routes>
         </BrowserRouter>
       {/* </Provider> */}

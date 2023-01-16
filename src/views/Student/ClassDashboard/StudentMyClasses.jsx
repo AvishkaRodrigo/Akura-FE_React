@@ -18,6 +18,7 @@ import { MagicSpinner } from "react-spinners-kit";
 import moment from "moment/moment";
 import { Navigate, useNavigate } from "react-router-dom";
 import ClassServices from "../../../services/ClassServices";
+import LocalStorageServices from "../../../services/LocalStorageServices";
 
 const StudentMyClasses = () => {
     const navigate = useNavigate()
@@ -28,14 +29,30 @@ const StudentMyClasses = () => {
     let [message, setMessage] = useState('')
     let [alert, setAlert] = useState(false)
     let [severity, setServerity] = useState('success')
+    let [user, setUser] = useState(null)
+    let [stuId, setStuId] = useState(null)
 
     const [classes, setClasses] = useState([])
 
-    let user = useRef(null)
+    const getUserInfo = () => {
+        setUser(JSON.parse(LocalStorageServices.getItem('user')))
+        setStuId(JSON.parse(LocalStorageServices.getItem('myStudent')))
+        console.log(LocalStorageServices.getItem('myStudent'))
+    }
+
     useEffect(()=> {
         const getData = async () => {
             setLoaded(false)
-            const res = await ClassServices.myClasses(28) 
+            getUserInfo()
+            let res = null
+            
+            if(user.userType == 1){
+                res = await ClassServices.myClasses(user.id) 
+            } else {
+                if(stuId != null){
+                    res = await ClassServices.myClasses(stuId.replace(/"|'/g,'')) 
+                }
+            }
             console.log("all classes",res)
             if(res.status == 200){
                 setClasses(res.data.studentMyClasses)
@@ -175,7 +192,12 @@ const StudentMyClasses = () => {
                                     >
                                         <Button variant="contained" color="white" sx={{px:30}} onClick={() => {
                                             const id = items.class_ID
-                                            navigate('/class/dashboard/'+id) 
+                                            // console.log()
+                                            if(user.userType == 1){
+                                                navigate('/class/dashboard/'+id) 
+                                            } else {
+                                                navigate('/parent/classPayments/'+id) 
+                                            }
                                         }}>
                                             See more
                                         </Button>

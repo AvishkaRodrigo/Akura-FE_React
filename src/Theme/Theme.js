@@ -30,6 +30,9 @@ const theme = createTheme({
         yellow: {
             main: "#E5CF05",
         },
+        gray: {
+            main: "#707070",
+        },
     },
     typography: {
         fontFamily: "Poppins, sans-serif",

@@ -204,7 +204,7 @@ const Classes = () => {
                                         variant="contained" 
                                         color="green"
                                         onClick={
-                                            toggleDrawer(true, items.admission, items.class_ID, items.instructor, items.grade)
+                                            toggleDrawer(true, items.admission, items.id, items.instructor, items.grade)
                                             // ()=>{
                                             //     if(user.current != null){
                                             //         console.log(user)

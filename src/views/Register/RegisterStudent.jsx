@@ -79,7 +79,7 @@ const RegisterStudent = () => {
         setTimeout(() => {
             navigate ("/")
             console.log('timeout')
-        }, 4000);
+        }, 3000);
     }
 
     return ( 

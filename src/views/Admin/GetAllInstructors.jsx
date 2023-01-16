@@ -6,6 +6,7 @@ import { Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import { MagicSpinner, } from "react-spinners-kit";
 import MainContainer from "../../components/MainContainer";
+import Table from "../../components/CustTable";
 
 
 const GetAllInstructors = () => {
@@ -17,7 +18,7 @@ const GetAllInstructors = () => {
     useEffect(()=> {
         const getData = async () => {
             setLoaded(false)
-            const res = await InstructorServices.getAllInstructorsToAdminView() 
+            const res = await InstructorServices.getAllInstructors() 
             if(res){
                 if(res){
                     setTimeout(() => {
@@ -33,43 +34,43 @@ const GetAllInstructors = () => {
 
     const columns = [
         { 
-            field: 'ID', 
-            headerName: 'Instructor ID', 
+            accessorKey: 'ID', 
+            header: 'Instructor ID', 
             width : 130,
         },
         { 
-            field: 'firstName', 
-            headerName: 'First Name', 
+            accessorKey: 'firstName', 
+            header: 'First Name', 
             width : 150
         },
         { 
-            field: 'lastName', 
-            headerName: 'lastName',
+            accessorKey: 'lastName', 
+            header: 'lastName',
             width : 150
         },
         { 
-            field: 'contactNumber', 
-            headerName: 'Contact Number', 
+            accessorKey: 'contactNumber', 
+            header: 'Contact Number', 
             width : 150
         },
         { 
-            field: 'email', 
-            headerName: 'Email', 
+            accessorKey: 'email', 
+            header: 'Email', 
             width : 230
         },
         { 
-            field: 'subject', 
-            headerName: 'Subject',
+            accessorKey: 'subject', 
+            header: 'Subject',
             width : 150 
         },
         { 
-            field: 'accNumber', 
-            headerName: 'Account Number', 
+            accessorKey: 'accNumber', 
+            header: 'Account Number', 
             width : 150
         },
         { 
-            field: 'nic', 
-            headerName: 'NIC Number',
+            accessorKey: 'nic', 
+            header: 'NIC Number',
             width : 150
         },
         
@@ -84,13 +85,9 @@ const GetAllInstructors = () => {
             <MainContainer>
                 <div style={{ height: 400, width: '100%', background: '#fff' }}>
                     {loaded ?
-                        (<DataGrid
-                            rows={arr}
+                        (<Table
+                            data={arr}
                             columns={columns}
-                            pageSize={5}
-                            color="green"
-                            rowsPerPageOptions={[5]}
-                            getRowId={(rows)=>rows._id}
                         />)
 
                         

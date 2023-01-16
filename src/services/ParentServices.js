@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as apiroutes from '../apiroutes'
+import LocalStorageServices from './LocalStorageServices';
 
 class ParentServices  {
     
@@ -19,11 +20,11 @@ class ParentServices  {
     }
 
 
-    getAllParentsToAdminView = async (id) => {
+    getAllParents = async (id) => {
         let a = new Promise((resolve, reject)=>{
             
             axios
-                .get(apiroutes.GET_PARENTS_FOR_ADMIN
+                .get(apiroutes.GET_ALL_PARENTS
                 // TODO - uncomment to access ins only
                     // ,{
                     //     // headers: {
@@ -40,6 +41,42 @@ class ParentServices  {
                 })
         })
         return await a
+    }
+    
+    getParentStudents = async () => {
+        const accessToken = LocalStorageServices.getItem('token');
+        console.log("accdsesd",accessToken)
+        // const config = {
+        //     headers : {
+        //         'Content-Type': 'application/json',
+        //         'x-auth-token': `${accessToken}`
+        //         } 
+        //     }
+        // };
+        
+        let a = new Promise((resolve, reject)=>{
+            axios
+                .get(apiroutes.GET_STUDENTS_OF_SINGLE_PARENT,{
+                    headers : {
+                        'x-auth-token': `${accessToken}`
+                    } 
+                })
+                .then((res)=> {
+                    return resolve(res)
+                })
+                .catch((err)=>{
+                    return resolve(err.response)
+                })
+        })
+        return await a
+    }
+
+    setMyStudent = (id) => {
+        LocalStorageServices.setItem('myStudent',id)
+    }
+    
+    removeMyStudent = (id) => {
+        LocalStorageServices.removeItem('myStudent')
     }
 }
 

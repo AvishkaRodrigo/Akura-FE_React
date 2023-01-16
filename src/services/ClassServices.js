@@ -62,6 +62,21 @@ class ClassServices  {
         })
         return await a
     }
+
+    getMonthlyPaymentsOfStudent = async (classId,studentId) => {
+        let a = new Promise((resolve, reject)=>{
+            console.log('test')
+            axios
+                .get(apiroutes.CLASS_PAYMENT + `/${classId}` +"/student" + `/${studentId}`)
+                .then((res)=> {
+                    return resolve(res)
+                })
+                .catch((err)=>{
+                    return resolve(err.response)
+                })
+        })
+        return await a
+    }
 }
 
 export default new ClassServices();

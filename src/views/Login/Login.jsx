@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import CustSnackbar from "../../components/CustSnackbar";
 import { useNavigate } from "react-router-dom";
 import AuthServices from "../../services/AuthServices";
+import HandleRefresh from "../../utils/HandleRefresh";
 
 const Login = () => {
 
@@ -38,18 +39,23 @@ const Login = () => {
             localStorage.setItem('user', JSON.stringify(res.data.info.user))
             if (res.data.info.user.userType === 1) {
                 navigate ("/student/dashboard")
+                HandleRefresh(1)
             }
             else if (res.data.info.user.userType === 2) {
-                navigate ("/parent/dashboard")
+                navigate ("/MyStudents")
+                HandleRefresh(1)
             }
             else if (res.data.info.user.userType === 3) {
-                navigate ("/")
+                navigate ("/class/instructor/")
+                HandleRefresh(1)
             } 
             else if (res.data.info.user.userType === 4) {
-                navigate ("/")
+                navigate ("/profile")
+                HandleRefresh(1)
             } 
             else {
-                navigate ("/")
+                HandleRefresh(1)
+                navigate ("/profile")
             } 
             // handleRedirect()
         }else if (res.status > 399){
@@ -57,8 +63,11 @@ const Login = () => {
             setAlert(true)
             setMessage(res.data.errors[0].msg)
             setServerity('error')
+            // HandleRefresh(1)
         }
     }
+
+    
 
     // let handleError = () => {
     //     alert('Submission error!')

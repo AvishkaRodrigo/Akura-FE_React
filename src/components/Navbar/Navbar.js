@@ -19,16 +19,19 @@ import LocalStorageServices from '../../services/LocalStorageServices';
 import AuthServices from '../../services/AuthServices';
 // import SetRedirect from '../../utils/SetRedirect';
 import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
+import HandleRefresh from '../../utils/HandleRefresh';
 
 const studentPages = [
+  
   {
-    title : 'Announcement',
-    link: '/announcement/send'
+    title : 'Dashboard',
+    link: '/student/dashboard'  
   },
-  {
-    title : 'Class Overview',
-    link: '/class/dashboard'  
-  },
+  // {
+  //   title : 'Class Overview',
+  //   link: '/class/dashboard/:id'  
+  // },
   {
     title : 'Classes',
     link: '/classes'
@@ -42,21 +45,25 @@ const parentPages = [
 ]
 const instructorPages = [
   {
-    title : 'Class Overview',
-    link: '/class/dashboard'  
+    title : 'Announcement',
+    link: '/announcement/send'
   },
+  // {
+  //   title : 'Class Overview',
+  //   link: '/class/dashboard/:id'  
+  // },
   {
-    title : 'Classes',
-    link: '/classes'
+    title : 'My Classes',
+    link: '/class/instructor/'
   },
 ]
 const staffMemberPages = [
   {
-    title : 'QR Generator',
+    title : 'Create ID',
     link: '/qrgenerator'
   },
   {
-    title : 'QR Scanner',
+    title : 'Scan ID',
     link: '/qrscanner'
   },
   {
@@ -67,15 +74,22 @@ const staffMemberPages = [
     title : 'Classes',
     link: '/classes'
   },
-
+  {
+    title : 'Register Student',
+    link: '/classes'
+  },
+  {
+    title : 'Register Parent',
+    link: '/classes'
+  },
 ]
 const adminPages = [
   {
-    title : 'QR Generator',
+    title : 'Create ID',
     link: '/qrgenerator'
   },
   {
-    title : 'QR Scanner',
+    title : 'Scan ID',
     link: '/qrscanner'
   },
   {
@@ -109,39 +123,60 @@ const publicPages = [
     title : 'Classes',
     link: '/classes'
   },
+  {
+    title : 'Register Student',
+    link: '/classes'
+  },
+  {
+    title : 'Register Parent',
+    link: '/classes'
+  },
   
 ];
 
 let pages = [];
 
-let user = LocalStorageServices.getItem('user')
-if (user != null){
-  let userType = user.userType
-  console.log("userType Nav",userType)
-  switch(userType){
-    case 1:
-      pages = studentPages;
-      break;
-    case 2:
-      pages = parentPages;
-      break;
-    case 3:
-      pages = instructorPages;
-      break;
-    case 4:
-      pages = staffMemberPages;
-      break;
-    case 5:
-      pages = adminPages;
-      break
-    default:
-      pages = publicPages;
-  }
-}
+
 
 const settings = ['Profile', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+
+  const [loaded, setLoaded] = React.useState(false);
+
+  useEffect(()=> {
+    const setUser = () => {
+        setLoaded(false)
+        let user = LocalStorageServices.getItem('user')
+        if (user != null){
+          let userType = JSON.parse(user).userType
+          console.log("userType Nav",userType)
+          switch(userType){
+            case 1:
+              pages = studentPages;
+              break;
+            case 2:
+              pages = parentPages;
+              break;
+            case 3:
+              pages = instructorPages;
+              break;
+            case 4:
+              pages = staffMemberPages;
+              break;
+            case 5:
+              pages = adminPages;
+              break
+            default:
+              pages = publicPages;
+          }
+          setLoaded(true)
+        }else{
+          setLoaded(false)
+        }
+    }
+    setUser()
+  },[])
 
   const navigate = useNavigate();
 
@@ -165,7 +200,9 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar position="static" color='green' sx={{height:'10vh'}} elevation={10}> 
-      <Container maxWidth="xl">
+      {setLoaded 
+        ?
+        <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
@@ -313,6 +350,7 @@ function ResponsiveAppBar() {
                 <MenuItem  onClick={handleCloseUserMenu}>
                   <Typography textAlign="center" onClick={() => {
                     AuthServices.logout()
+                    HandleRefresh(1)
                     navigate('/')
                   }}>Logout</Typography>
                 </MenuItem>
@@ -321,6 +359,9 @@ function ResponsiveAppBar() {
           </Box>
         </Toolbar>
       </Container>
+        :
+        null
+      }
     </AppBar>
   );
 }

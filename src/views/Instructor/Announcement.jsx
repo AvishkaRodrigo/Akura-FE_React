@@ -150,7 +150,7 @@ const Announcement = () => {
                                 lg={6}
                                 sx={{p:5}}
                             >
-                                <SubTitle title="Classes" required/>
+                                <SubTitle title="Class" required/>
                                 <Autocomplete
                                     color='green'
                                     // todo - pick teachers classes form DB and set them for options below

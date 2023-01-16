@@ -22,11 +22,11 @@ class StudentServices  {
     //     return await a
     // }
 
-    getAllStudentsToAdminView = async (id) => {
+    getAllStudents = async (id) => {
         let a = new Promise((resolve, reject)=>{
             
             axios
-                .get(apiroutes.GET_STUDENTS_FOR_ADMIN
+                .get(apiroutes.GET_ALL_STUDENTS
                 // TODO - uncomment to access ins only
                     // ,{
                     //     // headers: {
