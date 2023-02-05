@@ -1,22 +1,13 @@
-import { Autocomplete, Button, Card, CardHeader, CardMedia, Drawer, Grid, IconButton, Popper, SwipeableDrawer, Typography } from "@mui/material";
-import { Fragment, useEffect, useRef, useState } from "react";
-import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
-import { Grades, Levels } from "../../appconst";
-import CustCard from "../../components/CustCard";
+import {  Button, Card,  Grid, Typography } from "@mui/material";
+import { Fragment, useEffect, useState } from "react";
 import MainContainer from "../../components/MainContainer";
-import SubTitle from "../../components/SubTitle";
-import CustSnackbar from "../../components/CustSnackbar";
 import coverImage from '../../assets/loginImg.jpg'
 
-import SendIcon from '@mui/icons-material/Send';
-import CloseIcon from '@mui/icons-material/Close';
-import HowToRegIcon from '@mui/icons-material/HowToReg';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 // import MainContainer from "../../components/MainContainer";
-import { MagicSpinner } from "react-spinners-kit";
 import moment from "moment/moment";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ClassServices from "../../services/ClassServices";
 import LocalStorageServices from "../../services/LocalStorageServices";
 
@@ -25,11 +16,10 @@ const MyClasses = () => {
     
     const [loaded, setLoaded] = useState(false);
     const [loaded2, setLoaded2] = useState(false);
-    const [view, setView] = useState(false);
 
-    let [message, setMessage] = useState('')
-    let [alert, setAlert] = useState(false)
-    let [severity, setServerity] = useState('success')
+    // let [message, setMessage] = useState('')
+    // let [alert, setAlert] = useState(false)
+    // let [severity, setServerity] = useState('success')
     let [user, setUser] = useState(null)
     let [stuId, setStuId] = useState(null)
 
