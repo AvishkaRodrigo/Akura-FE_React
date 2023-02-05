@@ -351,11 +351,11 @@ const RegisterStudent = () => {
                                         // label=""
                                         // className="w-full"
                                         // fullWidth
-                                        format="yyyy"
+                                        format="MM"
                                         disablePast
                                         orientation="portrait"
                                         value={year}
-                                        views={['year']}
+                                        views={['month']}
                                         onChange={(newValue) => {
                                             // const newDate = moment(newValue).format('yyyy')
                                             setYear(newValue);

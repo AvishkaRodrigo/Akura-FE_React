@@ -3,14 +3,18 @@ import { DataGrid } from '@mui/x-data-grid';
 import MainContainerResponsive from "../../components/MainContainerResponsive";
 import InstructorServices from "../../services/InstructorServices";
 import { Grid } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import StudentServices from "../../services/StudentServices";
+import moment from "moment";
 import { MagicSpinner, } from "react-spinners-kit";
 import MainContainer from "../../components/MainContainer";
 import Table from "../../components/CustTable";
+import ResultServices from "../../services/ResultServices";
 
 
-const GetAllInstructors = () => {
+const StudentResults = () => {
 
+    const {class_ID,ST_ID} = useParams() 
     const [rows, setRows] = useState(undefined);
     const [loaded, setLoaded] = useState(false);
     let arr = rows || []
@@ -18,62 +22,46 @@ const GetAllInstructors = () => {
     useEffect(()=> {
         const getData = async () => {
             setLoaded(false)
-            const res = await InstructorServices.getAllInstructors() 
-            if(res){
-                if(res){
-                    setTimeout(() => {
-                        setRows(res.data)
-                        setLoaded(true)
-                    }, 1000);
-                }
+            let params = {
+                class_ID:class_ID, 
+                ST_ID:ST_ID
             }
-            console.log("all instructors",res.data)
+            const res = await ResultServices.getAllResultsOfAssignmentForParentView(params) 
+            console.log("all students",res.data)
+            if(res){
+                setTimeout(() => {
+                    setRows(res.data.studentsResults)
+                    setLoaded(true)
+                }, 2000);
+            }
         }
         getData()
     },[])
 
     const columns = [
         { 
-            accessorKey: '_id', 
-            header: 'Instructor ID', 
+            accessorKey: 'assignment', 
+            header: 'Assignment', 
             width : 130,
         },
         { 
-            accessorKey: 'firstName', 
-            header: 'First Name', 
+            accessorKey: 'marks', 
+            header: 'Marks', 
             width : 150
         },
         { 
-            accessorKey: 'lastName', 
-            header: 'lastName',
-            width : 150
+            accessorKey: 'createdAt', 
+            header: 'Released Date', 
+            width : 100,
+            Cell: ({ cell }) => (
+                        <div style={{display:'flex', justifyContent:'center'}}>
+                            {/* adas */}
+                            {moment(cell).format('DD/MM/yyyy')}
+                            {/* (value) */}
+                        </div>
+                // }
+            ),
         },
-        { 
-            accessorKey: 'contactNumber', 
-            header: 'Contact Number', 
-            width : 150
-        },
-        { 
-            accessorKey: 'email', 
-            header: 'Email', 
-            width : 230
-        },
-        { 
-            accessorKey: 'subject', 
-            header: 'Subject',
-            width : 150 
-        },
-        { 
-            accessorKey: 'accNumber', 
-            header: 'Account Number', 
-            width : 150
-        },
-        { 
-            accessorKey: 'nic', 
-            header: 'NIC Number',
-            width : 150
-        },
-        
     ];
     
 
@@ -88,11 +76,14 @@ const GetAllInstructors = () => {
                         (<Table
                             data={arr}
                             columns={columns}
+                            // pageSize={5}
+                            // color="green"
+                            // rowsPerPageOptions={[5]}
+                            // getRowId={(rows)=>rows._id}
                         />)
 
                         
                         : 
-                        
                         <Grid style={{display:'flex',alignItems:'center', position:"absolute", flexDirection:'row', textAlign:'center', flexWrap:'wrap'  }}
                             sx={{mt:50, ml:250}}
                         >
@@ -104,5 +95,5 @@ const GetAllInstructors = () => {
         </Fragment>
     );
 }
- 
-export default GetAllInstructors;
+
+export default StudentResults;

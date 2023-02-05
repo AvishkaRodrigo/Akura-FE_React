@@ -32,7 +32,7 @@ const GetAllParents = () => {
 
     const columns = [
         { 
-            accessorKey: 'ID', 
+            accessorKey: '_id', 
             header: 'Parent ID', 
             width : 130,
         },

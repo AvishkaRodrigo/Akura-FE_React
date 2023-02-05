@@ -22,6 +22,7 @@ export const GET_ALL_STUDENTS = `${ENDPOINT}/student`
 
 // ins
 export const GET_CLASSE_FOR_INSTRUCTOR = `${ENDPOINT}/getInstructorClasses`
+export const GET_ALL_STUDENTS_OF_A_CLASS = `${ENDPOINT}/allStudents`
 
 
 // stu
@@ -35,8 +36,17 @@ export const CLASS_PAYMENT = `${ENDPOINT}/payment`
 export const STUDENT_MY_CLASSES = `${ENDPOINT}/allAddmissions`
 
 // announcement + notification
+export const NOTIFICATION = `${ENDPOINT}/notification/`
 export const CREATE_NOTIFICATION = `${ENDPOINT}/instructor/notification/create/`
+export const CREATE_EARLY_LEAVE_NOTIFICATION = `${ENDPOINT}/notification/create/`
+
 
 //attendace
 export const MARK_ATTENDANCE = `${ENDPOINT}/mark-attendance`
 export const SHOW_ATTENDANCE = `${ENDPOINT}/show-attendance`
+
+//result
+export const ADD_RESULT = `${ENDPOINT}/result`
+export const GET_ALLEXAMS = `${ENDPOINT}/getAllAssignmentIdsOfClass`
+export const GET_EXAMSRESULT = `${ENDPOINT}/getAllResultsOfAssignment`
+export const GET_STUDENTRESULT = `${ENDPOINT}/getAllResultsOfAssignmentForParentView`

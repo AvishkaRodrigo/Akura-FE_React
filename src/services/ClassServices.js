@@ -48,6 +48,21 @@ class ClassServices  {
         return await a
     }
 
+    myClassStudents = async (id) => {
+        let a = new Promise((resolve, reject)=>{
+            console.log('STUDENT_MY_CLASSES')
+            axios
+                .get(apiroutes.GET_ALL_STUDENTS_OF_A_CLASS+ `/${id}`)
+                .then((res)=> {
+                    return resolve(res)
+                })
+                .catch((err)=>{
+                    return resolve(err.response)
+                })
+        })
+        return await a
+    }
+
     classPayment = async (data) => {
         let a = new Promise((resolve, reject)=>{
             console.log('test')

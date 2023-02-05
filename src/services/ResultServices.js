@@ -2,9 +2,9 @@ import axios from 'axios';
 import * as apiroutes from '../apiroutes'
 import LocalStorageServices from './LocalStorageServices';
 
-class NotificationServices  {
+class ResultServices  {
     
-    createAnnoucement = async (data) => {
+    addResult = async (data) => {
         let a = new Promise((resolve, reject)=>{
             const config = {
                 headers : {
@@ -12,7 +12,7 @@ class NotificationServices  {
                 }
             }
             axios
-                .post(apiroutes.CREATE_NOTIFICATION, data, config)
+                .post(apiroutes.ADD_RESULT, data, config)
                 .then((res)=> {
                     return resolve(res)
                 })
@@ -23,30 +23,51 @@ class NotificationServices  {
         return await a
     }
 
-    createEarlyLeaveNotification = async (data) => {
-        let a = new Promise((resolve, reject)=>{
-            const config = {
-                headers : {
-                    'Content-Type': 'application/json'
-                }
-            }
-            axios
-                .post(apiroutes.CREATE_EARLY_LEAVE_NOTIFICATION, data, config)
-                .then((res)=> {
-                    return resolve(res)
-                })
-                .catch((err)=>{
-                    return resolve(err.response)
-                })
-        })
-        return await a
-    }
-
-    getNotifications = async (params) => {
+    getAllAssignmentIdsOfClass = async (params) => {
         const accessToken = LocalStorageServices.getItem('token');
         let a = new Promise((resolve, reject)=>{
             axios
-                .get(apiroutes.NOTIFICATION,{
+                .get(apiroutes.GET_ALLEXAMS,{
+                    headers : {
+                        'x-auth-token': `${accessToken}`
+                    },
+                    params:params 
+                })
+                .then((res)=> {
+                    return resolve(res)
+                })
+                .catch((err)=>{
+                    return resolve(err.response)
+                })
+        })
+        return await a
+    }
+    
+    getAllResultsOfAssignment = async (params) => {
+        const accessToken = LocalStorageServices.getItem('token');
+        let a = new Promise((resolve, reject)=>{
+            axios
+                .get(apiroutes.GET_EXAMSRESULT,{
+                    headers : {
+                        'x-auth-token': `${accessToken}`
+                    },
+                    params:params 
+                })
+                .then((res)=> {
+                    return resolve(res)
+                })
+                .catch((err)=>{
+                    return resolve(err.response)
+                })
+        })
+        return await a
+    }
+
+    getAllResultsOfAssignmentForParentView = async (params) => {
+        const accessToken = LocalStorageServices.getItem('token');
+        let a = new Promise((resolve, reject)=>{
+            axios
+                .get(apiroutes.GET_STUDENTRESULT,{
                     headers : {
                         'x-auth-token': `${accessToken}`
                     },
@@ -63,4 +84,4 @@ class NotificationServices  {
     }
 }
 
-export default new NotificationServices();
+export default new ResultServices();

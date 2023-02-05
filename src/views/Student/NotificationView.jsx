@@ -1,5 +1,5 @@
 import { Autocomplete, Button, Card, CardHeader, CardMedia, Divider, Grid, Typography } from "@mui/material";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import { Grades, Levels } from "../../appconst";
 import CustCard from "../../components/CustCard";
@@ -12,25 +12,57 @@ import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import NotificationServices from "../../services/NotificationServices";
+import LocalStorageServices from "../../services/LocalStorageServices";
 
 
 const Notification = () => {
-
-    const arr = [
-        {
-            header: 'පන්ති නොපැවැත්වේ',
-            subject:'සිංහල',
-            message: "නොවැළැක්විය හැකි හේතුවක් මත මෙම සතියේ(2022-12-07) පන්ති නොපැවැත්වේ. ඔබගේ ලබාදුන් ගෙදර වැඩ සමඟ මෙම සතිය සඳහා LMS හි upload කර ඇති tute එකද සම්පූර්ණ කර ලබන සතියේ රැගෙන එන්න.",
-            timeStamp: '2022/12/01 10.00am',
-        },
-        {
-            header: 'Leave the class early',
-            subject:'Science',
-            message: 'Student leave the class early',
-            timeStamp: '2022/12/01 10.00am',
-        },
+    // [
+    //     {
+    //         header: 'පන්ති නොපැවැත්වේ',
+    //         subject:'සිංහල',
+    //         message: "නොවැළැක්විය හැකි හේතුවක් මත මෙම සතියේ(2022-12-07) පන්ති නොපැවැත්වේ. ඔබගේ ලබාදුන් ගෙදර වැඩ සමඟ මෙම සතිය සඳහා LMS හි upload කර ඇති tute එකද සම්පූර්ණ කර ලබන සතියේ රැගෙන එන්න.",
+    //         timeStamp: '2022/12/01 10.00am',
+    //     },
+    //     {
+    //         header: 'Leave the class early',
+    //         subject:'Science',
+    //         message: 'Student leave the class early',
+    //         timeStamp: '2022/12/01 10.00am',
+    //     },
         
-    ]
+    // ]
+
+    const [notifications, setNotifications] = useState([]) 
+
+    let [userInfo, setUserInfo] = useState(null)
+    let [stuId, setStuId] = useState(null)
+
+    useEffect(()=> {
+
+        getUserInfo()
+        
+    },[stuId])
+
+    const getUserInfo = () => {
+        setUserInfo(JSON.parse(LocalStorageServices.getItem('user')))
+        console.log("asd",JSON.parse(LocalStorageServices.getItem('user')))
+        setStuId(JSON.parse(LocalStorageServices.getItem('myStudent')))
+        console.log("mystu",LocalStorageServices.getItem('myStudent'))
+        getNotifications()
+    }
+
+    const getNotifications = async () => {
+        let params = {
+            ID : stuId
+        }
+        console.log("params",params)
+        if(stuId){
+            let res = await NotificationServices.getNotifications(params)
+            setNotifications(res.data.notifications)
+            console.log("res",res)
+        }
+    }
 
     return ( 
         <Fragment>
@@ -47,34 +79,44 @@ const Notification = () => {
                     <Grid
                         container
                     >
-                        {arr.map((items) => (
-                            <Grid
-                                // sx={{display:'flex'}}
-                                item
-                                xs={12}
-                                // sm={6}
-                                // md={4}
-                                lg={12}
-                                >
-                                <CustCard>
-                                    <Typography variant="h5" style={{color:'#008272'}}>{items.subject}</Typography>
-                                    <Divider/>
-                                    <Typography variant="button">{items.header}</Typography>
-                                    <Grid>
-                                        <Typography sx={{p:10}}>
-                                            {items.message}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid
-                                        sx={{display:'flex', justifyContent:'end'}}
+                        {notifications.length > 0 ?
+                            notifications.map((items) => (
+                                <Grid
+                                    // sx={{display:'flex'}}
+                                    item
+                                    xs={12}
+                                    // sm={6}
+                                    // md={4}
+                                    lg={12}
                                     >
-                                        <Typography variant="caption">
-                                            {items.timeStamp}
-                                        </Typography>
-                                    </Grid>
-                                </CustCard>
-                            </Grid>
-                        ))}
+                                    <CustCard>
+                                        <Typography variant="h5" style={{color:'#008272'}}>{items.subject}</Typography>
+                                        <Divider/>
+                                        <Typography variant="button">{items.header}</Typography>
+                                        <Grid>
+                                            <Typography sx={{p:10}}>
+                                                {items.message}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid
+                                            sx={{display:'flex', justifyContent:'end'}}
+                                        >
+                                            <Typography variant="caption">
+                                                {items.createdAt}
+                                            </Typography>
+                                        </Grid>
+                                    </CustCard>
+                                </Grid>
+                            ))
+                        : 
+                        <Grid
+                                sx={{p:20, display:'flex',justifyContent:'center'}}
+                        >
+                            <Typography>
+                                Select student first
+                            </Typography>
+                        </Grid>
+                        }
                     </Grid>
             </MainContainer>
         </Fragment>

@@ -22,7 +22,8 @@ class InstructorServices  {
     getClasses = async () => {
         let a = new Promise((resolve, reject)=>{
             let currentUser = LocalStorageServices.getItem('user')
-            let id = currentUser.userID
+            let id = JSON.parse(currentUser).id
+            console.log("currentUser",id)
             axios
                 .get(apiroutes.GET_CLASSE_FOR_INSTRUCTOR + `/${id}` 
                 // TODO - uncomment to access ins only

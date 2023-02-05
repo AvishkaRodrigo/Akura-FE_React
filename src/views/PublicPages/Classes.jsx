@@ -54,6 +54,7 @@ const Classes = () => {
     const [amount, setAmount] = useState('')
     const [instructor, setInstructor] = useState('')
     const [grade, setGrade] = useState('')
+    const [link, setLink] = useState(null)
 
     const handleSubmit = async () => {
         var formData = new FormData();
@@ -66,10 +67,12 @@ const Classes = () => {
             Type: 'online'
         }
         // console.log(formData)
-
+        
         const res = await ClassServices.classPayment(formData)
         console.log("aaa",res)
         if (res.status < 300){
+            window.location.replace(link);
+            setView(false)
             setAlert(true)
             setMessage('Successfully registered to the class')
             setServerity('success')
@@ -77,6 +80,7 @@ const Classes = () => {
             setClass_ID('')
             setInstructor('')
             setGrade('')
+            
         }else if (res.status > 399){
             setAlert(true)
             setMessage('Cannot complete the class registration')
@@ -86,12 +90,13 @@ const Classes = () => {
 
     
 
-    const toggleDrawer = (open, amount, classID, instructor, grade) => (event) => {
+    const toggleDrawer = (open, amount, classID, instructor, grade, paymentLink) => (event) => {
         setView(open);
         setAmount(amount)
         setClass_ID(classID)
         setInstructor(instructor)
         setGrade(grade)
+        setLink(paymentLink)
     };
     
     // const [anchorEl, setAnchorEl] = useState(null);
@@ -204,7 +209,7 @@ const Classes = () => {
                                         variant="contained" 
                                         color="green"
                                         onClick={
-                                            toggleDrawer(true, items.admission, items.id, items.instructor, items.grade)
+                                            toggleDrawer(true, items.admission, items.id, items.instructor, items.grade, items.paymentLink)
                                             // ()=>{
                                             //     if(user.current != null){
                                             //         console.log(user)
@@ -423,7 +428,12 @@ const Classes = () => {
                                 lg={12}
                                 sx={{display:'flex', justifyContent:'end'}}
                             >
-                                <Button variant="contained" type="submit" color="green" startIcon={<HowToRegIcon/>}>
+                                <Button 
+                                    variant="contained" 
+                                    type="submit"
+                                    color="green" 
+                                    startIcon={<HowToRegIcon/>}
+                                >
                                     Register
                                 </Button>
                             </Grid>

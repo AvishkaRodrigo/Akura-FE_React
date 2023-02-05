@@ -173,7 +173,7 @@ const Table = (data) => {
                     </Menu>
                 </Box>
             )}
-            />
+        />
     )
 }
 

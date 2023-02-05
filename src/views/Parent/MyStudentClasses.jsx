@@ -1,12 +1,12 @@
 import { Autocomplete, Button, Card, CardHeader, CardMedia, Drawer, Grid, IconButton, Popper, SwipeableDrawer, Typography } from "@mui/material";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
-import { Grades, Levels } from "../../../appconst";
-import CustCard from "../../../components/CustCard";
-import MainContainer from "../../../components/MainContainer";
-import SubTitle from "../../../components/SubTitle";
-import CustSnackbar from "../../../components/CustSnackbar";
-import coverImage from '../../../assets/loginImg.jpg'
+import { Grades, Levels } from "../../appconst";
+import CustCard from "../../components/CustCard";
+import MainContainer from "../../components/MainContainer";
+import SubTitle from "../../components/SubTitle";
+import CustSnackbar from "../../components/CustSnackbar";
+import coverImage from '../../assets/loginImg.jpg'
 
 import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
@@ -17,10 +17,10 @@ import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import { MagicSpinner } from "react-spinners-kit";
 import moment from "moment/moment";
 import { Navigate, useNavigate } from "react-router-dom";
-import ClassServices from "../../../services/ClassServices";
-import LocalStorageServices from "../../../services/LocalStorageServices";
+import ClassServices from "../../services/ClassServices";
+import LocalStorageServices from "../../services/LocalStorageServices";
 
-const StudentMyClasses = () => {
+const MyClasses = () => {
     const navigate = useNavigate()
     
     const [loaded, setLoaded] = useState(false);
@@ -30,17 +30,16 @@ const StudentMyClasses = () => {
     let [message, setMessage] = useState('')
     let [alert, setAlert] = useState(false)
     let [severity, setServerity] = useState('success')
-    let [userInfo, setUserInfo] = useState(null)
+    let [user, setUser] = useState(null)
     let [stuId, setStuId] = useState(null)
 
     const [classes, setClasses] = useState([])
 
     const getUserInfo = () => {
         setLoaded2(false)
-        console.log("user",JSON.parse(LocalStorageServices.getItem('user')))
-        if(localStorage.getItem('user') != null){
-            setUserInfo(localStorage.getItem('user'))
-        }
+        setUser(JSON.parse(LocalStorageServices.getItem('user')))
+        setStuId(JSON.parse(LocalStorageServices.getItem('myStudent')))
+        console.log("mystu",LocalStorageServices.getItem('myStudent'))
         setLoaded2(true)
         if(loaded2){
             getData() 
@@ -49,8 +48,14 @@ const StudentMyClasses = () => {
     
     const getData = async () => {
         setLoaded(false)
-        let userID = JSON.parse(userInfo).id
-        let res = await ClassServices.myClasses(userID) 
+        let res = null
+        if(user.userType == 1){
+            res = await ClassServices.myClasses(user.id) 
+        } else {
+            if(stuId != null){
+                res = await ClassServices.myClasses(stuId.replace(/"|'/g,'')) 
+            }
+        }
         console.log("all classes",res)
         if(res.status == 200){
             setClasses(res.data.studentMyClasses)
@@ -65,7 +70,7 @@ const StudentMyClasses = () => {
         getUserInfo()
         
 
-    },[userInfo])
+    },[stuId])
 
     // const [class_ID, setClass_ID] = useState('')
     // const [ST_ID, setST_ID] = useState('')
@@ -195,24 +200,28 @@ const StudentMyClasses = () => {
                                         >
                                             <Button variant="contained" color="white"  onClick={() => {
                                                 const class_ID = items.class_ID
-                                                const ST_ID1 = userInfo.id
+                                                const ST_ID1 = user.id
                                                 const ST_ID2 = stuId
-                                                console.log("asdfs")
-                                                navigate('/class/dashboard/'+class_ID) 
+                                                // console.log()
+                                                if(user.userType == 1){
+                                                    navigate('/results/'+class_ID+"/"+ST_ID1) 
+                                                } else {
+                                                    navigate('/results/'+class_ID+"/"+ST_ID2) 
+                                                }
                                             }}>
-                                                More info
+                                                Progress
                                             </Button>
-                                            {/* <Button variant="contained" color="white" onClick={() => {
+                                            <Button variant="contained" color="white" onClick={() => {
                                                 const id = items.class_ID
                                                 // console.log()
-                                                if(userInfo.userType == 1){
+                                                if(user.userType == 1){
                                                     navigate('/class/dashboard/'+id) 
                                                 } else {
                                                     navigate('/parent/classPayments/'+id) 
                                                 }
                                             }}>
                                                 Payments
-                                            </Button> */}
+                                            </Button>
                                         </Grid>
                                     </Grid>
                                     <Grid
@@ -500,4 +509,4 @@ const StudentMyClasses = () => {
     );
 }
 
-export default StudentMyClasses;
+export default MyClasses;

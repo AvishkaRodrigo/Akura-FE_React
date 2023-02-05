@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Provider } from 'react-redux';
 import store from './store';
 
@@ -18,17 +18,22 @@ import Notification from './views/Student/NotificationView';
 import ClassDashboard from './views/Student/ClassDashboard/ClassDashboard';
 import CreateClass from './views/Admin/CreateClass';
 import MyClasses from './views/Instructor/MyClasses';
-import StudentDashboard from './views/Student/StudentDashboard';
 import GetAllInstructors from './views/Admin/GetAllInstructors';
 import GetAllStudents from './views/Admin/GetAllStudents';
 import GetAllParents from './views/Admin/GetAllParents';
-import StudentMyClasses from './views/Student/ClassDashboard/StudentMyClasses';
+import MyStudentClasses from './views/Parent/MyStudentClasses';
 import { useEffect, useState } from 'react';
 import LocalStorageServices from './services/LocalStorageServices';
 import MarkAttendance from './views/Attendance/MarkAttendance';
 import CheckAttendance from './views/Attendance/CheckAttendance';
 import MyStudents from './views/Parent/MyStudents';
 import StudentMonthlyPayment from './views/Parent/StudentMonthlyPayment';
+import MyClassStudents from './views/Instructor/MyClassStudents';
+import EarlyLeave from './views/StaffMember/EarlyLeave';
+import UploadResult from './views/Instructor/UploadResult';
+import ViewAllExams from './views/Instructor/ViewAllExams';
+import StudentResults from './views/Parent/StudentResults';
+import StudentMyClasses from './views/Student/ClassDashboard/StudentMyClasses';
 
 
 
@@ -55,6 +60,7 @@ function App() {
           {/* : null
           } */}
           <Routes>
+          <Route path="*" element={<Navigate replace to="/" />} />
             <Route
               path='/'
               element={<Login/>}
@@ -95,6 +101,10 @@ function App() {
               element={<MyClasses/>}
             />
             <Route
+              path='/class/students/:classID'
+              element={<MyClassStudents/>}
+            />
+            <Route
               path='/class/create'
               element={<CreateClass/>}
             />
@@ -117,6 +127,10 @@ function App() {
             />
 
             
+            <Route
+              path='/earlyleave'
+              element={<EarlyLeave/>}
+            />
             <Route
               path='/announcement/send'
               element={<Announcement/>}
@@ -145,12 +159,27 @@ function App() {
             />
 
             <Route
+              path='/release-result'
+              element={<UploadResult/>}
+            />
+            <Route
+              path='/viewAllExams'
+              element={<ViewAllExams/>}
+            />
+
+
+
+            <Route
+              path='/results/:class_ID/:ST_ID'
+              element={<StudentResults/>}
+            />
+            <Route
               path='/MyStudents'
               element={<MyStudents/>}
             />
             <Route
               path='/parent/dashboard'
-              element={<StudentMyClasses/>}
+              element={<MyStudentClasses/>}
             />
             <Route
               path='/parent/classPayments/:classId'

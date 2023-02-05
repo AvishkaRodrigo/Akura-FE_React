@@ -11,132 +11,25 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+
 import { Link } from 'react-router-dom';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { Badge, Grid } from '@mui/material';
 import LocalStorageServices from '../../services/LocalStorageServices';
 import AuthServices from '../../services/AuthServices';
-// import SetRedirect from '../../utils/SetRedirect';
+
 import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
 import HandleRefresh from '../../utils/HandleRefresh';
 
-const studentPages = [
-  
-  {
-    title : 'Dashboard',
-    link: '/student/dashboard'  
-  },
-  // {
-  //   title : 'Class Overview',
-  //   link: '/class/dashboard/:id'  
-  // },
-  {
-    title : 'Classes',
-    link: '/classes'
-  },
-]
-const parentPages = [
-  {
-    title : 'Classes',
-    link: '/classes'
-  },
-]
-const instructorPages = [
-  {
-    title : 'Announcement',
-    link: '/announcement/send'
-  },
-  // {
-  //   title : 'Class Overview',
-  //   link: '/class/dashboard/:id'  
-  // },
-  {
-    title : 'My Classes',
-    link: '/class/instructor/'
-  },
-]
-const staffMemberPages = [
-  {
-    title : 'Create ID',
-    link: '/qrgenerator'
-  },
-  {
-    title : 'Scan ID',
-    link: '/qrscanner'
-  },
-  {
-    title : 'All Students',
-    link : '/student/all'
-  },
-  {
-    title : 'Classes',
-    link: '/classes'
-  },
-  {
-    title : 'Register Student',
-    link: '/classes'
-  },
-  {
-    title : 'Register Parent',
-    link: '/classes'
-  },
-]
-const adminPages = [
-  {
-    title : 'Create ID',
-    link: '/qrgenerator'
-  },
-  {
-    title : 'Scan ID',
-    link: '/qrscanner'
-  },
-  {
-    title : 'Register Instructor',
-    link : '/register/instructor'
-  },
-  {
-    title : 'Create Class',
-    link : '/class/create'
-  },
-  {
-    title : 'All Students',
-    link : '/student/all'
-  },
-  {
-    title : 'All Parents',
-    link : '/parent/all'
-  },
-  {
-    title : 'All Teachers',
-    link : '/instructor/all'
-  },
-  {
-    title : 'Classes',
-    link: '/classes'
-  },
-]
-
-const publicPages = [
-  {
-    title : 'Classes',
-    link: '/classes'
-  },
-  {
-    title : 'Register Student',
-    link: '/classes'
-  },
-  {
-    title : 'Register Parent',
-    link: '/classes'
-  },
-  
-];
+import { parentPages } from '../../navigations/ParentPages';
+import { studentPages } from '../../navigations/StudentPages';
+import { instructorPages } from '../../navigations/InstructorPages';
+import { staffMemberPages } from '../../navigations/StaffMemberPages';
+import { adminPages } from '../../navigations/AdminPages';
+import { publicPages } from '../../navigations/PublicPages';
 
 let pages = [];
-
-
 
 const settings = ['Profile', 'Dashboard', 'Logout'];
 
@@ -311,7 +204,7 @@ function ResponsiveAppBar() {
                     aria-label="show 17 new notifications"
                     color="inherit"
                   >
-                    <Badge badgeContent={2} color="error">
+                    <Badge badgeContent={1} color="error">
                       <NotificationsNoneIcon/>
                     </Badge>
                   </IconButton>

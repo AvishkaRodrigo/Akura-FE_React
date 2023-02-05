@@ -93,14 +93,14 @@ const ClassDashboard = () => {
 
     const handlePdfDownload = () => {
         // using Java Script method to get PDF file
-        fetch('SamplePDF.pdf').then(response => {
+        fetch('./StudentMyClasses.jsx').then(response => {
             response.blob().then(blob => {
                 // Creating new object of PDF file
                 const fileURL = window.URL.createObjectURL(blob);
                 // Setting various property values
                 let alink = document.createElement('a');
                 alink.href = fileURL;
-                alink.download = 'SamplePDF.pdf';
+                alink.download = 'StudentMyClasses.jsx';
                 alink.click();
             })
         })

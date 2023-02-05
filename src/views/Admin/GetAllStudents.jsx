@@ -34,7 +34,7 @@ const GetAllStudents = () => {
 
     const columns = [
         { 
-            accessorKey: 'ID', 
+            accessorKey: '_id', 
             header: 'Student ID', 
             width : 130,
         },

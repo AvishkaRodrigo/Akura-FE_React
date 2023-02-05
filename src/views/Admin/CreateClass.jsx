@@ -26,8 +26,9 @@ const CreateClass = () => {
     let [date,setDate] = useState('')
     let [startTime,setStartTime] = useState('2018-01-01T06:00')
     let [endTime,setEndTime] = useState('2018-01-01T06:00')
-    let [admission,setAdmission] = useState(null)
+    let [admission,setAdmission] = useState(2000)
     let [classFee,setClassFee] = useState('')
+    let [paymentLink,setPaymentLink] = useState('')
     let [hall,setHall] = useState('')
 
     let [message, setMessage] = useState('')
@@ -48,8 +49,8 @@ const CreateClass = () => {
             endTime: endTime,
             admission: admission,
             classFee: classFee,
+            paymentLink:paymentLink,
             hall: hall,
-            
         }
 
         console.log(formData)
@@ -60,7 +61,7 @@ const CreateClass = () => {
         console.log("aaa",res)
         if (res.status < 300){
             setAlert(true)
-            setMessage('User registration success')
+            setMessage('Successfully created a new class!')
             setServerity('success')
         }else if (res.status > 399){
             setAlert(true)
@@ -384,9 +385,9 @@ const CreateClass = () => {
                                     type="text"
                                     variant="outlined"
                                     size="small"
-                                    onChange={(e) => {
-                                        setAdmission(e.target.value)
-                                    }}
+                                    // onChange={(e) => {
+                                    //     setAdmission(e.target.value)
+                                    // }}
                                     validators={[
                                         'required',
                                         'matchRegexp:^[+-]?[0-9]{1,10}(?:\.[0-9]{2})?$',
@@ -488,55 +489,6 @@ const CreateClass = () => {
                                 />
                             </Grid>  
                             
-                            {/* <Grid
-                                item
-                                xs={12}
-                                sm={6}
-                                md={6}
-                                lg={4}
-                                sx={{p:5}}
-                            >
-                                <SubTitle title="Level" required/>
-                                <Autocomplete
-                                    color='green'
-                                    className="w-full"
-                                    options={Levels}
-                                    disabled={false}
-                                    name="level"
-                                    getOptionLabel={(option) => option.label}
-                                    renderInput={(params) => (
-                                        <TextValidator
-                                            color='green'
-                                            {...params}
-                                            // className=" w-full"
-                                            placeholder="Select examination level"
-                                            value={level}
-                                            disabled={false}
-                                            InputLabelProps={{shrink: false}}
-                                            type="text"
-                                            variant="outlined"
-                                            size="small"
-                                            validators={[
-                                                'required',
-                                            ]}
-                                            errorMessages={[
-                                                'This field is required',
-                                            ]}
-                                        />
-                                    )}
-                                    onChange={(e, newValue) => {
-                                        if(newValue !== null){
-                                            setLevel(newValue.value)
-                                        }
-                                    }}
-                                    onInputChange={(e, newValue) => {
-                                        if(newValue !== null){
-                                            setLevel(newValue.value)
-                                        }
-                                    }}
-                                />
-                            </Grid>
-                            
                             <Grid
                                 item
                                 xs={12}
@@ -545,54 +497,37 @@ const CreateClass = () => {
                                 lg={4}
                                 sx={{p:5}}
                             >
-                                <SubTitle title="Examination Year" required/>
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DatePicker
-                                        color='green'
-                                        // label=""
-                                        // className="w-full"
-                                        // fullWidth
-                                        format="yyyy"
-                                        disablePast
-                                        orientation="portrait"
-                                        value={year}
-                                        views={['year']}
-                                        onChange={(newValue) => {
-                                            // const newDate = moment(newValue).format('yyyy')
-                                            setYear(newValue);
-                                            // console.log(newValue)
-                                            // console.log(newDate)
-                                        }}
-                                        renderInput={(params) => 
-                                            <TextValidator
-                                                color='green' 
-                                                {...params}
-                                                placeholder=""
-                                                sx={{width: '100%'}}
-                                                value={year}
-                                                disabled={false}
-                                                InputLabelProps={{shrink: false}}
-                                                type="text"
-                                                variant="outlined"
-                                                size="small"
-                                                validators={[
-                                                    'required',
-                                                ]}
-                                                errorMessages={[
-                                                    'This field is required',
-                                                ]} 
-                                            />
-                                        }
-                                        validators={[
-                                            'required',
-                                        ]}
-                                        errorMessages={[
-                                            'This field is required',
-                                        ]} 
-                                    />
-                                </LocalizationProvider>
-                            </Grid> */}
-                                    
+                                <SubTitle title="Payment Link" required/>
+                                <TextValidator
+                                    color='green'
+                                    fullWidth 
+                                    placeholder="Enter payment link generated by payhere"
+                                    name=""
+                                    InputLabelProps={{
+                                        shrink: false,
+                                    }}
+                                    value={
+                                        paymentLink
+                                    }
+                                    disabled={false}
+                                    type="text"
+                                    variant="outlined"
+                                    size="small"
+                                    onChange={(e) => {
+                                        setPaymentLink(e.target.value)
+                                    }}
+                                    // validators={[
+                                    //     'required',
+                                    //     'matchRegexp:^[+-]?[0-9]{1,10}(?:\.[0-9]{2})?$',
+                                    //     'minNumber:0'
+                                    // ]}
+                                    // errorMessages={[
+                                    //     'This field is required',
+                                    //     'Admission fee is invalid',
+                                    //     'Only positive amounts are acceptable'
+                                    // ]}
+                                />
+                            </Grid>            
 
 
                         <Grid

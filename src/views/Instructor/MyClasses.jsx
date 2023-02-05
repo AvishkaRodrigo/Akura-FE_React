@@ -18,7 +18,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import InstructorServices from "../../services/InstructorServices";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 
 
@@ -32,7 +32,7 @@ const MyClasses = (props) => {
         const getClasses = async () => {
             const res = await InstructorServices.getClasses()
             setMyClasses(res.data)
-            console.log(res.data)
+            console.log("myclasses",res.data)
         }
         getClasses()
     },[])
@@ -156,6 +156,27 @@ const MyClasses = (props) => {
                                         >
                                             Class - {items.classFee}.00
                                         </Typography>
+                                    </Grid>
+                                    <Grid
+                                        sx={{display:'flex', justifyContent:'center', py:2}}
+                                        item
+                                        xs={12}
+                                        sm={12}
+                                        md={12}
+                                        lg={12}
+                                    >
+                                        <Link
+                                            to={"/class/students/"+items._id}
+                                            style={{textDecoration:'none'}}
+                                        >
+                                            <Button
+                                                variant="contained"
+                                                color="green"
+                                                // onClick={}
+                                            >
+                                                View all Students
+                                            </Button>
+                                        </Link>
                                     </Grid>
                                 </Grid>
                             </Card>
