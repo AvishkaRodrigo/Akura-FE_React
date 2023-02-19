@@ -1,7 +1,7 @@
 import { Autocomplete, Button, Card, CardHeader, CardMedia, Drawer, Grid, IconButton, Popper, SwipeableDrawer, Typography } from "@mui/material";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
-import { Grades, Levels } from "../../appconst";
+import { classTypes, Grades, Levels } from "../../appconst";
 import CustCard from "../../components/CustCard";
 import MainContainer from "../../components/MainContainer";
 import SubTitle from "../../components/SubTitle";
@@ -18,6 +18,7 @@ import ClassServices from "../../services/ClassServices";
 import { MagicSpinner } from "react-spinners-kit";
 import moment from "moment/moment";
 import { useNavigate } from "react-router-dom";
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 const Classes = () => {
     const navigate = useNavigate()
@@ -25,28 +26,9 @@ const Classes = () => {
     const [loaded, setLoaded] = useState(false);
     const [view, setView] = useState(false);
 
-    let [message, setMessage] = useState('')
-    let [alert, setAlert] = useState(false)
-    let [severity, setServerity] = useState('success')
-
-    const [classes, setClasses] = useState([])
-
-    let user = useRef(null)
-    useEffect(()=> {
-        const getData = async () => {
-            setLoaded(false)
-            const res = await ClassServices.getAllClasses4FE() 
-            if(res.status == 200){
-                setClasses(res.data)
-                setLoaded(true)
-            }
-            console.log("all classes",res)
-            user.current = localStorage.getItem('token')
-            console.log("user",user.current)
-        }
-        getData()
-
-    },[])
+    const [message, setMessage] = useState('')
+    const [alert, setAlert] = useState(false)
+    const [severity, setServerity] = useState('success')
 
     const [class_ID, setClass_ID] = useState('')
     const [ST_ID, setST_ID] = useState('')
@@ -55,6 +37,40 @@ const Classes = () => {
     const [instructor, setInstructor] = useState('')
     const [grade, setGrade] = useState('')
     const [link, setLink] = useState(null)
+
+    const [classTypeP,setClassTypeP] = useState(null)
+    const [gradeP,setGradeP] = useState(null)
+    const [levelP,setLevelP] = useState(null)
+
+    const [classes, setClasses] = useState([])
+
+    // const [loaded,SetLoaded] = useState(false)
+
+    let user = useRef(null)
+    
+    useEffect(()=> {
+        
+        getData()
+
+    },[])
+
+    const getData = async () => {
+        let params = {
+            level : levelP,
+            grade : gradeP,
+            classType : classTypeP
+        }
+        console.log(params)
+        setLoaded(false)
+        const res = await ClassServices.getAllClasses4FE(params) 
+        if(res.status == 200){
+            setClasses(res.data.data)
+            setLoaded(true)
+        }
+        console.log("all classes",res)
+        user.current = localStorage.getItem('token')
+        console.log("user",user.current)
+    }
 
     const handleSubmit = async () => {
         var formData = new FormData();
@@ -119,124 +135,289 @@ const Classes = () => {
     return ( 
         <Fragment>
             <MainContainerResponsive>
+                <ValidatorForm
+                    onSubmit={()=>getData()}
+                >
+                    <Grid
+                        container
+                        spacing={2}
+                        sx={{mx:5, mr:5}}
+                    >
+                        <Grid
+                            item
+                            xs={12}
+                            md={6}
+                            lg={3}
+                            sx={{p:5}}
+                        >
+                            <SubTitle title="Level" required/>
+                            <Autocomplete
+                                color='green'
+                                className="w-full"
+                                options={Levels}
+                                disabled={false}
+                                getOptionLabel={(option) => option.label}
+                                renderInput={(params) => (
+                                    <TextValidator
+                                        color='green'
+                                        {...params}
+                                        // className=" w-full"
+                                        placeholder="Select grade"
+                                        value={levelP}
+                                        disabled={false}
+                                        InputLabelProps={{shrink: false}}
+                                        type="text"
+                                        variant="outlined"
+                                        size="small"
+                                        
+                                    />
+                                )}
+                                onChange={(e, newValue) => {
+                                    if(newValue !== null){
+                                        setLevelP(newValue.value)
+                                    }else {
+                                        setLevelP(null)
+                                    }
+                                }}
+                                onInputChange={(e, newValue) => {
+                                    if(newValue !== null){
+                                        setLevelP(newValue.value)
+                                    }else {
+                                        setLevelP(null)
+                                    }
+                                }}
+                            />
+                        </Grid> 
+                        <Grid
+                            item
+                            xs={12}
+                            md={6}
+                            lg={3}
+                            sx={{p:5}}
+                        >
+                            <SubTitle title="Class Type" required/>
+                            <Autocomplete
+                                color='green'
+                                className="w-full"
+                                options={classTypes}
+                                disabled={false}
+                                name="classType"
+                                getOptionLabel={(option) => option.label}
+                                renderInput={(params) => (
+                                    <TextValidator
+                                        color='green'
+                                        {...params}
+                                        // className=" w-full"
+                                        placeholder="Select class type"
+                                        value={classTypeP}
+                                        disabled={false}
+                                        InputLabelProps={{shrink: false}}
+                                        type="text"
+                                        variant="outlined"
+                                        size="small"
+                                        
+                                    />
+                                )}
+                                onChange={(e, newValue) => {
+                                    if(newValue !== null){
+                                        setClassTypeP(newValue.value)
+                                    }else {
+                                        setLevelP(null)
+                                    }
+                                }}
+                                onInputChange={(e, newValue) => {
+                                    if(newValue !== null){
+                                        setClassTypeP(newValue.value)
+                                    }else {
+                                        setLevelP(null)
+                                    }
+                                }}
+                            />
+                        </Grid>        
+                        <Grid
+                            item
+                            xs={12}
+                            md={6}
+                            lg={3}
+                            sx={{p:5}}
+                        >
+                            <SubTitle title="Grade" required/>
+                            <Autocomplete
+                                color='green'
+                                className="w-full"
+                                options={Grades}
+                                disabled={false}
+                                groupBy={(option) => option.level}
+                                getOptionLabel={(option) => option.label}
+                                renderInput={(params) => (
+                                    <TextValidator
+                                        color='green'
+                                        {...params}
+                                        // className=" w-full"
+                                        placeholder="Select grade"
+                                        value={gradeP}
+                                        disabled={false}
+                                        InputLabelProps={{shrink: false}}
+                                        type="text"
+                                        variant="outlined"
+                                        size="small"
+                                        
+                                    />
+                                )}
+                                onChange={(e, newValue) => {
+                                    if(newValue !== null){
+                                        setGradeP(newValue.value)
+                                    }else {
+                                        setLevelP(null)
+                                    }
+                                }}
+                                onInputChange={(e, newValue) => {
+                                    if(newValue !== null){
+                                        setGradeP(newValue.value)
+                                    }else {
+                                        setLevelP(null)
+                                    }
+                                }}
+                            />
+                        </Grid> 
+                        <Grid
+                            sx={{mt:10, pl:5}}
+                        >
+                            <Button 
+                                type="submit"
+                                color="green"
+                                variant="contained"
+                                startIcon={<FilterListIcon/>}
+                            >
+                                Filter
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </ValidatorForm>
                 <Grid
                     container
                 >
-                    {classes.map((items) => (
-                        <Grid
-                            sx={{display:'flex'}}
-                            item
-                            xs={12}
-                            sm={6}
-                            md={4}
-                            lg={4}
-                        >
-                            <Card
-                                sx={{ m:10}}
-                                elevation={6}
-                                style={{
-                                    backgroundImage: `linear-gradient(to bottom, rgb(100, 208, 194),rgb(100, 208, 194), rgb(0, 130, 114), rgb(0, 130, 114), rgb(0, 53, 46))`,
-                                    // backgroundColor:'#52aa9f'
-                                }}
-                            >
-                                <img
-                                    src={coverImage}
-                                    alt='asd'
-                                    height='200px'
-                                    width='500px'
-                                />
-                                <Grid
-                                    sx={{p:'10px'}}
-                                >
-                                    <Typography variant='h5' sx={{color:'#fff'}}>{items.instructor}</Typography>
-                                    <Grid
-                                        sx={{
-                                            // display:'flex', 
-                                            // justifyContent:'space-around', 
-                                            pl:'5px',
-                                            pt:'5px'
-                                        }}
-                                    >
-                                        <Grid
-                                            sx={{display:'flex', justifyContent:'center'}}
-                                        >
-                                            <Typography variant='h6' sx={{color:'#fff'}} >Grade {items.grade}</Typography>
-                                        </Grid>
-                                        <Grid
-                                            sx={{display:'flex', justifyContent:'center'}}
-                                        >
-                                            <Typography variant='button'>{items.subject}</Typography> -
-                                            <Typography variant=''>{items.level}</Typography>
-                                        </Grid>
-                                    </Grid>
-                                    <Typography></Typography>
-                                </Grid>
-                                <Grid
-                                    sx={{mt:3,display:'flex', justifyContent:'center', pt:'10px' }}
-                                >
-                                    <Grid
-                                        xs={12}
-                                        sx={{display:'flex', justifyContent:'center', border:1, borderTopLeftRadius:'4px', borderBottomLeftRadius:'4px', p:3}}
-                                    >
-                                        <AccessAlarmIcon sx={{color:'#fff'}} />
-                                        <Typography 
-                                            sx={{pl:4, color:'#fff'}} 
-                                            variant='button'
-                                        >
-                                            {moment(items.startTime).format('HH:mm')}-{moment(items.endTime).format('HH:mm')}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid
-                                        xs={12}
-                                        sx={{
-                                            display:'flex', 
-                                            justifyContent:'center', 
-                                            border:1, 
-                                            borderTopRightRadius:'4px', 
-                                            borderBottomRightRadius:'4px', 
-                                            p:3,
-                                            // pl:8
-                                        }}
-                                    >
-                                        <CalendarMonthIcon sx={{color:'#fff'}} />
-                                        <Typography sx={{pl:4, color:'#fff'}} variant='button'>{items.classDate}</Typography>
-                                    </Grid>
-                                </Grid>
-                                <Grid
-                                    sx={{p:10, display:'flex', justifyContent:'center'}}
-                                >
-                                    <Button 
-                                        variant="contained" 
-                                        color="green"
-                                        onClick={
-                                            toggleDrawer(true, items.admission, items.id, items.instructor, items.grade, items.paymentLink)
-                                            // ()=>{
-                                            //     if(user.current != null){
-                                            //         console.log(user)
-                                            //     }else {
-                                            //         setAlert(true)
-                                            //         setMessage('First login to the system inorder to register classes')
-                                            //         setServerity('error')
-                                            //     }
-                                            // }
-                                            // }?
-                                            // console.log('payment info', (items.class_ID),(items.admission),JSON.parse(localStorage.getItem('user')).userID)
-                                            // navigate("/class/" + (items.class_ID) + "/userID/" + JSON.parse(localStorage.getItem('user')).userID)
-                                        }
-                                    >
-                                        <Typography 
-                                            sx={{color:'#fff'}} 
-                                            variant='button'
-                                        >
-                                            Register
-                                        </Typography>
-                                    </Button>
-                                </Grid>
 
 
-                            </Card>
-                        </Grid>
-                    ))}
+                    {
+                        classes.length > 0 && loaded ?
+                            classes.map((items) => (
+                                <Grid
+                                    sx={{display:'flex'}}
+                                    item
+                                    xs={12}
+                                    sm={6}
+                                    md={4}
+                                    lg={4}
+                                >
+                                    <Card
+                                        sx={{ m:10}}
+                                        elevation={6}
+                                        style={{
+                                            backgroundImage: `linear-gradient(to bottom, rgb(100, 208, 194),rgb(100, 208, 194), rgb(0, 130, 114), rgb(0, 130, 114), rgb(0, 53, 46))`,
+                                            // backgroundColor:'#52aa9f'
+                                        }}
+                                    >
+                                        <img
+                                            src={coverImage}
+                                            alt='asd'
+                                            height='200px'
+                                            width='500px'
+                                        />
+                                        <Grid
+                                            sx={{p:'10px'}}
+                                        >
+                                            <Typography variant='h5' sx={{color:'#fff'}}>{items.instructor}</Typography>
+                                            <Grid
+                                                sx={{
+                                                    // display:'flex', 
+                                                    // justifyContent:'space-around', 
+                                                    pl:'5px',
+                                                    pt:'5px'
+                                                }}
+                                            >
+                                                <Grid
+                                                    sx={{display:'flex', justifyContent:'center'}}
+                                                >
+                                                    <Typography variant='h6' sx={{color:'#fff'}} >Grade {items.grade}</Typography>
+                                                </Grid>
+                                                <Grid
+                                                    sx={{display:'flex', justifyContent:'center'}}
+                                                >
+                                                    <Typography variant='button'>{items.subject}</Typography> -
+                                                    <Typography variant=''>{items.level}</Typography>
+                                                </Grid>
+                                            </Grid>
+                                            <Typography></Typography>
+                                        </Grid>
+                                        <Grid
+                                            sx={{mt:3,display:'flex', justifyContent:'center', pt:'10px' }}
+                                        >
+                                            <Grid
+                                                xs={12}
+                                                sx={{display:'flex', justifyContent:'center', border:1, borderTopLeftRadius:'4px', borderBottomLeftRadius:'4px', p:3}}
+                                            >
+                                                <AccessAlarmIcon sx={{color:'#fff'}} />
+                                                <Typography 
+                                                    sx={{pl:4, color:'#fff'}} 
+                                                    variant='button'
+                                                >
+                                                    {moment(items.startTime).format('HH:mm')}-{moment(items.endTime).format('HH:mm')}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid
+                                                xs={12}
+                                                sx={{
+                                                    display:'flex', 
+                                                    justifyContent:'center', 
+                                                    border:1, 
+                                                    borderTopRightRadius:'4px', 
+                                                    borderBottomRightRadius:'4px', 
+                                                    p:3,
+                                                    // pl:8
+                                                }}
+                                            >
+                                                <CalendarMonthIcon sx={{color:'#fff'}} />
+                                                <Typography sx={{pl:4, color:'#fff'}} variant='button'>{items.classDate}</Typography>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid
+                                            sx={{p:10, display:'flex', justifyContent:'center'}}
+                                        >
+                                            <Button 
+                                                variant="contained" 
+                                                color="green"
+                                                onClick={
+                                                    toggleDrawer(true, items.admission, items.id, items.instructor, items.grade, items.paymentLink)
+                                                    // ()=>{
+                                                    //     if(user.current != null){
+                                                    //         console.log(user)
+                                                    //     }else {
+                                                    //         setAlert(true)
+                                                    //         setMessage('First login to the system inorder to register classes')
+                                                    //         setServerity('error')
+                                                    //     }
+                                                    // }
+                                                    // }?
+                                                    // console.log('payment info', (items.class_ID),(items.admission),JSON.parse(localStorage.getItem('user')).userID)
+                                                    // navigate("/class/" + (items.class_ID) + "/userID/" + JSON.parse(localStorage.getItem('user')).userID)
+                                                }
+                                            >
+                                                <Typography 
+                                                    sx={{color:'#fff'}} 
+                                                    variant='button'
+                                                >
+                                                    Register
+                                                </Typography>
+                                            </Button>
+                                        </Grid>
+
+
+                                    </Card>
+                                </Grid>
+                            ))
+                    : null
+                    }
                     
                 </Grid>
             </MainContainerResponsive>

@@ -80,7 +80,7 @@ const GetAllStudents = () => {
             Cell: ({ cell }) => (
                         <div style={{display:'flex', justifyContent:'center'}}>
                             {/* adas */}
-                            {moment(cell).format('yyyy')}
+                            {moment(cell.getValue()).format('yyyy')}
                             {/* (value) */}
                         </div>
                 // }

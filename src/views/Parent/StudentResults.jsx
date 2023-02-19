@@ -50,13 +50,13 @@ const StudentResults = () => {
             width : 150
         },
         { 
-            accessorKey: 'createdAt', 
+            accessorKey: 'releasedDate', 
             header: 'Released Date', 
             width : 100,
             Cell: ({ cell }) => (
                         <div style={{display:'flex', justifyContent:'center'}}>
                             {/* adas */}
-                            {moment(cell).format('DD/MM/yyyy')}
+                            {moment(cell.getValue()).format('DD/MM/yyyy')}
                             {/* (value) */}
                         </div>
                 // }

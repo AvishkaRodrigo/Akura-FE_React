@@ -1,7 +1,12 @@
 import axios from 'axios';
 import * as apiroutes from '../apiroutes'
+import LocalStorageServices from './LocalStorageServices';
 
+
+const accessToken = LocalStorageServices.getItem('token');
 class ClassServices  {
+    
+
     
     createClass = async (data) => {
         let a = new Promise((resolve, reject)=>{
@@ -18,11 +23,13 @@ class ClassServices  {
         return await a
     }
 
-    getAllClasses4FE = async (data) => {
+    getAllClasses4FE = async (params) => {
         let a = new Promise((resolve, reject)=>{
             console.log('test')
             axios
-                .get(apiroutes.CREATE_CLASS)
+                .get(apiroutes.CREATE_CLASS,{
+                    params:params 
+                })
                 .then((res)=> {
                     return resolve(res)
                 })
