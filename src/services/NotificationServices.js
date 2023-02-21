@@ -2,6 +2,8 @@ import axios from 'axios';
 import * as apiroutes from '../apiroutes'
 import LocalStorageServices from './LocalStorageServices';
 
+const accessToken = LocalStorageServices.getItem('token');
+
 class NotificationServices  {
     
     createAnnoucement = async (data) => {

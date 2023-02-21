@@ -212,6 +212,18 @@ const MyClasses = () => {
                                             }}>
                                                 Payments
                                             </Button>
+                                            <Button variant="contained" color="white" onClick={() => {
+                                                const class_ID = items.class_ID
+                                                const ST_ID = stuId
+                                                console.log(class_ID, ST_ID)
+                                                if(user.userType == 1){
+                                                    // navigate('/class/dashboard/'+id) 
+                                                } else {
+                                                    navigate('/StudentAttendance/'+class_ID+'/'+ST_ID) 
+                                                }
+                                            }}>
+                                                Attendance
+                                            </Button>
                                         </Grid>
                                     </Grid>
                                     <Grid

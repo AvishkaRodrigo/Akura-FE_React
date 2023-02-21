@@ -4,6 +4,7 @@ export const PUBLIC_ENDPOINT = `${INIT}/public/akura`
 
 
 export const CREATE_USER = `${ENDPOINT}/user`
+export const USER_PROFILE = `${ENDPOINT}/user/profile`
 
 
 //auth
@@ -44,6 +45,7 @@ export const CREATE_EARLY_LEAVE_NOTIFICATION = `${ENDPOINT}/notification/create/
 //attendace
 export const MARK_ATTENDANCE = `${ENDPOINT}/mark-attendance`
 export const SHOW_ATTENDANCE = `${ENDPOINT}/show-attendance`
+export const GET_ATTENDANCE = `${ENDPOINT}/getStudentAttendance`
 
 //result
 export const ADD_RESULT = `${ENDPOINT}/result`

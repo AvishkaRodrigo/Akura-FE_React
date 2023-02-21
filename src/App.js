@@ -2,8 +2,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Provider } from 'react-redux';
 import store from './store';
 
-
-import Home from './views/Home';
 import Navbar from './components/Navbar/Navbar'
 import RegisterStudent from './views/Register/RegisterStudent'
 import RegisterInstructor from './views/Register/RegisterInstructor'
@@ -34,6 +32,8 @@ import UploadResult from './views/Instructor/UploadResult';
 import ViewAllExams from './views/Instructor/ViewAllExams';
 import StudentResults from './views/Parent/StudentResults';
 import StudentMyClasses from './views/Student/ClassDashboard/StudentMyClasses';
+import AttendanceView from './views/Parent/AttendanceView';
+import Profile from './views/Profile';
 
 
 
@@ -60,10 +60,15 @@ function App() {
           {/* : null
           } */}
           <Routes>
-          <Route path="*" element={<Navigate replace to="/" />} />
+          {/* <Route path="*" element={<Navigate replace to="/" />} /> */}
+            
             <Route
               path='/'
               element={<Login/>}
+            />
+            <Route
+              path='/profile'
+              element={<Profile/>}
             />
 
             <Route
@@ -184,6 +189,10 @@ function App() {
             <Route
               path='/parent/classPayments/:classId'
               element={<StudentMonthlyPayment/>}
+            />
+            <Route
+              path='/StudentAttendance/:class_ID/:ST_ID'
+              element={<AttendanceView/>}
             />
 
 

@@ -99,7 +99,7 @@ function MarkAttendance() {
 
     const getInstructorClasses = async (id) => {
         setInstructorID(id)
-        // console.log("iD",instructorID)
+        console.log("iD",instructorID)
         setDisable(true)
         setShowclassField(false)
         if(instructorID){
@@ -115,7 +115,7 @@ function MarkAttendance() {
         let formData = {
             "ST_ID" : qrscan,
             "class_ID" : classID,
-            "attend_date" : moment()
+            "attend_date" : new Date()
         }
         console.log(formData)
         let res = await AttendanceServices.markAttendance(formData)
@@ -199,7 +199,7 @@ function MarkAttendance() {
                                                     color='green'
                                                     {...params}
                                                     // className=" w-full"
-                                                    placeholder="Select class type"
+                                                    placeholder="Select instructor"
                                                     value={instructorID}
                                                     disabled={false}
                                                     InputLabelProps={{shrink: false}}
@@ -216,10 +216,10 @@ function MarkAttendance() {
                                             )}
                                             onChange={(e, newValue) => {
                                                 if(newValue !== null){
-                                                    setInstructorID(newValue.ID)
+                                                    setInstructorID(newValue._id)
                                                     setShowclassField(false)
                                                     // getInstructorClasses(newValue.ID)
-                                                    // console.log("newValue",instructorID)
+                                                    // console.log("new Value",newValue)
                                                 }
                                             }}
                                             onInputChange={(e, newValue) => {
@@ -293,11 +293,13 @@ function MarkAttendance() {
                                                         if(newValue !== null){
                                                             setClassID(newValue._id)
                                                         }
+                                                        setStartScan(false)
                                                     }}
                                                     onInputChange={(e, newValue) => {
                                                         if(newValue !== null){
                                                             setClassID(newValue._id)
                                                         }
+                                                        setStartScan(false)
                                                     }}
                                                 />    
                                             {/* : null */}

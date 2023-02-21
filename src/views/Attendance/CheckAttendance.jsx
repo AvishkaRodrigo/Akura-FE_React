@@ -91,7 +91,7 @@ function CheckAttendance() {
 
     const getInstructorClasses = async (id) => {
         setInstructorID(id)
-        // console.log("iD",instructorID)
+        console.log("iD",instructorID)
         setDisable(true)
         setShowclassField(false)
         if(instructorID){
@@ -209,16 +209,16 @@ function CheckAttendance() {
                                             )}
                                             onChange={(e, newValue) => {
                                                 if(newValue !== null){
-                                                    setInstructorID(newValue.ID)
+                                                    setInstructorID(newValue._id)
                                                     setShowclassField(false)
                                                     // getInstructorClasses(newValue.ID)
                                                     // console.log("newValue",instructorID)
                                                 }
                                             }}
                                             onInputChange={(e, newValue) => {
-                                                // console.log(newValue)
+                                                console.log(newValue)
                                                 if(newValue !== null){
-                                                    setInstructorID(newValue.ID)
+                                                    setInstructorID(newValue._id)
                                                     // getInstructorClasses(newValue.ID)
                                                 }
                                             }}

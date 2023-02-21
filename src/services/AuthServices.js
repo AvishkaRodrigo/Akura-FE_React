@@ -23,6 +23,7 @@ class AuthServices  {
         try{
             LocalStorageServices.removeItem('user')
             LocalStorageServices.removeItem('token')
+            LocalStorageServices.removeItem('myStudent')
         }catch(err){
             console.log(err)
         }

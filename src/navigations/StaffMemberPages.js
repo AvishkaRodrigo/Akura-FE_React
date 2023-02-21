@@ -23,4 +23,12 @@ export const staffMemberPages = [
         title : 'Register Parent',
         link: '/classes'
     },
+    {
+        title : 'Mark Attendance',
+        link: '/mark-attendance'
+    },
+    {
+        title : 'Check Attendance',
+        link: '/check-attendance'
+    },
 ]
