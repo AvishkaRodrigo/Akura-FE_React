@@ -24,6 +24,7 @@ export const GET_ALL_STUDENTS = `${ENDPOINT}/student`
 // ins
 export const GET_CLASSE_FOR_INSTRUCTOR = `${ENDPOINT}/getInstructorClasses`
 export const GET_ALL_STUDENTS_OF_A_CLASS = `${ENDPOINT}/allStudents`
+export const CLASS_FEES_INSTRUCTOR = `${ENDPOINT}/getClassFeesForInstructor`
 
 
 // stu
@@ -52,3 +53,6 @@ export const ADD_RESULT = `${ENDPOINT}/result`
 export const GET_ALLEXAMS = `${ENDPOINT}/getAllAssignmentIdsOfClass`
 export const GET_EXAMSRESULT = `${ENDPOINT}/getAllResultsOfAssignment`
 export const GET_STUDENTRESULT = `${ENDPOINT}/getAllResultsOfAssignmentForParentView`
+
+//payments
+export const GET_INSTITUTE_INSTRUCTOR_PAYMENTS = `${ENDPOINT}/instructor/institute-payments`

@@ -53,6 +53,10 @@ const Login = () => {
                 navigate ("/profile")
                 HandleRefresh(1)
             } 
+            else if (res.data.info.user.userType === 5) {
+                navigate ("/class/create")
+                HandleRefresh(1)
+            } 
             else {
                 HandleRefresh(1)
                 navigate ("/profile")
@@ -107,7 +111,7 @@ const Login = () => {
                         elevation={6}
                     >
                         <Card
-                            sx={{m:20, mt:15, p:10 ,backgroundColor:'rgba(250,250,250,0.9)', height: '520px', width: '30vw'}}
+                            sx={{m:20, mt:15, p:10 ,backgroundColor:'rgba(250,250,250,0.85)', height: '520px', width: '30vw'}}
                         >
                             <Grid
                                 container

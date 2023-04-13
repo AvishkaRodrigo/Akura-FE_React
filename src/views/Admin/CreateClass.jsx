@@ -1,5 +1,5 @@
 import { Autocomplete, Box, Button, Card, Divider, FormControlLabel, Grid, Radio, RadioGroup, TextField, Typography } from "@mui/material";
-import React,{ Fragment, useState } from "react";
+import React,{ Fragment, useEffect, useState } from "react";
 import { TextValidator,  ValidatorForm } from "react-material-ui-form-validator";
 import SubTitle from "../../components/SubTitle";
 import {classTypes, Grades, Halls, WeekDays} from '../../appconst'
@@ -15,8 +15,11 @@ import MainContainer from "../../components/MainContainer";
 import CustSnackbar from "../../components/CustSnackbar";
 import axios from 'axios'
 import ClassServices from "../../services/ClassServices";
+import InstructorServices from "../../services/InstructorServices";
+import { useNavigate } from "react-router-dom";
 
 const CreateClass = () => {
+    const navigate = useNavigate();
 
     let [classID,setClassID] = useState('1')
     let [instructorID,setInstructorID] = useState('')
@@ -26,10 +29,12 @@ const CreateClass = () => {
     let [date,setDate] = useState('')
     let [startTime,setStartTime] = useState('2018-01-01T06:00')
     let [endTime,setEndTime] = useState('2018-01-01T06:00')
-    let [admission,setAdmission] = useState(2000)
+    let [admission,setAdmission] = useState('')
     let [classFee,setClassFee] = useState('')
     let [paymentLink,setPaymentLink] = useState('')
     let [hall,setHall] = useState('')
+    let [instructorList,setInstructorList] = useState(null)
+    let [loaded,setLoaded] = useState(false)
 
     let [message, setMessage] = useState('')
     let [alert, setAlert] = useState(false)
@@ -55,21 +60,18 @@ const CreateClass = () => {
 
         console.log(formData)
 
-        
-
         const res = await ClassServices.createClass(formData)
         console.log("aaa",res)
         if (res.status < 300){
             setAlert(true)
             setMessage('Successfully created a new class!')
             setServerity('success')
+            handleRedirect()
         }else if (res.status > 399){
             setAlert(true)
             setMessage(res.data.msg)
             setServerity('error')
         }
-    
-
     }
 
     let handleError = () => {
@@ -78,6 +80,23 @@ const CreateClass = () => {
         setMessage('Error in submission')
         setServerity('error')
     }
+
+    const handleRedirect = () => {
+        setTimeout(() => {
+            navigate ("/classes")
+            console.log('timeout')
+        }, 3000);
+    }
+
+    useEffect(() => {
+        const getInstructors = async () => {
+            let res = await InstructorServices.getAllInstructors()
+            setInstructorList(res.data)
+            setLoaded(true)
+        } 
+        getInstructors()
+        // showAttendance()
+    },[])
 
     return ( 
         <Fragment>
@@ -99,33 +118,50 @@ const CreateClass = () => {
                                 lg={4}
                                 sx={{p:5}}
                             >
-                                <SubTitle title="Instructor ID" required/>
-                                <TextValidator
-                                    color='green'
-                                    
-                                    fullWidth 
-                                    placeholder="Enter subject"
-                                    name="instructorID"
-                                    InputLabelProps={{
-                                        shrink: false,
-                                    }}
-                                    value={
-                                        instructorID
-                                    }
-                                    disabled={false}
-                                    type="text"
-                                    variant="outlined"
-                                    size="small"
-                                    onChange={(e) => {
-                                        setInstructorID(e.target.value)
-                                    }}
-                                    validators={[
-                                        'required',
-                                    ]}
-                                    errorMessages={[
-                                        'This field is required',
-                                    ]}
-                                />
+                                <SubTitle title="Instructor Name" required/>
+                                    <Autocomplete
+                                        // color='green'
+                                        className="w-full"
+                                        options={instructorList}
+                                        disabled={false}
+                                        disableClearable={true}
+                                        name="classType"
+                                        getOptionLabel={(option) => option.firstName + " " +option.lastName}
+                                        renderInput={(params) => (
+                                            <TextValidator
+                                                color='green'
+                                                {...params}
+                                                // className=" w-full"
+                                                placeholder="Select instructor"
+                                                value={instructorID}
+                                                disabled={false}
+                                                InputLabelProps={{shrink: false}}
+                                                type="text"
+                                                variant="outlined"
+                                                size="small"
+                                                validators={[
+                                                    'required',
+                                                ]}
+                                                errorMessages={[
+                                                    'This field is required',
+                                                ]}
+                                            />
+                                        )}
+                                        onChange={(e, newValue) => {
+                                            if(newValue !== null){
+                                                setInstructorID(newValue._id)
+                                                console.log("new Value",newValue)
+                                            }
+                                        }}
+                                        onInputChange={(e, newValue) => {
+                                            console.log(newValue)
+                                            if(newValue !== null){
+                                                setInstructorID(newValue.ID)
+                                            }
+                                        }}
+                                    />
+
+                                
                             </Grid>
                             <Grid
                                 item
@@ -385,9 +421,9 @@ const CreateClass = () => {
                                     type="text"
                                     variant="outlined"
                                     size="small"
-                                    // onChange={(e) => {
-                                    //     setAdmission(e.target.value)
-                                    // }}
+                                    onChange={(e) => {
+                                        setAdmission(e.target.value)
+                                    }}
                                     validators={[
                                         'required',
                                         'matchRegexp:^[+-]?[0-9]{1,10}(?:\.[0-9]{2})?$',

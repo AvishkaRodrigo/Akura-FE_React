@@ -12,6 +12,10 @@ export const instructorPages = [
         link: '/class/instructor/'
     },
     {
+        title : 'Earnings',
+        link: '/show-paid-fees/0'
+    },
+    {
         title : 'Release Result',
         link: '/release-result'
     },

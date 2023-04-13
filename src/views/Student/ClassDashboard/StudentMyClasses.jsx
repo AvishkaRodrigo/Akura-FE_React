@@ -82,7 +82,7 @@ const StudentMyClasses = () => {
     //         Admission : admission,
     //         Amount : amount,
     //         month : parseInt(moment(new Date()).format('MM')),
-    //         Type: 'online'
+    //         Type: 'STU'
     //     }
     //     // console.log(formData)
 

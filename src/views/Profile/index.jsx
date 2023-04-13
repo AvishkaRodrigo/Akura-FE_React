@@ -1,4 +1,4 @@
-import { Divider, Grid, Typography } from "@mui/material";
+import { Button, Divider, Grid, Typography } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import CustCard from "../../components/CustCard";
@@ -300,7 +300,21 @@ const Profile = () => {
                                             ]}
                                         />
                                     </Grid>
-
+                                    <Grid
+                                        item
+                                        xs={12}
+                                        sm={12}
+                                        md={12}
+                                        lg={12}
+                                        sx={{p:5, display: 'flex', justifyContent:'center'}}
+                                    >
+                                        <Button 
+                                            variant="contained"
+                                            color="green"
+                                        >
+                                            Change Password
+                                        </Button>
+                                    </Grid>
 
 
                                 </Grid>

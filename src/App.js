@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { Provider } from 'react-redux';
-import store from './store';
+// import { Provider } from 'react-redux';
+// import store from './store';
 
 import Navbar from './components/Navbar/Navbar'
 import RegisterStudent from './views/Register/RegisterStudent'
 import RegisterInstructor from './views/Register/RegisterInstructor'
 import RegisterParent from './views/Register/RegisterParent'
-import QRgenerator from './components/QR/QRgenerator'
-import QRGenerator from './components/QRGenerator'
+import QRGenerator from './components/QR/QRgenerator'
+import QRgenerator1 from './components/QRGenerator'
 import QRscanner from './components/QR/QRscanner'
 import Login from './views/Login/Login'
 import Announcement from './views/Instructor/Announcement';
@@ -34,12 +34,15 @@ import StudentResults from './views/Parent/StudentResults';
 import StudentMyClasses from './views/Student/ClassDashboard/StudentMyClasses';
 import AttendanceView from './views/Parent/AttendanceView';
 import Profile from './views/Profile';
+import ClassFeesPaidMonthly from './views/Instructor/ClassFeesPaid';
+import InstructorPayments from './views/Admin/InstructorPayments'
 
 
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   let user = LocalStorageServices.getItem('user')
+  console.log("TOKEN", user)
   useEffect(()=>{
     if (user != null){
       setLoaded(true)
@@ -47,20 +50,22 @@ function App() {
       setLoaded(false)
     }
   },[user])
+
+
   return (
     <div className="App">
       {/* <Provider store={store}> */}
         <BrowserRouter>
           {/* {token ? */}
             {loaded ? 
-            <Navbar/>
-            :
-            null
-            }
-          {/* : null
-          } */}
+              <Navbar/>
+            // :
+            // <Navigate replace to="/" />
+            // }
+          : null
+          }
           <Routes>
-          {/* <Route path="*" element={<Navigate replace to="/" />} /> */}
+          <Route path="*" element={<Navigate replace to="/profile" />} />
             
             <Route
               path='/'
@@ -68,7 +73,7 @@ function App() {
             />
             <Route
               path='/profile'
-              element={<Profile/>}
+              element={!loaded ? <Navigate replace to="/" /> : <Profile/>}
             />
 
             <Route
@@ -134,7 +139,7 @@ function App() {
             
             <Route
               path='/earlyleave'
-              element={<EarlyLeave/>}
+              element={!loaded ? <Navigate replace to="/" /> : <EarlyLeave/>}
             />
             <Route
               path='/announcement/send'
@@ -142,7 +147,7 @@ function App() {
             />
             <Route
               path='/qrgenerator'
-              element={<QRgenerator/>}
+              element={<QRGenerator/>}
             />
             <Route
               path='/qrscanner'
@@ -150,7 +155,7 @@ function App() {
             />
             <Route
               path='/1'
-              element={<QRGenerator/>}
+              element={<QRgenerator1/>}
             />
 
 
@@ -163,6 +168,14 @@ function App() {
               element={<CheckAttendance/>}
             />
 
+            <Route
+              path='/show-paid-fees/:instructor_id'
+              element={<ClassFeesPaidMonthly/>}
+            />
+            <Route
+              path='/payments/instructor/:instructor_id'
+              element={<InstructorPayments/>}
+            />
             <Route
               path='/release-result'
               element={<UploadResult/>}

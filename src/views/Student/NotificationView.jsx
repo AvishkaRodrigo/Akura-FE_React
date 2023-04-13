@@ -14,6 +14,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import NotificationServices from "../../services/NotificationServices";
 import LocalStorageServices from "../../services/LocalStorageServices";
+import moment from "moment";
 
 
 const Notification = () => {
@@ -42,22 +43,31 @@ const Notification = () => {
 
         getUserInfo()
         
-    },[stuId])
+    },[])
 
     const getUserInfo = () => {
-        setUserInfo(JSON.parse(LocalStorageServices.getItem('user')))
-        console.log("asd",JSON.parse(LocalStorageServices.getItem('user')))
-        setStuId(JSON.parse(LocalStorageServices.getItem('myStudent')))
-        console.log("mystu",LocalStorageServices.getItem('myStudent'))
-        getNotifications()
+        // let user = JSON.parse(LocalStorageServices.getItem('user'))
+        // console.log("asd",userInfo)
+        // console.log("mystu",LocalStorageServices.getItem('myStudent'))
+        getNotifications(JSON.parse(LocalStorageServices.getItem('user')),JSON.parse(LocalStorageServices.getItem('myStudent')))
     }
+    
+    const getNotifications = async (user, student) => {
+        setUserInfo(user)
+        setStuId(student)
 
-    const getNotifications = async () => {
-        let params = {
-            ID : stuId
-        }
-        console.log("params",params)
-        if(stuId){
+        console.log("params",user, stuId)
+        if(user.userType == 2){
+            let params = {
+                ID : student
+            }
+            let res = await NotificationServices.getNotifications(params)
+            setNotifications(res.data.notifications)
+            console.log("res",res)
+        }else{
+            let params = {
+                ID : user.id
+            }
             let res = await NotificationServices.getNotifications(params)
             setNotifications(res.data.notifications)
             console.log("res",res)
@@ -102,7 +112,7 @@ const Notification = () => {
                                             sx={{display:'flex', justifyContent:'end'}}
                                         >
                                             <Typography variant="caption">
-                                                {items.createdAt}
+                                                {moment(items.createdAt).format('yyyy-MM-DD HH:MM')}
                                             </Typography>
                                         </Grid>
                                     </CustCard>
@@ -113,7 +123,7 @@ const Notification = () => {
                                 sx={{p:20, display:'flex',justifyContent:'center'}}
                         >
                             <Typography>
-                                Select student first
+                                Nothing to show
                             </Typography>
                         </Grid>
                         }

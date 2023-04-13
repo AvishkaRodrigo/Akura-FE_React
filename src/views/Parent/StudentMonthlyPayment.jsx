@@ -67,7 +67,7 @@ const StudentMonthlyPayment = () => {
             Admission : false,
             Amount : classInfo.classFee,
             month : month,
-            Type: 'online'
+            Type: 'STU'
         }
         console.log(formData)
 

@@ -1,9 +1,10 @@
-import {  Avatar, Button, Card, Grid, Typography } from "@mui/material";
+import {  Avatar, Button, Card, Fab, Grid, Typography } from "@mui/material";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LocalStorageServices from "../../services/LocalStorageServices";
 import MainContainer from "../../components/MainContainer";
 import ParentServices from "../../services/ParentServices";
+import AddIcon from '@mui/icons-material/Add';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const MyStudents = () => {
@@ -50,6 +51,28 @@ const MyStudents = () => {
                 <Grid
                     // container
                 >
+                    <Grid
+                        sx={{
+                            display:'flex',
+                            justifyContent:'end',
+                            mt:10,
+                            position: 'fixed',
+                            bottom: 30,
+                            right: 16,
+                        }}
+                    >
+                        <Fab variant="extended" size="medium" color="green" aria-label="add">
+                            <AddIcon sx={{ mr: 1 }} />
+                            Add another student
+                        </Fab>
+                        {/* <Button
+                            color="green"
+                            variant="contained"
+                            startIcon={<AddIcon/>}
+                        >
+                            Add another student
+                        </Button> */}
+                    </Grid>
                     {
                         
                             studentList.map((items) => (

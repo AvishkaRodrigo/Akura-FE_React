@@ -192,7 +192,7 @@ function CheckAttendance() {
                                                     color='green'
                                                     {...params}
                                                     // className=" w-full"
-                                                    placeholder="Select class type"
+                                                    placeholder="Select instructor"
                                                     value={instructorID}
                                                     disabled={false}
                                                     InputLabelProps={{shrink: false}}

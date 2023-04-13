@@ -15,7 +15,7 @@ const ClassDashboard = () => {
 
     const arr = [
         {
-            month: 'October',
+            month: 'January',
             weeks: 
             [   {
                     TaskName : 'Complete Activity 2.4 in Page 72',
@@ -40,7 +40,7 @@ const ClassDashboard = () => {
             ]
         },
         {
-            month: 'November',
+            month: 'February',
             weeks: 
             [   {
                     TaskName : 'Complete Activity 2.4 in Page 72',
@@ -65,7 +65,7 @@ const ClassDashboard = () => {
             ]
         },
         {
-            month: 'December',
+            month: 'March',
             weeks: 
             [   {
                     TaskName : 'Complete Activity 2.4 in Page 72',

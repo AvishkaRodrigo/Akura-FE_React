@@ -1,6 +1,6 @@
 // TODO - swap student and parent email
 
-import { Autocomplete, Box, Button, Card, Divider, FormControlLabel, Grid, Radio, RadioGroup, Typography } from "@mui/material";
+import { Autocomplete, Box, Button, Card, Divider, FormControlLabel, Grid, Radio, RadioGroup, Tab, Tabs, Typography } from "@mui/material";
 import React,{ Fragment, useState } from "react";
 import { TextValidator,  ValidatorForm } from "react-material-ui-form-validator";
 import SubTitle from "../../components/SubTitle";
@@ -10,7 +10,7 @@ import CustCard from "../../components/CustCard";
 import MainContainer from "../../components/MainContainer";
 import CustSnackbar from "../../components/CustSnackbar";
 import UserServices from "../../services/UserServices";
-import {useNavigate} from 'react-router-dom'
+import {Navigate, useNavigate} from 'react-router-dom'
 
 
 const RegisterStudent = () => {
@@ -26,6 +26,7 @@ const RegisterStudent = () => {
     let [password,setPassword] = useState('')
     let [verifyPassword,setVerifyPassword] = useState('')
 
+    
     let [message, setMessage] = useState('')
     let [alert, setAlert] = useState(false)
     let [severity, setServerity] = useState('success')
@@ -43,18 +44,25 @@ const RegisterStudent = () => {
             password : password,
             userType:2
         }
-
-        const res = await UserServices.createUser(formData)
-        console.log("aaa",res)
-        if (res.status < 300){
+        console.log(formData)
+        if(password !== verifyPassword){
             setAlert(true)
-            setMessage('User registration success')
-            setServerity('success')
-            handleRedirect()
-        }else if (res.status > 399){
-            setAlert(true)
-            setMessage(res.data.msg)
+            setMessage('Password mismatch')
             setServerity('error')
+            console.log("TEST")
+        }else{
+            const res = await UserServices.createUser(formData)
+            console.log("aaa",res)
+            if (res.status < 300){
+                setAlert(true)
+                setMessage('User registration success')
+                setServerity('success')
+                handleRedirect()
+            }else if (res.status > 399){
+                setAlert(true)
+                setMessage(res.data.msg)
+                setServerity('error')
+            }
         }
     }
 
@@ -80,9 +88,56 @@ const RegisterStudent = () => {
             >
                 <MainContainer>
                     <CustCard>
+                        <Box style={{ width: '100%', backgroundColor:'#d5e2ed' }}>
+                            <Tabs 
+                                // value={value} 
+                                // onChange={handleChange} 
+                                centered
+                            >
+                                <Grid
+                                    container
+                                    style={{ display:"flex", justifyContent:'space-around'}}
+                                >
+
+                                    <Grid
+                                        item
+                                        sx={{mt:3}}
+                                        >
+                                        <Button 
+                                            sx={{ml: 5}}
+                                            progress={false}
+                                            color="green"
+                                            onClick={()=>{
+                                                navigate('/register/student')
+                                            }}
+                                        >
+                                            Student Registration
+                                        </Button>
+                                    </Grid>
+                                    {/* <hr/> */}
+                                    <Grid 
+                                        sx={{mt:3}}
+                                        item
+                                    >
+                                        <Button 
+                                            sx={{ml: 5}}
+                                            progress={false}
+                                            color="green"
+                                            onClick={()=>{
+                                                navigate("/register/parent")
+                                            }}
+                                        >
+                                            Parent Registration
+                                        </Button>
+                                    </Grid>
+                                    
+                                    {/* <Button>Parent Registration</Button> */}
+                                </Grid>
+                            </Tabs>
+                        </Box>
                         <Typography variant="h5">Parent Registration Form</Typography>
                         <Divider/>
-                        <Grid container spacing={12} sx={{mt:10}}>
+                        <Grid container spacing={12} sx={{my:10}}>
                             <Grid
                                 item
                                 xs={12}
@@ -166,6 +221,43 @@ const RegisterStudent = () => {
                                 lg={4}
                                 sx={{p:5}}
                             >
+                                <SubTitle title="Email" required/>
+                                <TextValidator
+                                    color='green'
+                                    fullWidth 
+                                    placeholder="Enter email"
+                                    name="email"
+                                    InputLabelProps={{
+                                        shrink: false,
+                                    }}
+                                    value={
+                                        email
+                                    }
+                                    disabled={false}
+                                    type="email"
+                                    variant="outlined"
+                                    size="small"
+                                    onChange={(e) => {
+                                        setEmail(e.target.value)
+                                    }}
+                                    validators={[
+                                        'required',
+                                        'matchRegexp:^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
+                                    ]}
+                                    errorMessages={[
+                                        'This field is required',
+                                        'Email is invalid',
+                                    ]}
+                                />
+                            </Grid>
+                            <Grid
+                                item
+                                xs={12}
+                                sm={6}
+                                md={6}
+                                lg={4}
+                                sx={{p:5}}
+                            >
                                 <SubTitle title="Contact Number" required/>
                                 <TextValidator
                                     color='green'
@@ -208,7 +300,7 @@ const RegisterStudent = () => {
                                     color='green'
                                     fullWidth 
                                     placeholder="Enter address"
-                                    name="accNumber"
+                                    name="address"
                                     InputLabelProps={{
                                         shrink: false,
                                     }}
@@ -228,59 +320,16 @@ const RegisterStudent = () => {
                                     ]}
                                     errorMessages={[
                                         'This field is required',
-                                        'NIC number is invalid',
                                     ]}
                                 />
                             </Grid>
-                            {/* <Grid
-                                item
-                                xs={12}
-                                sm={6}
-                                md={6}
-                                lg={4}
-                                sx={{p:5}}
-                            >
-                                <SubTitle title="Subject" required/>
-                                <Autocomplete
-                                    color='green'
-                                    className="w-full"
-                                    options={Levels}
-                                    disabled={false}
-                                    name="level"
-                                    getOptionLabel={(option) => option.label}
-                                    renderInput={(params) => (
-                                        <TextValidator
-                                            color='green'
-                                            {...params}
-                                            // className=" w-full"
-                                            placeholder="Select examination level"
-                                            value={subject}
-                                            disabled={false}
-                                            InputLabelProps={{shrink: false}}
-                                            type="text"
-                                            variant="outlined"
-                                            size="small"
-                                            validators={[
-                                                'required',
-                                            ]}
-                                            errorMessages={[
-                                                'This field is required',
-                                            ]}
-                                        />
-                                    )}
-                                    onChange={(e, newValue) => {
-                                        if(newValue !== null){
-                                            setSubject(newValue.value)
-                                        }
-                                    }}
-                                    onInputChange={(e, newValue) => {
-                                        if(newValue !== null){
-                                            setSubject(newValue.value)
-                                        }
-                                    }}
-                                />
-                            </Grid> */}
-                                    
+                            
+                            
+                        </Grid>
+                        
+                        <Divider/>
+
+                        <Grid container spacing={12} sx={{mt:1}}>
                             <Grid
                                 item
                                 xs={12}
@@ -356,42 +405,44 @@ const RegisterStudent = () => {
                                 />
                             </Grid>
 
-                        <Grid
-                            item
-                            xs={12}
-                            sm={12}
-                            md={12}
-                            lg={12}
-                            sx={{pt:10, display: 'flex', justifyContent: 'end' }}
-                        >
-                            <Button
-                                progress={false}
-                                type="cancel"
-                                startIcon ={<CloseIcon/>}
-                                variant="contained"
-                                color="red"
-                                // onClick={handleSubmit}
+                            <Grid
+                                item
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                lg={12}
+                                sx={{pt:10, display: 'flex', justifyContent: 'end' }}
                             >
-                                <span className="capitalize">
-                                    Cancel
-                                </span>
-                            </Button>
-                            
-                            <Button
-                                sx={{ml: 5}}
-                                progress={false}
-                                type="submit"
-                                endIcon ={<SendIcon/>}
-                                variant="contained"
-                                color="green"
-                                // onClick={handleSubmit}
-                            >
-                                <span className="capitalize">
-                                    Submit
-                                </span>
-                            </Button>
-                            
-                        </Grid>
+                                <Button
+                                    progress={false}
+                                    type="cancel"
+                                    startIcon ={<CloseIcon/>}
+                                    variant="contained"
+                                    color="red"
+                                    onClick={ () =>
+                                        navigate("/")
+                                    }
+                                >
+                                    <span className="capitalize">
+                                        Cancel
+                                    </span>
+                                </Button>
+                                
+                                <Button
+                                    sx={{ml: 5}}
+                                    progress={false}
+                                    type="submit"
+                                    endIcon ={<SendIcon/>}
+                                    variant="contained"
+                                    color="green"
+                                    // onClick={handleSubmit}
+                                >
+                                    <span className="capitalize">
+                                        Submit
+                                    </span>
+                                </Button>
+                                
+                            </Grid>
                         </Grid>
                     </CustCard>
                 </MainContainer>

@@ -2,15 +2,16 @@ import React, { Fragment, useEffect, useState } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import MainContainerResponsive from "../../components/MainContainerResponsive";
 import InstructorServices from "../../services/InstructorServices";
-import { Grid } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Button, Fab, Grid } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import { MagicSpinner, } from "react-spinners-kit";
 import MainContainer from "../../components/MainContainer";
 import Table from "../../components/CustTable";
-
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 const GetAllInstructors = () => {
 
+    let navigate = useNavigate()
     const [rows, setRows] = useState(undefined);
     const [loaded, setLoaded] = useState(false);
     let arr = rows || []
@@ -33,6 +34,23 @@ const GetAllInstructors = () => {
     },[])
 
     const columns = [
+        { 
+            accessorKey: '_id', 
+            header: 'View Earnings', 
+            width : 20,
+            Cell: ({ cell }) => (
+                <div style={{display:'flex', justifyContent:'center'}}>
+                    <Fab size="small" color="green" aria-label="add"
+                        onClick={()=>{
+                            navigate("/show-paid-fees/"+cell.getValue())
+                        }}
+                    >
+                        <AccountBalanceWalletIcon/>
+                    </Fab>
+                </div>
+        // }
+            ),
+        },
         { 
             accessorKey: '_id', 
             header: 'Instructor ID', 

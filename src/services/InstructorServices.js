@@ -90,6 +90,28 @@ class InstructorServices  {
         })
         return await a
     }
+
+    getClassFeesForInstructor = async (params) => {
+        const accessToken = LocalStorageServices.getItem('token');
+        console.log("accdsesd",accessToken)
+        
+        let a = new Promise((resolve, reject)=>{
+            axios
+                .get(apiroutes.CLASS_FEES_INSTRUCTOR,{
+                    headers : {
+                        'x-auth-token': `${accessToken}`
+                    },
+                    params : params
+                })
+                .then((res)=> {
+                    return resolve(res)
+                })
+                .catch((err)=>{
+                    return resolve(err.response)
+                })
+        })
+        return await a
+    }
 }
 
 

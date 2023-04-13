@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Button, Card, Divider, FormControlLabel, Grid, Radio, RadioGroup, Typography } from "@mui/material";
+import { Autocomplete, Box, Button, Card, Divider, FormControlLabel, Grid, Radio, RadioGroup, Tabs, Typography } from "@mui/material";
 import React,{ Fragment, useState } from "react";
 import {Link, useNavigate} from 'react-router-dom'
 import { TextValidator,  ValidatorForm } from "react-material-ui-form-validator";
@@ -50,20 +50,26 @@ const RegisterStudent = () => {
 
         console.log(formData)
 
-        
-
-        const res = await UserServices.createUser(formData)
-        console.log("aaa",res)
-        if (res.status < 300){
+        if(password !== verifyPassword){
             setAlert(true)
-            setMessage('User registration success')
-            setServerity('success')
-            handleRedirect()
-        }else if (res.status > 399){
-            setAlert(true)
-            setMessage(res.data.msg)
+            setMessage('Password mismatch')
             setServerity('error')
+            console.log("TEST")
+        }else{
+            const res = await UserServices.createUser(formData)
+            console.log("aaa",res)
+            if (res.status < 300){
+                setAlert(true)
+                setMessage('User registration success')
+                setServerity('success')
+                handleRedirect()
+            }else if (res.status > 399){
+                setAlert(true)
+                setMessage(res.data.msg)
+                setServerity('error')
+            }
         }
+
     
 
     }
@@ -90,6 +96,53 @@ const RegisterStudent = () => {
             >
                 <MainContainer>
                     <CustCard>
+                    <Box style={{ width: '100%', backgroundColor:'#d5e2ed' }}>
+                            <Tabs 
+                                // value={value} 
+                                // onChange={handleChange} 
+                                centered
+                            >
+                                <Grid
+                                    container
+                                    style={{ display:"flex", justifyContent:'space-around'}}
+                                >
+
+                                    <Grid
+                                        item
+                                        sx={{mt:3}}
+                                        >
+                                        <Button 
+                                            sx={{ml: 5}}
+                                            progress={false}
+                                            color="green"
+                                            onClick={()=>{
+                                                navigate('/register/student')
+                                            }}
+                                        >
+                                            Student Registration
+                                        </Button>
+                                    </Grid>
+                                    {/* <hr/> */}
+                                    <Grid 
+                                        sx={{mt:3}}
+                                        item
+                                    >
+                                        <Button 
+                                            sx={{ml: 5}}
+                                            progress={false}
+                                            color="green"
+                                            onClick={()=>{
+                                                navigate("/register/parent")
+                                            }}
+                                        >
+                                            Parent Registration
+                                        </Button>
+                                    </Grid>
+                                    
+                                    {/* <Button>Parent Registration</Button> */}
+                                </Grid>
+                            </Tabs>
+                        </Box>
                         <Typography variant="h5">Student Registration Form</Typography>
                         <Divider/>
                         <Grid container spacing={12} sx={{mt:10}}>
@@ -486,8 +539,10 @@ const RegisterStudent = () => {
                                     startIcon ={<CloseIcon/>}
                                     variant="contained"
                                     color="red"
-                                    // onClick={handleSubmit}
-                                    >
+                                    onClick={ () =>
+                                        navigate("/")
+                                    }
+                                >
                                     <span className="capitalize">
                                         Cancel
                                     </span>

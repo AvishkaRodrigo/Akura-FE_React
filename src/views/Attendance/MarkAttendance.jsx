@@ -146,7 +146,8 @@ function MarkAttendance() {
             <MainContainer>
                 <Grid
                     container
-                    sx={{display:'flex'}}
+                    sx={{display:'flex', mt:10}}
+                    spacing={5}
                 >
                     {/* <button onClick={()=> showAttendance()}>
                         getdata
@@ -154,16 +155,16 @@ function MarkAttendance() {
                     <Grid
                         xs={12}
                         sm={12}
-                        md={6}
-                        lg={6}
+                        md={3}
+                        lg={3}
                         // sx={{display:'flex'}}
                     >
                         
                         <Grid
                             xs={12}
                             sm={12}
-                            md={6}
-                            lg={6}
+                            md={12}
+                            lg={12}
                             spacing={3}
                         >
                             <ValidatorForm
@@ -438,7 +439,11 @@ function MarkAttendance() {
                         
                     </Grid>
                     <Grid
-                        lg={6}
+                        xs={12}
+                        sm={12}
+                        md={9}
+                        lg={9}
+                        sx={{pl:10}}
                     >
                         {loaded && startScan? 
                             <Table

@@ -28,12 +28,13 @@ import { instructorPages } from '../../navigations/InstructorPages';
 import { staffMemberPages } from '../../navigations/StaffMemberPages';
 import { adminPages } from '../../navigations/AdminPages';
 import { publicPages } from '../../navigations/PublicPages';
-
 let pages = [];
 
 const settings = ['Profile', 'Dashboard', 'Logout'];
 
+
 function ResponsiveAppBar() {
+
 
   const [loaded, setLoaded] = React.useState(false);
 
@@ -234,12 +235,14 @@ function ResponsiveAppBar() {
             >
               
               {/* {settings.map((setting) => ( */}
-                <MenuItem  onClick={handleCloseUserMenu}>
+                <MenuItem  onClick={()=>{
+                  navigate ('/profile')
+                }}>
                   <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
-                <MenuItem  onClick={handleCloseUserMenu}>
+                {/* <MenuItem  onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Dashboard</Typography>
-                </MenuItem>
+                </MenuItem> */}
                 <MenuItem  onClick={handleCloseUserMenu}>
                   <Typography textAlign="center" onClick={() => {
                     AuthServices.logout()
