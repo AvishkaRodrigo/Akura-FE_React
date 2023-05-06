@@ -19,6 +19,7 @@ import { MagicSpinner } from "react-spinners-kit";
 import moment from "moment/moment";
 import { useNavigate } from "react-router-dom";
 import FilterListIcon from '@mui/icons-material/FilterList';
+import { WeekDays } from "../../appconst";
 
 const Classes = () => {
     const navigate = useNavigate()
@@ -41,6 +42,7 @@ const Classes = () => {
     const [classTypeP,setClassTypeP] = useState(null)
     const [gradeP,setGradeP] = useState(null)
     const [levelP,setLevelP] = useState(null)
+    const [day,setDay] = useState(null)
 
     const [classes, setClasses] = useState([])
 
@@ -58,7 +60,8 @@ const Classes = () => {
         let params = {
             level : levelP,
             grade : gradeP,
-            classType : classTypeP
+            classType : classTypeP,
+            day : day
         }
         console.log(params)
         setLoaded(false)
@@ -147,10 +150,10 @@ const Classes = () => {
                             item
                             xs={12}
                             md={6}
-                            lg={3}
+                            lg={2}
                             sx={{p:5}}
                         >
-                            <SubTitle title="Level" required/>
+                            <SubTitle title="Level" />
                             <Autocomplete
                                 color='green'
                                 className="w-full"
@@ -192,56 +195,10 @@ const Classes = () => {
                             item
                             xs={12}
                             md={6}
-                            lg={3}
+                            lg={2}
                             sx={{p:5}}
                         >
-                            <SubTitle title="Class Type" required/>
-                            <Autocomplete
-                                color='green'
-                                className="w-full"
-                                options={classTypes}
-                                disabled={false}
-                                name="classType"
-                                getOptionLabel={(option) => option.label}
-                                renderInput={(params) => (
-                                    <TextValidator
-                                        color='green'
-                                        {...params}
-                                        // className=" w-full"
-                                        placeholder="Select class type"
-                                        value={classTypeP}
-                                        disabled={false}
-                                        InputLabelProps={{shrink: false}}
-                                        type="text"
-                                        variant="outlined"
-                                        size="small"
-                                        
-                                    />
-                                )}
-                                onChange={(e, newValue) => {
-                                    if(newValue !== null){
-                                        setClassTypeP(newValue.value)
-                                    }else {
-                                        setLevelP(null)
-                                    }
-                                }}
-                                onInputChange={(e, newValue) => {
-                                    if(newValue !== null){
-                                        setClassTypeP(newValue.value)
-                                    }else {
-                                        setLevelP(null)
-                                    }
-                                }}
-                            />
-                        </Grid>        
-                        <Grid
-                            item
-                            xs={12}
-                            md={6}
-                            lg={3}
-                            sx={{p:5}}
-                        >
-                            <SubTitle title="Grade" required/>
+                            <SubTitle title="Grade" />
                             <Autocomplete
                                 color='green'
                                 className="w-full"
@@ -268,14 +225,106 @@ const Classes = () => {
                                     if(newValue !== null){
                                         setGradeP(newValue.value)
                                     }else {
-                                        setLevelP(null)
+                                        setGradeP(null)
                                     }
                                 }}
                                 onInputChange={(e, newValue) => {
                                     if(newValue !== null){
                                         setGradeP(newValue.value)
                                     }else {
-                                        setLevelP(null)
+                                        setGradeP(null)
+                                    }
+                                }}
+                            />
+                        </Grid> 
+                        <Grid
+                            item
+                            xs={12}
+                            md={6}
+                            lg={2}
+                            sx={{p:5}}
+                        >
+                            <SubTitle title="Class Type" />
+                            <Autocomplete
+                                color='green'
+                                className="w-full"
+                                options={classTypes}
+                                disabled={false}
+                                name="classType"
+                                getOptionLabel={(option) => option.label}
+                                renderInput={(params) => (
+                                    <TextValidator
+                                        color='green'
+                                        {...params}
+                                        // className=" w-full"
+                                        placeholder="Select class type"
+                                        value={classTypeP}
+                                        disabled={false}
+                                        InputLabelProps={{shrink: false}}
+                                        type="text"
+                                        variant="outlined"
+                                        size="small"
+                                        
+                                    />
+                                )}
+                                onChange={(e, newValue) => {
+                                    if(newValue !== null){
+                                        setClassTypeP(newValue.value)
+                                    }else {
+                                        setClassTypeP(null)
+                                    }
+                                }}
+                                onInputChange={(e, newValue) => {
+                                    if(newValue !== null){
+                                        setClassTypeP(newValue.value)
+                                    }else {
+                                        setClassTypeP(null)
+                                    }
+                                }}
+                            />
+                        </Grid>        
+                        <Grid
+                            item
+                            xs={12}
+                            md={6}
+                            lg={2}
+                            sx={{p:5}}
+                        >
+                            <SubTitle title="Day" />
+                            <Autocomplete
+                                color='green'
+                                className="w-full"
+                                options={WeekDays}
+                                disabled={false}
+                                groupBy={(option) => option.type}
+                                getOptionLabel={(option) => option.label}
+                                renderInput={(params) => (
+                                    <TextValidator
+                                        color='green'
+                                        {...params}
+                                        // className=" w-full"
+                                        placeholder="Select day"
+                                        value={gradeP}
+                                        disabled={false}
+                                        InputLabelProps={{shrink: false}}
+                                        type="text"
+                                        variant="outlined"
+                                        size="small"
+                                        
+                                    />
+                                )}
+                                onChange={(e, newValue) => {
+                                    if(newValue !== null){
+                                        setDay(newValue.label)
+                                    }else {
+                                        setDay(null)
+                                    }
+                                }}
+                                onInputChange={(e, newValue) => {
+                                    if(newValue !== null){
+                                        setDay(newValue.label)
+                                    }else {
+                                        setDay(null)
                                     }
                                 }}
                             />
@@ -362,7 +411,7 @@ const Classes = () => {
                                                     sx={{pl:4, color:'#fff'}} 
                                                     variant='button'
                                                 >
-                                                    {moment(items.startTime).format('HH:mm')}-{moment(items.endTime).format('HH:mm')}
+                                                    {moment(items.startTime).format('HH:mm')}-{moment(items.endTime).format('HH:mm')} - Hall {items.hall}
                                                 </Typography>
                                             </Grid>
                                             <Grid
@@ -416,7 +465,14 @@ const Classes = () => {
                                     </Card>
                                 </Grid>
                             ))
-                    : null
+                    : 
+                        <Grid
+                            sx={{m:10,display: 'flex', justifyContent:'center'}}
+                        >
+                            <Typography>
+                                No classes based on your filter options
+                            </Typography>
+                        </Grid>
                     }
                     
                 </Grid>

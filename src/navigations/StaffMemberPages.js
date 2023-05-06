@@ -1,27 +1,19 @@
 export const staffMemberPages = [
     {
-        title : 'Create ID',
-        link: '/qrgenerator'
-    },
-    {
         title : 'Scan ID',
         link: '/qrscanner'
+    },
+    {
+        title : 'Create ID',
+        link: '/qrgenerator'
     },
     {
         title : 'All Students',
         link : '/student/all'
     },
     {
-        title : 'Classes',
-        link: '/classes'
-    },
-    {
-        title : 'Register Student',
-        link: '/classes'
-    },
-    {
-        title : 'Register Parent',
-        link: '/classes'
+        title : 'New Registeration',
+        link: '/register/student'
     },
     {
         title : 'Mark Attendance',
@@ -31,4 +23,13 @@ export const staffMemberPages = [
         title : 'Check Attendance',
         link: '/check-attendance'
     },
+    {
+        title : 'Early leave',
+        link: '/earlyleave'
+    },
+    {
+        title : 'Classes',
+        link: '/classes'
+    },
+    
 ]

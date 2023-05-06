@@ -16,6 +16,7 @@ import CampaignIcon from '@mui/icons-material/Campaign';
 import CloseIcon from '@mui/icons-material/Close';
 import dayjs from "dayjs";
 import moment from "moment";
+import HandleRefresh from "../../utils/HandleRefresh";
 
 
 const EarlyLeave = () => {
@@ -62,7 +63,7 @@ const EarlyLeave = () => {
     let handleSubmit = async () => {
         // console.log(classes, header, notification)
 
-        let msg = 'Your child leave the class early. '+(notification)+" | Date : "+moment(date).format('yyyy/MM/DD')+" | Time: "+moment(time).format('hh:MM A')
+        let msg = 'Your child leave the class early. '+(notification)+" | Date : "+moment(date).format('yyyy/MM/DD')+" | Time: "+moment(time).format('HH:mm A')
 
 
         let formData = new FormData();
@@ -73,14 +74,14 @@ const EarlyLeave = () => {
             ST_ID:ST_ID
         }
 
-        console.log(formData)
+        console.log("Email",formData)
         const res = await NotificationServices.createEarlyLeaveNotification(formData)
         console.log("notification res",res)
         if (res.status < 300){
             setAlert(true)
             setMessage('Notification sent!')
             setServerity('success')
-            handleRedirect()
+            HandleRefresh(1)
         }else if (res.status > 399){
             setAlert(true)
             setMessage(res.data.msg)
@@ -166,7 +167,7 @@ const EarlyLeave = () => {
                                     color='green'
                                     fullWidth 
                                     placeholder="Enter student id"
-                                    name="header"
+                                    name="ST_ID"
                                     InputLabelProps={{
                                         shrink: false,
                                     }}
@@ -337,7 +338,7 @@ const EarlyLeave = () => {
                                     Your child leave the class early. <br/>
                                     {notification}
                                     <br/> Date : {moment(date).format('yyyy/MM/DD')}
-                                    <br/> Time: {moment(time).format('hh:MM A')}
+                                    <br/> Time: {moment(time).format('hh:mm A')}
                                 </Typography>
                             </Grid>
                             <Grid

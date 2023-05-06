@@ -36,7 +36,7 @@ const Announcement = () => {
         const getClasses = async () => {
             const user = getUser()
             if (user != null){
-                const res = await InstructorServices.getClasses(user.userID)
+                const res = await InstructorServices.getClasses(user.id)
                 setMyClasses(res.data)
                 console.log("ins classes",res.data)
             }else{
@@ -49,7 +49,7 @@ const Announcement = () => {
     },[])
 
     let getUser = () => {
-        currentUser = LocalStorageServices.getItem('user')
+        currentUser = JSON.parse(LocalStorageServices.getItem('user'))
         console.log('lcoaluser', currentUser)
         return currentUser
     }

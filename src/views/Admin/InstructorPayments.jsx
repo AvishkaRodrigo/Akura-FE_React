@@ -156,13 +156,17 @@ const InstructorPayments = () => {
     }
     
     const calculateInsPayment = () => {
-        setLoaded3(false)
         if(paymentAmount !== null && instituteFee !== null){
-            let temp = parseInt(paymentAmount) - (parseInt(paymentAmount) * parseFloat(instituteFee) /100)
-            setInsPayment(temp)
+            setLoaded3(false)
+            if(paymentAmount !== null && instituteFee !== null){
+                let temp = parseInt(paymentAmount) - (parseInt(paymentAmount) * parseFloat(instituteFee) /100)
+                setInsPayment(temp)
+            }
+            console.log(insPayment)
+            setLoaded3(true)
+        }else{
+            setLoaded3(false)
         }
-        console.log(insPayment)
-        setLoaded3(true)
     }
 
     const payInstructor = async () => {
@@ -311,7 +315,7 @@ const InstructorPayments = () => {
                                                 ]}
                                                 errorMessages={[
                                                     'This field is required',
-                                                    'Admission fee is invalid',
+                                                    'Invalid amount',
                                                     'Only positive amounts are acceptable'
                                                 ]}
                                             />
@@ -350,7 +354,7 @@ const InstructorPayments = () => {
                                                 ]}
                                                 errorMessages={[
                                                     'This field is required',
-                                                    'Admission fee is invalid',
+                                                    'Invalid percentage',
                                                     'Percentage should be greater than 0%',
                                                     'Percentage should be less than 100%'
                                                 ]}

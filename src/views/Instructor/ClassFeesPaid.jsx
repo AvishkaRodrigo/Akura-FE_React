@@ -18,12 +18,13 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { ImpulseSpinner, MagicSpinner, StageSpinner } from "react-spinners-kit";
 import ReactEcharts from "echarts-for-react"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PaymentsIcon from '@mui/icons-material/Payments';
 
 const ClassFeesPaidMonthly = () => {
     
     const param = useParams()
+    const navigate = useNavigate()
 
     const [user, setUser] = useState(null)
     const [data, setData] = useState([])
@@ -475,12 +476,19 @@ const ClassFeesPaidMonthly = () => {
                                             </Typography>
                                         </Button>
                                     </Grid>
-                                    {user.userType == 5 ? 
+                                    {/* {user.userType == 5 ?  */}
                                         <Button
                                             variant="contained"
                                             color="red"
                                             sx={{ml : 10}}
                                             startIcon={<PaymentsIcon/>}
+                                            onClick={()=>{
+                                                if(user.userType == 5){
+                                                    navigate("/payments/instructor/"+param.instructor_id)
+                                                }else{
+                                                    navigate("/payments/instructor/"+user.id)
+                                                }
+                                            }}
                                         >
                                             <Typography
                                                 // variant="h6"
@@ -488,7 +496,7 @@ const ClassFeesPaidMonthly = () => {
                                                 Payments
                                             </Typography>
                                         </Button>
-                                    : null}
+                                    {/* : null} */}
                                 </Grid>
                             </Card>
                         : 

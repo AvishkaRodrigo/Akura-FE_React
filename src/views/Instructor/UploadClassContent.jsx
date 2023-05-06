@@ -2,7 +2,7 @@
 
 
 
-import { Autocomplete, Button, Card, Grid, LinearProgress, Typography } from '@mui/material';
+import { Autocomplete, Button, Card, Divider, Grid, LinearProgress, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState, CSSProperties, Fragment, useEffect } from 'react';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
@@ -29,71 +29,71 @@ const REMOVE_HOVER_COLOR_LIGHT = lightenDarkenColor(DEFAULT_REMOVE_HOVER_COLOR,4
 const GREY_DIM = '#008272';
 
 const styles = {
-  zone: {
-    alignItems: 'center',
-    border: `2px dashed ${GREY}`,
-    borderRadius: 20,
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  file: {
-    background: 'linear-gradient(to bottom, #EEE, #DDD)',
-    borderRadius: 20,
-    display: 'flex',
-    height: 120,
-    width: 200,
-    position: 'relative',
-    zIndex: 10,
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  info: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-  size: {
-    // backgroundColor: GREY_LIGHT,
-    borderRadius: 3,
-    marginBottom: '0.5em',
-    justifyContent: 'center',
-    display: 'flex',
-  },
-  name: {
-    // backgroundColor: GREY_LIGHT,
-    borderRadius: 3,
-    fontSize: 12,
-    marginBottom: '0.5em',
-  },
-  progressBar: {
-    bottom: 14,
-    color:'#008272',
-    position: 'absolute',
-    width: '80%',
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-  zoneHover: {
-    borderColor: GREY_DIM,
-  },
-  default: {
-    borderColor: GREY,
-  },
-  remove: {
-    height: 23,
-    position: 'absolute',
-    right: 6,
-    top: 6,
-    width: 23,
-  },
+    zone: {
+        alignItems: 'center',
+        border: `2px dashed ${GREY}`,
+        borderRadius: 20,
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        justifyContent: 'center',
+        padding: 20,
+    },
+    file: {
+        background: 'linear-gradient(to bottom, #EEE, #DDD)',
+        borderRadius: 20,
+        display: 'flex',
+        height: 120,
+        width: 200,
+        position: 'relative',
+        zIndex: 10,
+        flexDirection: 'column',
+        justifyContent: 'center',
+    },
+    info: {
+        alignItems: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
+    size: {
+        // backgroundColor: GREY_LIGHT,
+        borderRadius: 3,
+        marginBottom: '0.5em',
+        justifyContent: 'center',
+        display: 'flex',
+    },
+    name: {
+        // backgroundColor: GREY_LIGHT,
+        borderRadius: 3,
+        fontSize: 12,
+        marginBottom: '0.5em',
+    },
+    progressBar: {
+        bottom: 14,
+        color:'#008272',
+        position: 'absolute',
+        width: '80%',
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
+    zoneHover: {
+        borderColor: GREY_DIM,
+    },
+    default: {
+        borderColor: GREY,
+    },
+    remove: {
+        height: 23,
+        position: 'absolute',
+        right: 6,
+        top: 6,
+        width: 23,
+    },
 };
 
-const UploadResult = () => {
+const UploadClassContent = () => {
     const { CSVReader } = useCSVReader();
     const [zoneHover, setZoneHover] = useState(false);
     const [removeHoverColor, setRemoveHoverColor] = useState(DEFAULT_REMOVE_HOVER_COLOR);
@@ -226,9 +226,9 @@ const UploadResult = () => {
                             >
                                 <Grid
                                     xs={12}
-                                    sx={{py:10, display:'flex',}}
+                                    sx={{py:5, display:'flex',}}
                                 >
-                                    <Button
+                                    {/* <Button
                                         variant='contained'
                                         color='yellow'
                                         startIcon={<DownloadIcon/>}
@@ -237,12 +237,19 @@ const UploadResult = () => {
                                         }}
                                     >
                                         Result Sheet Template
-                                    </Button>
-                                </Grid>
+                                    </Button> */}
 
+                                    <Typography
+                                        variant="h5"
+                                    >
+                                        Upload Class Content
+                                    </Typography>
+                                </Grid>
+                                    <Divider/>
                                 <Grid
                                     container
                                     spacing={2}
+                                    sx={{mt:10}}
 
                                 >
                                     <Grid
@@ -350,7 +357,7 @@ const UploadResult = () => {
                                         lg={12}
                                         sx={{p:5, mt:10}}
                                     >
-                                        <SubTitle title="Results sheet" required/>
+                                        <SubTitle title="Upload Materials (only if available)"/>
                                     </Grid>
                                     <Grid
                                         item
@@ -406,11 +413,11 @@ const UploadResult = () => {
                                                 <Grid>
                                                     {!errorMsg ?
                                                         <Typography>                                            
-                                                            'Drop CSV file here or click to upload'
+                                                            'Drop file here or click to upload'
                                                         </Typography>
                                                     :
                                                         <Grid style={{color:'red'}}>
-                                                            'Drop CSV file here or click to upload'    
+                                                            'Drop file here or click to upload'    
                                                         </Grid>
                                                     }
                                                 </Grid>
@@ -452,4 +459,4 @@ const UploadResult = () => {
     );
 }
 
-export default UploadResult
+export default UploadClassContent

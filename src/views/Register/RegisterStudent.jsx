@@ -408,7 +408,7 @@ const RegisterStudent = () => {
                                         disablePast
                                         orientation="portrait"
                                         value={year}
-                                        views={['month']}
+                                        views={['year']}
                                         onChange={(newValue) => {
                                             // const newDate = moment(newValue).format('yyyy')
                                             setYear(newValue);

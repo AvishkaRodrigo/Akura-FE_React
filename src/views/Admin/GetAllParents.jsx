@@ -43,7 +43,7 @@ const GetAllParents = () => {
         },
         { 
             accessorKey: 'lastName', 
-            header: 'lastName',
+            header: 'Last Name',
             width : 150
         },
         { 
@@ -53,12 +53,12 @@ const GetAllParents = () => {
         },
         { 
             accessorKey: 'email', 
-            header: 'Student Email', 
+            header: 'Parent email', 
             width : 230
         },
         { 
             accessorKey: 'email2', 
-            header: 'Parent Email', 
+            header: 'Student emails', 
             width : 230
         },
         { 

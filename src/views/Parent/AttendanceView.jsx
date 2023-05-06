@@ -32,7 +32,7 @@ const AttendanceView = () => {
         let events = []
         data.map((x)=>{
             let event = {
-                title: "Attended At : "+moment(x.attend_date).format("HH:MM"),
+                title: "Attended At : "+moment(x.attend_date).format("HH:mm"),
                 start: moment(x.attend_date).format("yyyy-MM-DD"),
                 backgroundColor: "#008272",
                 // textColor: "black"

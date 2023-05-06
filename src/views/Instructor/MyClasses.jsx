@@ -20,6 +20,7 @@ import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import InstructorServices from "../../services/InstructorServices";
 import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import LocalStorageServices from "../../services/LocalStorageServices";
 
 
 
@@ -30,7 +31,19 @@ const MyClasses = (props) => {
     
     useEffect(()=> {
         const getClasses = async () => {
-            const res = await InstructorServices.getClasses()
+            let user = JSON.parse(localStorage.getItem('user'))
+            // console.log("ABC",LocalStorageServices.getItem('user'))
+            console.log("DDD",user.id)
+            
+            let ins_id = null
+            // let id = 
+            if(user.userType == 5){
+                ins_id = id
+            }else {
+                ins_id = user.id
+            }
+
+            const res = await InstructorServices.getClasses(ins_id)
             setMyClasses(res.data)
             console.log("myclasses",res.data)
         }
@@ -158,26 +171,45 @@ const MyClasses = (props) => {
                                         </Typography>
                                     </Grid>
                                     <Grid
-                                        sx={{display:'flex', justifyContent:'center', py:2}}
+                                        sx={{display:'flex', justifyContent:'space-around', py:2, mb:10}}
                                         item
                                         xs={12}
                                         sm={12}
                                         md={12}
                                         lg={12}
                                     >
-                                        <Link
-                                            to={"/class/students/"+items._id}
-                                            style={{textDecoration:'none'}}
-                                        >
-                                            <Button
-                                                variant="contained"
-                                                color="green"
-                                                // onClick={}
+                                        <Grid>
+                                            <Link
+                                                to={"/class/students/"+items._id}
+                                                style={{textDecoration:'none'}}
                                             >
-                                                View all Students
-                                            </Button>
-                                        </Link>
+                                                <Button
+                                                    variant="contained"
+                                                    color="green"
+                                                    // onClick={}
+                                                >
+                                                    View all Students
+                                                </Button>
+                                            </Link>
+                                        </Grid>
+                                        <Grid 
+                                            sx={{ml:2}}
+                                        >
+                                            <Link
+                                                to={"/upload-class-content/"+items._id}
+                                                style={{textDecoration:'none'}}
+                                            >
+                                                <Button
+                                                    variant="contained"
+                                                    color="green"
+                                                    // onClick={}
+                                                >
+                                                    View content
+                                                </Button>
+                                            </Link>
+                                        </Grid>
                                     </Grid>
+                                    
                                 </Grid>
                             </Card>
                         </Grid>

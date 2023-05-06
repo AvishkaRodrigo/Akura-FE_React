@@ -1,4 +1,4 @@
-import { Button, Card, Grid, Paper, Typography } from "@mui/material";
+import { Button, Card, Divider, Grid, Paper, Typography } from "@mui/material";
 import { Fragment, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import SubTitle from "../../components/SubTitle";
@@ -46,11 +46,11 @@ const Login = () => {
                 HandleRefresh(1)
             }
             else if (res.data.info.user.userType === 3) {
-                navigate ("/class/instructor/")
+                navigate ("/class/instructor/0")
                 HandleRefresh(1)
             } 
             else if (res.data.info.user.userType === 4) {
-                navigate ("/profile")
+                navigate ("/mark-attendance")
                 HandleRefresh(1)
             } 
             else if (res.data.info.user.userType === 5) {
@@ -283,11 +283,23 @@ const Login = () => {
                                                 </Button>
                                             </Link>
                                         </Grid>
-                                        <Typography
+                                        <Divider/>
+                                        <Grid
                                             sx={{p:5, display: 'flex',justifyContent: 'center'}}
                                         >
-                                            Forgot password
-                                        </Typography>
+                                            <Link
+                                                to='/classes'
+                                                style={{textDecoration:'none'}}
+                                            >
+                                                <Button
+                                                    // type='submit'
+                                                    variant="outlined"
+                                                    color="green"
+                                                >
+                                                    View all Classes
+                                                </Button>
+                                            </Link>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid> 

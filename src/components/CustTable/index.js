@@ -47,64 +47,6 @@ const Table = (data) => {
                 <Box
                     sx={{ display: 'flex', gap: '1rem', p: '0.5rem', flexWrap: 'wrap' }}
                 >
-                    {/* <Button
-                        color="primary"
-                        //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
-                        onClick={handleExportData}
-                        startIcon={<FileDownloadIcon />}
-                        variant="contained"
-                    >
-                        Export All Data
-                    </Button> */}
-                    {/*
-                    {table.getPrePaginationRowModel().rows.length === 0 ?
-                        null
-                        : 
-                        <Button
-                            color="green"
-                            disabled={table.getPrePaginationRowModel().rows.length === 0}
-                            //export all rows, including from the next page, (still respects filtering and sorting)
-                            onClick={() =>
-                            handleExportRows(table.getPrePaginationRowModel().rows)
-                            }
-                            startIcon={<FileDownloadIcon />}
-                            variant="contained"
-                        >
-                            Export All Rows
-                        </Button>
-                    }
-                    
-                    {table.getRowModel().rows.length === 0 ?
-                        null
-                        :
-                        <Button
-                            color="green"
-                            disabled={table.getRowModel().rows.length === 0}
-                            //export all rows as seen on the screen (respects pagination, sorting, filtering, etc.)
-                            onClick={() => handleExportRows(table.getRowModel().rows)}
-                            startIcon={<FileDownloadIcon />}
-                            variant="contained"
-                        >
-                            Export Page Rows
-                        </Button>
-                    }
-
-                    {!table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected() ?
-                        null
-                        :
-                        <Button
-                            color="green"
-                            disabled={
-                            !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
-                            }
-                            //only export selected rows
-                            onClick={() => handleExportRows(table.getSelectedRowModel().rows)}
-                            startIcon={<FileDownloadIcon />}
-                            variant="contained"
-                        >
-                            Export Selected Rows
-                        </Button>
-                    } */}
                     {table.getPrePaginationRowModel().rows.length === 0 
                             ?
                                 null    

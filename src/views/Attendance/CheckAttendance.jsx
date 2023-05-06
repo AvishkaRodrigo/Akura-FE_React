@@ -66,6 +66,16 @@ function CheckAttendance() {
             header: 'Telephone',
           //   size: 120,
         },
+        { 
+            accessorKey: 'createdAt', 
+            header: 'Attended Time', 
+            width : 130,
+            Cell: ({ cell }) => (
+                <div>
+                    {moment(cell).format('MMMM Do YYYY, h:mm:ss a')}
+                </div>
+            ),
+        },
     ]
 
     useEffect(() => {

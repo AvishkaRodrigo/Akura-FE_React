@@ -36,6 +36,7 @@ import AttendanceView from './views/Parent/AttendanceView';
 import Profile from './views/Profile';
 import ClassFeesPaidMonthly from './views/Instructor/ClassFeesPaid';
 import InstructorPayments from './views/Admin/InstructorPayments'
+import UploadClassContent from './views/Instructor/UploadClassContent'
 
 
 
@@ -107,7 +108,7 @@ function App() {
               element={<Classes/>}
             />
             <Route
-              path='/class/instructor/'
+              path='/class/instructor/:id'
               element={<MyClasses/>}
             />
             <Route
@@ -139,7 +140,7 @@ function App() {
             
             <Route
               path='/earlyleave'
-              element={!loaded ? <Navigate replace to="/" /> : <EarlyLeave/>}
+              element={<EarlyLeave/>}
             />
             <Route
               path='/announcement/send'
@@ -179,6 +180,10 @@ function App() {
             <Route
               path='/release-result'
               element={<UploadResult/>}
+            />
+            <Route
+              path='/upload-class-content/:id'
+              element={<UploadClassContent/>}
             />
             <Route
               path='/viewAllExams'

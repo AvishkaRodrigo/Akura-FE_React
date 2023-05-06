@@ -20,20 +20,18 @@ class InstructorServices  {
         return await a
     }
 
-    getClasses = async () => {
+    getClasses = async (id) => {
         let a = new Promise((resolve, reject)=>{
-            let currentUser = LocalStorageServices.getItem('user')
-            let id = JSON.parse(currentUser).id
-            console.log("currentUser",id)
+            // let currentUser = LocalStorageServices.getItem('user')
+            // let id = JSON.parse(currentUser).id
+            // console.log("currentUser",id)
             axios
                 .get(apiroutes.GET_CLASSE_FOR_INSTRUCTOR + `/${id}` 
-                // TODO - uncomment to access ins only
-                    // ,{
-                    //     // headers: {
-                    //     //     Authorization: `Bearer ${accessToken}`
-                    //     //     // Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ0ZXN0Iiwicm9sZSI6MSwiaWF0IjoxNjY2MDA0NjA2LCJleHAiOjE2NjYzNjQ2MDZ9.CUnkweojyIlcs1HmIMwb1S9bjyRxzzzD-WGyy2LPvT8'}`
-                    //     // }
-                    // } 
+                    ,{
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`
+                        }
+                    } 
                 )
                 .then((res)=> {
                     return resolve(res)

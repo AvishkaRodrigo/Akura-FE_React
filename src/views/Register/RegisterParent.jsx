@@ -22,6 +22,11 @@ const RegisterStudent = () => {
     let [contact,setContact] = useState('')
     let [email,setEmail] = useState('')
     let [email2,setEmail2] = useState('') // student email
+
+    let [stu1Email,setStu1Email] = useState(null)
+    let [stu2Email,setStu2Email] = useState(null)
+    let [stu3Email,setStu3Email] = useState(null)
+
     let [address,setAddress] = useState('')
     let [password,setPassword] = useState('')
     let [verifyPassword,setVerifyPassword] = useState('')
@@ -34,12 +39,24 @@ const RegisterStudent = () => {
     let handleSubmit = async () => {
         var formData = new FormData()
     
+        var stuMails = []
+        if(stu1Email != null){
+            stuMails.push(stu1Email)
+        }
+        if(stu2Email != null){
+            stuMails.push(stu2Email)
+        }
+        if(stu3Email != null){
+            stuMails.push(stu3Email)
+        }
+        console.log("STUMAILS",stuMails)
+        // stuMails = []
         formData = {
             firstName : firstName,
             lastName : lastName,
             contactNumber : contact,
             email : email,
-            email2 : email2,// student email
+            email2 : stuMails,// student email
             address: address,
             password : password,
             userType:2
@@ -137,7 +154,12 @@ const RegisterStudent = () => {
                         </Box>
                         <Typography variant="h5">Parent Registration Form</Typography>
                         <Divider/>
-                        <Grid container spacing={12} sx={{my:10}}>
+                        <Grid
+                            sx={{mt:10}}
+                        >
+                            <Typography variant="h6">Password</Typography>
+                        </Grid>
+                        <Grid container spacing={12} sx={{mb:10}}>
                             <Grid
                                 item
                                 xs={12}
@@ -328,8 +350,138 @@ const RegisterStudent = () => {
                         </Grid>
                         
                         <Divider/>
+                        <Grid
+                            sx={{my:1, mt:10}}
+                        >
+                            <Typography variant="h6">Student Details</Typography>
+                        </Grid>
+                        {/* <Divider/> */}
+                        <Grid
+                            container spacing={12} sx={{mb:10}}
+                        >
+                            <Grid
+                                item
+                                xs={12}
+                                sm={6}
+                                md={6}
+                                lg={4}
+                                sx={{p:5}}
+                            >
+                                <SubTitle title="Student Email" required/>
+                                <TextValidator
+                                    color='green'
+                                    fullWidth 
+                                    placeholder="Enter 1st student email"
+                                    name="email"
+                                    InputLabelProps={{
+                                        shrink: false,
+                                    }}
+                                    value={
+                                        stu1Email
+                                    }
+                                    disabled={false}
+                                    type="email"
+                                    variant="outlined"
+                                    size="small"
+                                    onChange={(e) => {
+                                        setStu1Email(e.target.value)
+                                    }}
+                                    validators={[
+                                        'required',
+                                        'matchRegexp:^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
+                                    ]}
+                                    errorMessages={[
+                                        'This field is required',
+                                        'Email is invalid',
+                                    ]}
+                                />
+                            </Grid>
+                            <Grid
+                                item
+                                xs={12}
+                                sm={6}
+                                md={6}
+                                lg={4}
+                                sx={{p:5}}
+                            >
+                                <SubTitle title="Student Email"/>
+                                <TextValidator
+                                    color='green'
+                                    fullWidth 
+                                    placeholder="Enter 2nd student email if available"
+                                    name="email"
+                                    InputLabelProps={{
+                                        shrink: false,
+                                    }}
+                                    value={
+                                        stu2Email
+                                    }
+                                    disabled={false}
+                                    type="email"
+                                    variant="outlined"
+                                    size="small"
+                                    onChange={(e) => {
+                                        setStu2Email(e.target.value)
+                                    }}
+                                    validators={[
+                                        // 'required',
+                                        'matchRegexp:^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
+                                    ]}
+                                    errorMessages={[
+                                        // 'This field is required',
+                                        'Email is invalid',
+                                    ]}
+                                />
+                            </Grid>
+                            <Grid
+                                item
+                                xs={12}
+                                sm={6}
+                                md={6}
+                                lg={4}
+                                sx={{p:5}}
+                            >
+                                <SubTitle title="Student Email"/>
+                                <TextValidator
+                                    color='green'
+                                    fullWidth 
+                                    placeholder="Enter 3rd student email if available"
+                                    name="email"
+                                    InputLabelProps={{
+                                        shrink: false,
+                                    }}
+                                    value={
+                                        stu3Email
+                                    }
+                                    disabled={false}
+                                    type="email"
+                                    variant="outlined"
+                                    size="small"
+                                    onChange={(e) => {
+                                        setStu3Email(e.target.value)
+                                    }}
+                                    validators={[
+                                        // 'required',
+                                        'matchRegexp:^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$',
+                                    ]}
+                                    errorMessages={[
+                                        // 'This field is required',
+                                        'Email is invalid',
+                                    ]}
+                                />
+                            </Grid>
 
-                        <Grid container spacing={12} sx={{mt:1}}>
+                        </Grid>
+                        <Divider/>
+                        <Grid
+                            sx={{mt:10}}
+                        >
+                            <Typography variant="h6">Password</Typography>
+                        </Grid>
+                        <Grid 
+                            container 
+                            spacing={12} 
+                        >
                             <Grid
                                 item
                                 xs={12}

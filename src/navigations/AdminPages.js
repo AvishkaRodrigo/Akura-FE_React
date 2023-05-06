@@ -24,19 +24,19 @@ export const adminPages = [
         link : '/parent/all'
     },
     {
-        title : 'All Teachers',
+        title : 'All Instructors',
         link : '/instructor/all'
     },
     {
         title : 'Classes',
         link: '/classes'
     },
-    {
-        title : 'Mark Attendance',
-        link: '/mark-attendance'
-    },
-    {
-        title : 'Check Attendance',
-        link: '/check-attendance'
-    },
+    // {
+    //     title : 'Mark Attendance',
+    //     link: '/mark-attendance'
+    // },
+    // {
+    //     title : 'Check Attendance',
+    //     link: '/check-attendance'
+    // },
 ]

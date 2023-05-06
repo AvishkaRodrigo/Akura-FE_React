@@ -1,5 +1,9 @@
 export const instructorPages = [
     {
+        title : 'My Classes',
+        link: '/class/instructor/0'
+    },
+    {
         title : 'Announcement',
         link: '/announcement/send'
     },
@@ -7,10 +11,6 @@ export const instructorPages = [
     //   title : 'Class Overview',
     //   link: '/class/dashboard/:id'  
     // },
-    {
-        title : 'My Classes',
-        link: '/class/instructor/'
-    },
     {
         title : 'Earnings',
         link: '/show-paid-fees/0'
