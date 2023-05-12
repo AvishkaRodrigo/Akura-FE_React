@@ -44,7 +44,13 @@ class ClassServices  {
         let a = new Promise((resolve, reject)=>{
             console.log('STUDENT_MY_CLASSES')
             axios
-                .get(apiroutes.STUDENT_MY_CLASSES+ `/${id}`)
+                .get(apiroutes.STUDENT_MY_CLASSES+ `/${id}`,
+                    {
+                        headers: {
+                            'x-auth-token': `${accessToken}`
+                        }
+                    } 
+                )
                 .then((res)=> {
                     return resolve(res)
                 })
@@ -59,7 +65,13 @@ class ClassServices  {
         let a = new Promise((resolve, reject)=>{
             console.log('STUDENT_MY_CLASSES')
             axios
-                .get(apiroutes.GET_ALL_STUDENTS_OF_A_CLASS+ `/${id}`)
+                .get(apiroutes.GET_ALL_STUDENTS_OF_A_CLASS+ `/${id}`,
+                    {
+                        headers: {
+                            'x-auth-token': `${accessToken}`
+                        }
+                    } 
+                )
                 .then((res)=> {
                     return resolve(res)
                 })
@@ -74,7 +86,13 @@ class ClassServices  {
         let a = new Promise((resolve, reject)=>{
             console.log('test')
             axios
-                .post(apiroutes.CLASS_PAYMENT, data)
+                .post(apiroutes.CLASS_PAYMENT, data
+                    ,{
+                        headers: {
+                            'x-auth-token': `${accessToken}`
+                        }
+                    }     
+                )
                 .then((res)=> {
                     return resolve(res)
                 })
@@ -89,7 +107,13 @@ class ClassServices  {
         let a = new Promise((resolve, reject)=>{
             console.log('test')
             axios
-                .get(apiroutes.CLASS_PAYMENT + `/${classId}` +"/student" + `/${studentId}`)
+                .get(apiroutes.CLASS_PAYMENT + `/${classId}` +"/student" + `/${studentId}`,
+                    {
+                        headers: {
+                            'x-auth-token': `${accessToken}`
+                        }
+                    } 
+                )
                 .then((res)=> {
                     return resolve(res)
                 })

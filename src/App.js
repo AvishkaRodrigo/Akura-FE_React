@@ -55,69 +55,78 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Provider store={store}> */}
         <BrowserRouter>
-          {/* {token ? */}
+
+            {/* //* load navbar if only the user is registered */}
             {loaded ? 
-              <Navbar/>
-            // :
-            // <Navigate replace to="/" />
-            // }
-          : null
-          }
+                <Navbar/>
+              : null
+            }
+
           <Routes>
-          <Route path="*" element={<Navigate replace to="/profile" />} />
             
+            
+            {/* //! public routes */}
             <Route
               path='/'
               element={<Login/>}
             />
             <Route
-              path='/profile'
-              element={!loaded ? <Navigate replace to="/" /> : <Profile/>}
-            />
-
-            <Route
               path='/register/student'
               element={<RegisterStudent/>}
-            />
-            <Route
-              path='/register/instructor'
-              element={<RegisterInstructor/>}
             />
             <Route
               path='/register/parent'
               element={<RegisterParent/>}
             />
-
-
-            <Route
-              path='/notification/view'
-              element={<Notification/>}
-            />
-            <Route
-              path='/student/dashboard'
-              element={<StudentMyClasses/>}
-            />
-            <Route
-              path='/class/dashboard/:id'
-              element={<ClassDashboard/>}
-            />
             <Route
               path='/classes'
               element={<Classes/>}
             />
+
+
+
+            {/* //! default route */}
+            <Route 
+              path="*" 
+              element={<Navigate replace to="/profile" />} 
+            />
+
+
+
+            {/* //! protected routes */}
+            <Route
+              path='/profile'
+              element={<Profile/>}
+            />
+            <Route
+              path='/register/instructor'
+              element={!loaded ? <Navigate replace to="/" /> : <RegisterInstructor/>}
+            />
+
+            <Route
+              path='/notification/view'
+              element={!loaded ? <Navigate replace to="/" /> : <Notification/>}
+            />
+            <Route
+              path='/student/dashboard'
+              element={!loaded ? <Navigate replace to="/" /> : <StudentMyClasses/>}
+            />
+            <Route
+              path='/class/dashboard/:id'
+              element={!loaded ? <Navigate replace to="/" /> : <ClassDashboard/>}
+            />
             <Route
               path='/class/instructor/:id'
-              element={<MyClasses/>}
+              element={!loaded ? <Navigate replace to="/" /> : <MyClasses/>}
             />
             <Route
               path='/class/students/:classID'
-              element={<MyClassStudents/>}
+              element={!loaded ? <Navigate replace to="/" /> : <MyClassStudents/>}
             />
             <Route
               path='/class/create'
-              element={<CreateClass/>}
+              element={!loaded ? <Navigate replace to="/" /> : <CreateClass/>}
             />
 
 
@@ -126,97 +135,98 @@ function App() {
             
             <Route
               path='/instructor/all'
-              element={<GetAllInstructors/>}
+              element={!loaded ? <Navigate replace to="/" /> : <GetAllInstructors/>}
             />
             <Route
               path='/student/all'
-              element={<GetAllStudents/>}
+              element={!loaded ? <Navigate replace to="/" /> : <GetAllStudents/>}
             />
             <Route
               path='/parent/all'
-              element={<GetAllParents/>}
+              element={!loaded ? <Navigate replace to="/" /> : <GetAllParents/>}
             />
 
             
             <Route
               path='/earlyleave'
-              element={<EarlyLeave/>}
+              element={!loaded ? <Navigate replace to="/" /> : <EarlyLeave/>}
             />
             <Route
               path='/announcement/send'
-              element={<Announcement/>}
+              element={!loaded ? <Navigate replace to="/" /> : <Announcement/>}
             />
             <Route
               path='/qrgenerator'
-              element={<QRGenerator/>}
+              element={!loaded ? <Navigate replace to="/" /> : <QRGenerator/>}
             />
             <Route
               path='/qrscanner'
-              element={<QRscanner/>}
+              element={!loaded ? <Navigate replace to="/" /> : <QRscanner/>}
             />
-            <Route
+
+            {/*sample qr */}
+            {/* <Route
               path='/1'
               element={<QRgenerator1/>}
-            />
+            /> */}
 
 
             <Route
               path='/mark-attendance'
-              element={<MarkAttendance/>}
+              element={!loaded ? <Navigate replace to="/" /> : <MarkAttendance/>}
             />
             <Route
               path='/check-attendance'
-              element={<CheckAttendance/>}
+              element={!loaded ? <Navigate replace to="/" /> : <CheckAttendance/>}
             />
 
             <Route
               path='/show-paid-fees/:instructor_id'
-              element={<ClassFeesPaidMonthly/>}
+              element={!loaded ? <Navigate replace to="/" /> : <ClassFeesPaidMonthly/>}
             />
             <Route
               path='/payments/instructor/:instructor_id'
-              element={<InstructorPayments/>}
+              element={!loaded ? <Navigate replace to="/" /> : <InstructorPayments/>}
             />
             <Route
               path='/release-result'
-              element={<UploadResult/>}
+              element={!loaded ? <Navigate replace to="/" /> : <UploadResult/>}
             />
             <Route
               path='/upload-class-content/:id'
-              element={<UploadClassContent/>}
+              element={!loaded ? <Navigate replace to="/" /> : <UploadClassContent/>}
             />
             <Route
               path='/viewAllExams'
-              element={<ViewAllExams/>}
+              element={!loaded ? <Navigate replace to="/" /> : <ViewAllExams/>}
             />
 
 
 
             <Route
               path='/results/:class_ID/:ST_ID'
-              element={<StudentResults/>}
+              element={!loaded ? <Navigate replace to="/" /> : <StudentResults/>}
             />
             <Route
               path='/MyStudents'
-              element={<MyStudents/>}
+              element={!loaded ? <Navigate replace to="/" /> : <MyStudents/>}
             />
             <Route
               path='/parent/dashboard'
-              element={<MyStudentClasses/>}
+              element={!loaded ? <Navigate replace to="/" /> : <MyStudentClasses/>}
             />
             <Route
               path='/parent/classPayments/:classId'
-              element={<StudentMonthlyPayment/>}
+              element={!loaded ? <Navigate replace to="/" /> : <StudentMonthlyPayment/>}
             />
             <Route
               path='/StudentAttendance/:class_ID/:ST_ID'
-              element={<AttendanceView/>}
+              element={!loaded ? <Navigate replace to="/" /> : <AttendanceView/>}
             />
 
 
           </Routes>
         </BrowserRouter>
-      {/* </Provider> */}
     </div>
   );
 }

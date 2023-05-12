@@ -6,8 +6,13 @@ import MainContainer from "../../components/MainContainer";
 import SubTitle from "../../components/SubTitle";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import UserServices from "../../services/UserServices";
+import CustSnackbar from "../../components/CustSnackbar";
 
 const Profile = () => {
+    let [message, setMessage] = useState('')
+    let [alert, setAlert] = useState(false)
+    let [severity, setServerity] = useState('success')
+
 
     let [firstName,setFirstName] = useState('')
     let [lastName,setLastName] = useState('')
@@ -311,8 +316,13 @@ const Profile = () => {
                                         <Button 
                                             variant="contained"
                                             color="green"
+                                            onClick={()=>{
+                                                setAlert(true)
+                                                setServerity('error')
+                                                setMessage('Password mismatch')
+                                            }}
                                         >
-                                            Change Password
+                                            Update Profile
                                         </Button>
                                     </Grid>
 
@@ -323,6 +333,18 @@ const Profile = () => {
                     </MainContainer>
                 </ValidatorForm>
             </Grid>
+
+            <CustSnackbar
+                open={alert}
+                onClose={() => {
+                    setAlert(false)
+                }}
+                message={message}
+                autoHideDuration={3000}
+                severity={severity}
+                elevation={2}
+                variant="filled"
+            ></CustSnackbar>
         </Fragment>
     );
 }

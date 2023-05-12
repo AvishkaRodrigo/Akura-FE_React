@@ -47,14 +47,12 @@ class InstructorServices  {
         let a = new Promise((resolve, reject)=>{
             
             axios
-                .get(apiroutes.GET_CLASSE_FOR_INSTRUCTOR + `/${id}` 
-                // TODO - uncomment to access ins only
-                    // ,{
-                    //     // headers: {
-                    //     //     Authorization: `Bearer ${accessToken}`
-                    //     //     // Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ0ZXN0Iiwicm9sZSI6MSwiaWF0IjoxNjY2MDA0NjA2LCJleHAiOjE2NjYzNjQ2MDZ9.CUnkweojyIlcs1HmIMwb1S9bjyRxzzzD-WGyy2LPvT8'}`
-                    //     // }
-                    // } 
+                .get(apiroutes.GET_CLASSE_FOR_INSTRUCTOR + `/${id}`,
+                    {
+                        headers: {
+                            'x-auth-token': `${accessToken}`
+                        }
+                    } 
                 )
                 .then((res)=> {
                     return resolve(res)
@@ -70,14 +68,12 @@ class InstructorServices  {
         let a = new Promise((resolve, reject)=>{
             
             axios
-                .get(apiroutes.GET_ALL_INSTRUCTORS
-                // TODO - uncomment to access ins only
-                    // ,{
-                    //     // headers: {
-                    //     //     Authorization: `Bearer ${accessToken}`
-                    //     //     // Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ0ZXN0Iiwicm9sZSI6MSwiaWF0IjoxNjY2MDA0NjA2LCJleHAiOjE2NjYzNjQ2MDZ9.CUnkweojyIlcs1HmIMwb1S9bjyRxzzzD-WGyy2LPvT8'}`
-                    //     // }
-                    // } 
+                .get(apiroutes.GET_ALL_INSTRUCTORS,
+                    {
+                        headers: {
+                            'x-auth-token': `${accessToken}`
+                        }
+                    } 
                 )
                 .then((res)=> {
                     return resolve(res)

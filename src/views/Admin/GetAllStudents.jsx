@@ -63,9 +63,9 @@ const GetAllStudents = () => {
             header: 'Email', 
             width : 150,
             // Cell:({cell})=>(
-            //         <div style={{display:'flex', justifyContent:'center'}}>
-            //             {cell.getValue()}
-            //         </div>
+            //     <div style={{display:'flex', justifyContent:'center'}}>
+            //         {cell.getValue()}
+            //     </div>
             // )
         },
         { 
@@ -78,11 +78,11 @@ const GetAllStudents = () => {
             header: 'Examination Year', 
             width : 150,
             Cell: ({ cell }) => (
-                        <div style={{display:'flex', justifyContent:'center'}}>
-                            {/* adas */}
-                            {moment(cell.getValue()).format('yyyy')}
-                            {/* (value) */}
-                        </div>
+                    <div style={{display:'flex', justifyContent:'center'}}>
+                        {/* adas */}
+                        {moment(cell.getValue()).format('yyyy')}
+                        {/* (value) */}
+                    </div>
                 // }
             ),
         },

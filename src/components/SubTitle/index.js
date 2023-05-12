@@ -33,7 +33,6 @@ class SubTitle extends Component {
             return (
                 <div className='text-error flex'>
                     <Typography className=" text-gray font-semibold text-13 mt-2 mb-2" style={{ lineHeight: '1', }}>{title}</Typography>
-                        {/* <p className="text-error font-bold" style={{ lineHeight: '0'}}>*</p> */}
                 </div>
             );
         }

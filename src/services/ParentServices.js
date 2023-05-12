@@ -27,13 +27,11 @@ class ParentServices  {
             
             axios
                 .get(apiroutes.GET_ALL_PARENTS
-                // TODO - uncomment to access ins only
-                    // ,{
-                    //     // headers: {
-                    //     //     Authorization: `Bearer ${accessToken}`
-                    //     //     // Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ0ZXN0Iiwicm9sZSI6MSwiaWF0IjoxNjY2MDA0NjA2LCJleHAiOjE2NjYzNjQ2MDZ9.CUnkweojyIlcs1HmIMwb1S9bjyRxzzzD-WGyy2LPvT8'}`
-                    //     // }
-                    // } 
+                    ,{
+                        headers: {
+                            'x-auth-token': `${accessToken}`
+                        }
+                    } 
                 )
                 .then((res)=> {
                     return resolve(res)
@@ -48,13 +46,6 @@ class ParentServices  {
     getParentStudents = async () => {
         const accessToken = LocalStorageServices.getItem('token');
         console.log("accdsesd",accessToken)
-        // const config = {
-        //     headers : {
-        //         'Content-Type': 'application/json',
-        //         'x-auth-token': `${accessToken}`
-        //         } 
-        //     }
-        // };
         
         let a = new Promise((resolve, reject)=>{
             axios

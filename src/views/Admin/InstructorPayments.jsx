@@ -58,9 +58,7 @@ const InstructorPayments = () => {
             header: 'Payment Date', 
             width : 100,
             Cell: ({ cell }) => (
-                <div 
-                    // style={{display:'flex', justifyContent:'center'}}
-                >
+                <div>
                     {moment(cell.getValue()).format('yyyy-MM-DD')}
                 </div>
             ),
@@ -70,9 +68,7 @@ const InstructorPayments = () => {
             header: 'Amount', 
             width : 100,
             Cell: ({ cell }) => (
-                <div 
-                    // style={{display:'flex', justifyContent:'center'}}
-                >
+                <div>
                     {(cell.getValue())}.00
                 </div>
             ),

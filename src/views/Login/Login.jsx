@@ -38,23 +38,23 @@ const Login = () => {
             localStorage.setItem('token', res.data.token)
             localStorage.setItem('user', JSON.stringify(res.data.info.user))
             if (res.data.info.user.userType === 1) {
-                navigate ("/student/dashboard")
+                navigate ("/profile")
                 HandleRefresh(1)
             }
             else if (res.data.info.user.userType === 2) {
-                navigate ("/MyStudents")
+                navigate ("/profile")
                 HandleRefresh(1)
             }
             else if (res.data.info.user.userType === 3) {
-                navigate ("/class/instructor/0")
+                navigate ("/profile")
                 HandleRefresh(1)
             } 
             else if (res.data.info.user.userType === 4) {
-                navigate ("/mark-attendance")
+                navigate ("/profile")
                 HandleRefresh(1)
             } 
             else if (res.data.info.user.userType === 5) {
-                navigate ("/class/create")
+                navigate ("/profile")
                 HandleRefresh(1)
             } 
             else {
@@ -70,22 +70,6 @@ const Login = () => {
             // HandleRefresh(1)
         }
     }
-
-    
-
-    // let handleError = () => {
-    //     alert('Submission error!')
-    //     setAlert(true)
-    //     setMessage('Error in submission')
-    //     setServerity('error')
-    // }
-
-    // const handleRedirect = () => {
-    //     setTimeout(() => {
-    //         navigate ("/")
-    //         console.log('timeout')
-    //     }, 4000);
-    // }
 
     return ( 
         <Fragment>
@@ -106,7 +90,6 @@ const Login = () => {
                             backgroundImage: 'url('+bgImg+')', 
                             backgroundSize: 'cover', 
                             backgroundPosition: 'center bottom',
-                            // filter: 'blur(5px)'
                     }}
                         elevation={6}
                     >
@@ -153,7 +136,6 @@ const Login = () => {
                                             placeholder="Enter your email address"
                                             name="address"
                                             color="green"
-                                            // sx={{backgroundColor: 'rgba(255,255,255,0.5)'}}
                                             InputLabelProps={{
                                                 shrink: false,
                                             }}
@@ -239,28 +221,16 @@ const Login = () => {
                                         lg={12}
                                         sx={{pt:5, display: 'flex', flexDirection:'column' ,justifyContent: 'center'}}
                                     >
-                                        {/* <Button
-                                            type='submit'
-                                            variant="contained"
-                                            color="green"
-                                        >
-                                            Login
-                                        </Button> */}
                                         <Grid
                                             sx={{p:5, display: 'flex',justifyContent: 'center'}}
                                         >
-                                            {/* <Link
-                                                to='/student/dashboard'
-                                                style={{textDecoration:'none'}}
-                                            > */}
-                                                <Button
-                                                    type='submit'
-                                                    variant="contained"
-                                                    color="green"
-                                                >
-                                                    Login
-                                                </Button>
-                                            {/* </Link> */}
+                                            <Button
+                                                type='submit'
+                                                variant="contained"
+                                                color="green"
+                                            >
+                                                Login
+                                            </Button>
                                         </Grid>
                                         <Typography
                                             sx={{p:5, display: 'flex',justifyContent: 'center'}}
