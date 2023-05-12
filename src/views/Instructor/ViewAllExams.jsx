@@ -251,7 +251,7 @@ const ViewAllExams = (props) => {
                                 onChange={(e, newValue) => {
                                     if(newValue !== null){
                                         setAssgment(newValue)
-                                        getAssignments(newValue)
+                                        // getAssignments(newValue)
                                     }
                                 }}
                             />

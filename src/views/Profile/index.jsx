@@ -315,11 +315,31 @@ const Profile = () => {
                                     >
                                         <Button 
                                             variant="contained"
-                                            color="green"
+                                            color="yellow"
                                             onClick={()=>{
                                                 setAlert(true)
                                                 setServerity('error')
                                                 setMessage('Password mismatch')
+                                            }}
+                                        >
+                                            Change Password
+                                        </Button>
+                                    </Grid>
+                                    <Grid
+                                        item
+                                        xs={12}
+                                        sm={12}
+                                        md={12}
+                                        lg={12}
+                                        sx={{p:5, display: 'flex', justifyContent:'center'}}
+                                    >
+                                        <Button 
+                                            variant="contained"
+                                            color="green"
+                                            onClick={()=>{
+                                                setAlert(true)
+                                                setServerity('success')
+                                                setMessage('Profile Updated!')
                                             }}
                                         >
                                             Update Profile
