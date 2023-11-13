@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/Akura-FE_React/static/css/main.918bbb74.css",
+    "main.js": "/Akura-FE_React/static/js/main.38866be1.js",
+    "static/media/loginImg.jpg": "/Akura-FE_React/static/media/loginImg.ae81f35d6302482aa466.jpg",
+    "index.html": "/Akura-FE_React/index.html",
+    "main.918bbb74.css.map": "/Akura-FE_React/static/css/main.918bbb74.css.map",
+    "main.38866be1.js.map": "/Akura-FE_React/static/js/main.38866be1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.918bbb74.css",
+    "static/js/main.38866be1.js"
+  ]
+}
