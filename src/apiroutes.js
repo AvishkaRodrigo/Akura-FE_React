@@ -1,4 +1,4 @@
-export const INIT = 'http://localhost:4000'
+export const INIT = 'https://akurainstitute.onrender.com/'
 export const ENDPOINT = `${INIT}/akura`
 export const PUBLIC_ENDPOINT = `${INIT}/public/akura`
 
