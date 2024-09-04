@@ -31,10 +31,10 @@ export const adminPages = [
         title : 'Classes',
         link: '/classes'
     },
-    // {
-    //     title : 'Mark Attendance',
-    //     link: '/mark-attendance'
-    // },
+    {
+        title : 'Mark Attendance',
+        link: '/mark-attendance'
+    },
     // {
     //     title : 'Check Attendance',
     //     link: '/check-attendance'
