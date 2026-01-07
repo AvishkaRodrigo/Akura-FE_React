@@ -41,7 +41,7 @@
 ![image](https://github.com/user-attachments/assets/4b0b9e01-0c83-4875-ad2e-80d22b989c5d)
 
 
-### [Wireframes]([https://linktodocumentation](https://www.figma.com/design/O4AtUCRh6SydAd1dslieeY/Akura-Institute-Management-System?t=kOXEKaXRvL6bPy6N-1))
+[Wireframes]([https://linktodocumentation](https://www.figma.com/design/O4AtUCRh6SydAd1dslieeY/Akura-Institute-Management-System?t=kOXEKaXRvL6bPy6N-1))
 
 ---
 
