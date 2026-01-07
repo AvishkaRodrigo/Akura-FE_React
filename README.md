@@ -16,31 +16,32 @@
 ## Technology Stack
 `MERN stack` 
 
-
-
 # Views
 
-# Login
+### Login
 ![image](https://github.com/user-attachments/assets/4eb70443-b597-4da0-9a56-0d5eee748298)
 
-## Registration
+### Registration
 ![image](https://github.com/user-attachments/assets/7ff36a9f-145c-4bb2-86ea-fe0b1e24a45d)
 
-# Classes
+### Classes
 ![image](https://github.com/user-attachments/assets/306e4cec-62ea-4843-926e-fba43f7bf007)
 
-## Marking Attence
+### Marking Attence
 ![image](https://github.com/user-attachments/assets/156535bb-3fb0-4a18-9041-03041a8af8f6)
 
-## Class Fee Payment
+### Class Fee Payment
 ![image](https://github.com/user-attachments/assets/460f1376-a33d-4d13-a978-77242e24a828)
 
-## Payment_Gateway
+### Payment_Gateway
 ![image](https://github.com/user-attachments/assets/c1ec8c4c-acd6-4c63-a6af-fe6c54d6dd20)
 
-## Graphical representation of Instructors Income
+### Graphical representation of Instructors Income
 ![image](https://github.com/user-attachments/assets/f7494570-ccc1-4e99-84d5-8fc1dedc12c1)
 ![image](https://github.com/user-attachments/assets/4b0b9e01-0c83-4875-ad2e-80d22b989c5d)
+
+
+### [Wireframes]([https://linktodocumentation](https://www.figma.com/design/O4AtUCRh6SydAd1dslieeY/Akura-Institute-Management-System?t=kOXEKaXRvL6bPy6N-1))
 
 ---
 
